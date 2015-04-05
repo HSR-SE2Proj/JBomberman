@@ -1,4 +1,4 @@
-package jbomberman;
+package Test;
 
 import static org.junit.Assert.*;
 
