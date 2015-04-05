@@ -7,6 +7,10 @@
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
+  
+  <classpath>
+      <pathelement path="${classpath}"/>
+   </classpath>
 
   <target name="init">
     <tstamp/>
@@ -31,16 +35,7 @@
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
   </target>
-  
-  
-  <junit printsummary="yes" haltonfailure="yes">
-    <classpath>
-        <path refid="classpath" />
-        <fileset dir="${junit.dir}">
-            <include name="**/junit.jar" />
-        </fileset>
-    </classpath>
-</junit>
+ 
   
   
 </project>
