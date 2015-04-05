@@ -6,6 +6,7 @@
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="build" location="build"/>
+  <property name="build.test.dir" location="build/tests" />
   <property name="dist"  location="dist"/>
   
  <path id="junit.class.path">
@@ -13,13 +14,14 @@
 		<pathelement location="lib/hamcrest-core-1.3.jar" />
 		<pathelement location="${build}" />
 	</path>
-
+	<property name="test.dir" location="tests" />
+ 	<property name="test.report.dir" location="testreport" />
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
   </target>
   <target name="compile" depends="init" description="compile the source " >
-      
+      <classpath refid="junit.class.path" />
     <!-- Compile the java code from ${src} into ${build} -->
     <javac includeantruntime="false" srcdir="${src}" destdir="${build}"/>
   </target>
@@ -37,6 +39,5 @@
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
   </target>
- 
   
 </project>
