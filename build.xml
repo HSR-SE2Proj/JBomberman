@@ -8,9 +8,7 @@
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
   
-  <classpath>
-      <pathelement path="${classpath}"/>
-   </classpath>
+ 
 
   <target name="init">
     <tstamp/>
@@ -18,6 +16,10 @@
   </target>
 
   <target name="compile" depends="init" description="compile the source " >
+    <classpath>
+      <pathelement path="${classpath}"/>
+   </classpath>
+      
     <!-- Compile the java code from ${src} into ${build} -->
     <javac includeantruntime="false" srcdir="${src}" destdir="${build}"/>
   </target>
