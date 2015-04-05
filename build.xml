@@ -19,6 +19,8 @@
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
+    <mkdir dir="${build.test.dir}" />
+    <mkdir dir="${test.report.dir}" />
   </target>
   <target name="compile" depends="init" description="compile the source " >
       
