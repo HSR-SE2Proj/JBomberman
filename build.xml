@@ -11,6 +11,10 @@
   <property name="test.dir" location="src/tests" />
  <property name="test.report.dir" location="testreport" />
  	
+ 	<path id="junit.class.path">
+		<pathelement location="lib/junit-4.12.jar" />
+		<pathelement location="${build}" />
+	</path>
 	<path id="jbomberman.classpath">
         <pathelement location="bin"/>
         <pathelement location="lib/junit-4.12.jar"/>
