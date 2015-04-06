@@ -16,7 +16,7 @@
 		<pathelement location="${build}" />
 	</path>
 	<path id="jbomberman.classpath">
-        <pathelement location="bin"/>
+        <pathelement location="build"/>
         <pathelement location="lib/junit-4.12.jar"/>
         <pathelement location="lib/hamcrest-core-1.3.jar"/>
     </path>
