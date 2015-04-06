@@ -1,97 +1,102 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="1" failures="0" hostname="macbook42.fritz.box" name="TestClass" skipped="0" tests="1" time="0.0" timestamp="2015-04-06T20:06:28">
+<testsuite errors="0" failures="0" hostname="macbook42.fritz.box" name="tests.TestClass" skipped="0" tests="1" time="0.142" timestamp="2015-04-06T20:03:44">
   <properties>
     <property name="java.vendor" value="Oracle Corporation" />
+    <property name="env.__CHECKFIX1436934" value="1" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
     <property name="eclipse.pdebuild.templates" value="/Applications/eclipse/plugins/org.eclipse.pde.build_3.9.0.v20140415-2029/templates//" />
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
-    <property name="dist" value="/Users/silvan/SE2Proj/workspace/jbomberman/dist" />
     <property name="os.name" value="Mac OS X" />
     <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/classes" />
-    <property name="TODAY" value="April 6 2015" />
+    <property name="env.TMPDIR" value="/var/folders/fp/6ry234zj5b15qbr5nns_xkcr0000gn/T/" />
     <property name="user.country.format" value="CH" />
     <property name="java.vm.specification.vendor" value="Oracle Corporation" />
     <property name="ant.home" value="/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502" />
     <property name="java.runtime.version" value="1.8.0_20-b26" />
+    <property name="env.Apple_PubSub_Socket_Render" value="/tmp/launch-07M9Tf/Render" />
+    <property name="env.DISPLAY" value="/tmp/launch-WFwzz0/org.macosforge.xquartz:0" />
     <property name="user.name" value="silvan" />
+    <property name="env.USER" value="silvan" />
+    <property name="env.SHELL" value="/bin/bash" />
+    <property name="env.__CF_USER_TEXT_ENCODING" value="0x1F5:0:0" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_11482" value="1" />
+    <property name="env.PATH" value="/usr/bin:/bin:/usr/sbin:/sbin" />
     <property name="user.language" value="en" />
-    <property name="build" value="/Users/silvan/SE2Proj/workspace/jbomberman/build" />
-    <property name="test.report.dir" value="/Users/silvan/SE2Proj/workspace/jbomberman/testreport" />
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib" />
-    <property name="ant.project.name" value="JBomberman" />
-    <property name="DSTAMP" value="20150406" />
+    <property name="ant.project.default-target" value="build" />
+    <property name="ant.project.name" value="jbomberman" />
     <property name="java.version" value="1.8.0_20" />
+    <property name="ant.file.type.jbomberman" value="file" />
     <property name="user.timezone" value="Europe/Zurich" />
     <property name="sun.arch.data.model" value="64" />
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/endorsed" />
+    <property name="env.APP_ICON_10705" value="../Resources/Eclipse.icns" />
     <property name="sun.cpu.isalist" value="" />
     <property name="sun.jnu.encoding" value="UTF-8" />
     <property name="file.encoding.pkg" value="sun.io" />
+    <property name="ECLIPSE_HOME" value="../../../../../Applications/eclipse/" />
     <property name="file.separator" value="/" />
     <property name="java.specification.name" value="Java Platform API Specification" />
-    <property name="ant.file.type.JBomberman" value="file" />
+    <property name="ant.file.jbomberman" value="/Users/silvan/SE2Proj/workspace/jbomberman/build.xml" />
     <property name="java.class.version" value="52.0" />
-    <property name="src" value="/Users/silvan/SE2Proj/workspace/jbomberman/src" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_10705" value="1" />
     <property name="user.country" value="US" />
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre" />
+    <property name="env.JAVA_MAIN_CLASS_11482" value="org.eclipse.ant.internal.launching.remote.InternalAntRunner" />
     <property name="java.vm.info" value="mixed mode" />
+    <property name="env.LOGNAME" value="silvan" />
     <property name="ant.file" value="/Users/silvan/SE2Proj/workspace/jbomberman/build.xml" />
     <property name="os.version" value="10.9.5" />
-    <property name="ant.file.JBomberman" value="/Users/silvan/SE2Proj/workspace/jbomberman/build.xml" />
     <property name="path.separator" value=":" />
     <property name="java.vm.version" value="25.20-b23" />
     <property name="ant.library.dir" value="/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502/lib" />
+    <property name="env.APP_ICON_10364" value="../Resources/Eclipse.icns" />
+    <property name="junit.output.dir" value="junit" />
     <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob" />
     <property name="sun.io.unicode.encoding" value="UnicodeBig" />
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit" />
+    <property name="env.JAVA_STARTED_ON_FIRST_THREAD_10364" value="1" />
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
     <property name="eclipse.pdebuild.scripts" value="/Applications/eclipse/plugins/org.eclipse.pde.build_3.9.0.v20140415-2029/scripts//" />
     <property name="user.home" value="/Users/silvan" />
+    <property name="target" value="1.8" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
-    <property name="test.dir" value="/Users/silvan/SE2Proj/workspace/jbomberman/src/tests" />
     <property name="java.library.path" value="/Users/silvan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:." />
     <property name="java.vendor.url" value="http://java.oracle.com/" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
     <property name="gopherProxySet" value="false" />
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner TestClass filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/silvan/SE2Proj/workspace/jbomberman/testreport/TEST-TestClass.xml crashfile=/Users/silvan/SE2Proj/workspace/jbomberman/junitvmwatcher1042176605875466739.properties propsfile=/Users/silvan/SE2Proj/workspace/jbomberman/junit1082126043748507740.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner tests.TestClass filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.OutErrSummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/silvan/SE2Proj/workspace/jbomberman/junit/TEST-tests.TestClass.xml crashfile=/Users/silvan/SE2Proj/workspace/jbomberman/junitvmwatcher7623008737877273046.properties propsfile=/Users/silvan/SE2Proj/workspace/jbomberman/junit2265736303439821851.properties" />
     <property name="java.class.path" value="/Users/silvan/SE2Proj/workspace/jbomberman/bin:/Users/silvan/SE2Proj/workspace/jbomberman/lib/junit-4.12.jar:/Users/silvan/SE2Proj/workspace/jbomberman/lib/hamcrest-core-1.3.jar:/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502/lib/ant-launcher.jar:/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502/lib/ant.jar:/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502/lib/ant-junit.jar:/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502/lib/ant-junit4.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.2 compiled on July 8 2013" />
-    <property name="TSTAMP" value="2206" />
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
     <property name="java.vm.specification.version" value="1.8" />
-    <property name="sun.cpu.endian" value="little" />
     <property name="sun.os.patch.level" value="unknown" />
-    <property name="eclipse.pdebuild.home" value="/Applications/eclipse/plugins/org.eclipse.pde.build_3.9.0.v20140415-2029/.//" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="env.HOME" value="/Users/silvan" />
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="env.ANT_HOME" value="/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502" />
     <property name="java.io.tmpdir" value="/var/folders/fp/6ry234zj5b15qbr5nns_xkcr0000gn/T/" />
+    <property name="eclipse.pdebuild.home" value="/Applications/eclipse/plugins/org.eclipse.pde.build_3.9.0.v20140415-2029/.//" />
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="env.SSH_AUTH_SOCK" value="/tmp/launch-ahCGPN/Listeners" />
     <property name="os.arch" value="x86_64" />
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment" />
     <property name="java.ext.dirs" value="/Users/silvan/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java" />
     <property name="user.dir" value="/Users/silvan/SE2Proj/workspace/jbomberman" />
     <property name="line.separator" value="&#xa;" />
-    <property name="build.test.dir" value="/Users/silvan/SE2Proj/workspace/jbomberman/build/tests" />
     <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
     <property name="basedir" value="/Users/silvan/SE2Proj/workspace/jbomberman" />
     <property name="ant.java.version" value="1.8" />
     <property name="ant.core.lib" value="/Applications/eclipse/plugins/org.apache.ant_1.9.2.v201404171502/lib/ant.jar" />
+    <property name="source" value="1.8" />
     <property name="file.encoding" value="UTF-8" />
     <property name="java.specification.version" value="1.8" />
-    <property name="ant.project.invoked-targets" value="junit" />
+    <property name="ant.project.invoked-targets" value="TestClass" />
   </properties>
-  <error message="TestClass" type="java.lang.ClassNotFoundException">java.lang.ClassNotFoundException: TestClass
-	at java.net.URLClassLoader$1.run(URLClassLoader.java:372)
-	at java.net.URLClassLoader$1.run(URLClassLoader.java:361)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at java.net.URLClassLoader.findClass(URLClassLoader.java:360)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
-	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
-	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
-	at java.lang.Class.forName0(Native Method)
-	at java.lang.Class.forName(Class.java:259)
-</error>
+  <testcase classname="tests.TestClass" name="mySimpleTest" time="0.015" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

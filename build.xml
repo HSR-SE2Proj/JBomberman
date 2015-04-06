@@ -8,13 +8,16 @@
   <property name="build" location="build"/>
   <property name="build.test.dir" location="build/tests" />
   <property name="dist"  location="dist"/>
-  
- 	<path id="junit.class.path">
-		<pathelement location="lib/junit-4.12.jar" />
-		<pathelement location="${build}" />
-	</path>
-	<property name="test.dir" location="src/tests" />
- 	<property name="test.report.dir" location="testreport" />
+  <property name="test.dir" location="src/tests" />
+ <property name="test.report.dir" location="testreport" />
+ 	
+	<path id="jbomberman.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/junit-4.12.jar"/>
+        <pathelement location="lib/hamcrest-core-1.3.jar"/>
+    </path>
+ 	
+	
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
@@ -48,10 +51,7 @@
 	<!-- Output is XML, could also be plain-->
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="true" haltonfailure="no">
-			<classpath refid="junit.class.path" />
-			<classpath>
-			    <pathelement location="${build.test.dir}"/>
-			  </classpath>
+			<classpath refid="jbomberman.classpath"/>
 			<formatter type="xml" />
 			<batchtest todir="${test.report.dir}">
 				<fileset dir="${test.dir}">
