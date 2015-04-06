@@ -13,7 +13,7 @@
 		<pathelement location="lib/junit-4.12.jar" />
 		<pathelement location="${build}" />
 	</path>
-	<property name="test.dir" location="tests" />
+	<property name="test.dir" location="src/tests" />
  	<property name="test.report.dir" location="testreport" />
   <target name="init">
     <tstamp/>
@@ -31,10 +31,10 @@
 
   <target name="dist" depends="compile" description="generate the distribution" >
     <!-- Create the distribution directory -->
-    <mkdir dir="${dist}/lib"/>
+    <mkdir dir="${dist}"/>
 
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+    <jar jarfile="${dist}/JBomberman-${DSTAMP}.jar" basedir="${build}"/>
   </target>
 
   <target name="clean" description="clean up" >
