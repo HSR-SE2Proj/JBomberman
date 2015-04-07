@@ -6,17 +6,14 @@
   <!-- set global properties for this build -->
   <property name="src" location="src"/>
   <property name="build" location="build"/>
+  <property name="bin" location="bin"/>
   <property name="build.test.dir" location="build/tests" />
   <property name="dist"  location="dist"/>
   <property name="test.dir" location="src/tests" />
- <property name="test.report.dir" location="testreport" />
- 	
- 	<path id="junit.class.path">
-		<pathelement location="lib/junit-4.12.jar" />
-		<pathelement location="${build}" />
-	</path>
+ <property name="report.dir" location="reports" />
+
 	<path id="jbomberman.classpath">
-        <pathelement location="build"/>
+        <pathelement location="${build}"/>
         <pathelement location="lib/junit-4.12.jar"/>
         <pathelement location="lib/hamcrest-core-1.3.jar"/>
     </path>
@@ -32,7 +29,7 @@
       
     <!-- Compile the java code from ${src} into ${build} -->
    <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
-        <classpath refid="junit.class.path" />
+        <classpath refid="jbomberman.classpath" />
   </javac>
   </target>
 
@@ -50,11 +47,25 @@
     <delete dir="${dist}"/>
   </target>
 	<target name="junit" depends="compile">
-		<junit printsummary="on" fork="true" haltonfailure="no">
+		<junit printsummary="on" fork="no" haltonfailure="no">
 			<classpath refid="jbomberman.classpath"/>
 			<formatter type="xml" />
-			<test name="tests.TestClass" todir="${test.report.dir}"/>
+			<test name="tests.TestClass" todir="${report.dir}/junit"/>
 		</junit>
 	</target>
+	
+	 
+	   <target name="findbugs" depends="dist">
+	    <taskdef name="findbugs" classpath="findbugs/lib/findbugs-ant.jar" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>    
+    <findbugs home="findbugs/"
+              output="xml"
+              outputFile="${report.dir}/findbugs/findbugs.xml" >
+      <auxClasspath refid="jbomberman.classpath"/>
+      <sourcePath path="${src}" />
+      <class location="dist/JBomberman.jar" />
+    </findbugs>
+  </target>
+	  
+	
   
 </project>
