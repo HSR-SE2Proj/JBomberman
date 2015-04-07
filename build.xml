@@ -23,7 +23,7 @@
     <tstamp/>
     <mkdir dir="${build}"/>
     <mkdir dir="${build.test.dir}" />
-    <mkdir dir="${test.report.dir}" />
+    <mkdir dir="${report.dir}" />
   </target>
   <target name="compile" depends="init" description="compile the source " >
       
@@ -45,8 +45,11 @@
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
+    <delete dir="${report.dir}"/>
   </target>
+  
 	<target name="junit" depends="compile">
+	    <mkdir dir="${report.dir}/junit/" />
 		<junit printsummary="on" fork="no" haltonfailure="no">
 			<classpath refid="jbomberman.classpath"/>
 			<formatter type="xml" />
@@ -55,17 +58,16 @@
 	</target>
 	
 	 
-	   <target name="findbugs" depends="dist">
+	 <target name="findbugs" depends="dist">
+	    <mkdir dir="${report.dir}/findbugs/" />
 	    <taskdef name="findbugs" classpath="findbugs/lib/findbugs-ant.jar" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>    
     <findbugs home="findbugs/"
               output="xml"
               outputFile="${report.dir}/findbugs/findbugs.xml" >
       <auxClasspath refid="jbomberman.classpath"/>
       <sourcePath path="${src}" />
-      <class location="dist/JBomberman.jar" />
+      <class location="dist/JBomberman-${DSTAMP}.jar" />
     </findbugs>
   </target>
-	  
-	
   
 </project>
