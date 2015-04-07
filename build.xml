@@ -49,19 +49,11 @@
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
   </target>
-  
-  
-  <!-- Run the JUnit Tests -->
-	<!-- Output is XML, could also be plain-->
 	<target name="junit" depends="compile">
 		<junit printsummary="on" fork="true" haltonfailure="no">
 			<classpath refid="jbomberman.classpath"/>
 			<formatter type="xml" />
-			<batchtest todir="${test.report.dir}">
-				<fileset dir="${test.dir}">
-					<include name="**/*Test*.java" />
-				</fileset>
-			</batchtest>
+			<test name="tests.TestClass" todir="${test.report.dir}"/>
 		</junit>
 	</target>
   
