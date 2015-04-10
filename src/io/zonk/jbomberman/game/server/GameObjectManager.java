@@ -1,5 +1,7 @@
 package io.zonk.jbomberman.game.server;
 
+import io.zonk.jbomberman.game.GameObjectType;
+
 public class GameObjectManager {
 	
 	public GameObject getById(int id) {

@@ -1,6 +1,7 @@
 package io.zonk.jbomberman.game.client;
 
 import java.awt.Dimension;
+
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.utils.Position;
 
