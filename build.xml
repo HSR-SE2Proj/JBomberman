@@ -8,6 +8,7 @@
   <property name="build" location="build"/>
   <property name="bin" location="bin"/>
   <property name="build.test.dir" location="build/tests" />
+  <property name="build.jbomberman" location="build/io/zonk/jbomberman" />
   <property name="dist"  location="dist"/>
   <property name="test.dir" location="src/tests" />
  <property name="report.dir" location="reports" />
@@ -33,13 +34,76 @@
         <classpath refid="jbomberman.classpath" />
   </javac>
   </target>
-
-  <target name="dist" depends="compile" description="generate the distribution" >
+  
+  <target name="dist" description="Dist with all Classfiles" depends="compile">
+      <mkdir dir="${dist}"/>
+      <jar jarfile="${dist}/JBomberman.jar" basedir="${build}" excludes = "**/*Test*.class"/>
+  </target>
+  
+  <target name="distClient" depends="compile" description="generate the distribution" >
     <!-- Create the distribution directory -->
-    <mkdir dir="${dist}"/>
+    
 
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/JBomberman-${DSTAMP}.jar" basedir="${build}"/>
+    
+    <!-- <jar jarfile="${dist}/JBomberman-${DSTAMP}.jar" basedir="${build}" excludes = "**/*Test*.class"/>  -->
+    <jar destfile="${dist}/JBombermanClient.jar">
+    <fileset dir="${build.jbomberman}/application/client"
+             excludes="**/*Test*.class"
+    />
+     <fileset dir="${build.jbomberman}/game"
+             excludes="**/*Test*.class"
+             includes="*.class"
+    />
+      <fileset dir="${build.jbomberman}/game/client"
+             excludes="**/*Test*.class"
+    />
+     <fileset dir="${build.jbomberman}/network"
+             excludes="**/*Test*.class"
+             includes="*.class"
+    />
+      <fileset dir="${build.jbomberman}/network/client"
+             excludes="**/*Test*.class"
+    />
+      <fileset dir="${build.jbomberman}/time"
+             excludes="**/*Test*.class"
+    />
+     <fileset dir="${build.jbomberman}/utils"
+             excludes="**/*Test*.class"
+    />
+     <fileset dir="${build.jbomberman}/view"
+             excludes="**/*Test*.class"
+    />
+  </jar>
+  </target>
+  
+  <target name="distServer" description="Distribution for Server">
+      <!-- Jar File for Server -->
+    <jar destfile="${dist}/JBombermanServer.jar">
+    <fileset dir="${build.jbomberman}/application/server"
+             excludes="**/*Test*.class"
+    />
+     <fileset dir="${build.jbomberman}/game"
+             excludes="**/*Test*.class"
+             includes="*.class"
+    />
+      <fileset dir="${build.jbomberman}/game/server"
+             excludes="**/*Test*.class"
+    />
+     <fileset dir="${build.jbomberman}/network"
+             excludes="**/*Test*.class"
+             includes="*.class"
+    />
+      <fileset dir="${build.jbomberman}/network/server"
+             excludes="**/*Test*.class"
+    />
+      <fileset dir="${build.jbomberman}/time"
+             excludes="**/*Test*.class"
+    />
+     <fileset dir="${build.jbomberman}/utils"
+             excludes="**/*Test*.class"
+    />
+  </jar>
   </target>
 
   <target name="clean" description="clean up" >
@@ -59,7 +123,7 @@
 	</target>
 	
 	 
-	 <target name="findbugs" depends="dist">
+	 <target name="findbugs" depends="distClient,distServer">
 	    <mkdir dir="${report.dir}/findbugs/" />
 	    <taskdef name="findbugs" classpath="findbugs/lib/findbugs-ant.jar" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>    
     <findbugs home="findbugs/"
@@ -67,8 +131,12 @@
               outputFile="${report.dir}/findbugs/findbugs.xml" >
       <auxClasspath refid="jbomberman.classpath"/>
       <sourcePath path="${src}" />
-      <class location="dist/JBomberman-${DSTAMP}.jar" />
+      <class location="dist/JBomberman.jar" />
     </findbugs>
   </target>
+  
+	<target name="all" depends="clean,init,compile,dist,distClient,distServer,junit,findbugs">
+	    <!-- All Targtes in one -->
+	</target>
   
 </project>
