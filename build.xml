@@ -28,7 +28,6 @@
     <mkdir dir="${report.dir}" />
   </target>
   <target name="compile" depends="init" description="compile the source " >
-      
     <!-- Compile the java code from ${src} into ${build} -->
    <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
         <classpath refid="jbomberman.classpath" />
@@ -36,18 +35,14 @@
   </target>
   
   <target name="dist" description="Dist with all Classfiles" depends="compile">
+       <!-- Create the distribution directory -->
       <mkdir dir="${dist}"/>
       <jar jarfile="${dist}/JBomberman.jar" basedir="${build}" excludes = "**/*Test*.class"/>
   </target>
   
   <target name="distClient" depends="compile" description="generate the distribution" >
-    <!-- Create the distribution directory -->
-    
-
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    
-    <!-- <jar jarfile="${dist}/JBomberman-${DSTAMP}.jar" basedir="${build}" excludes = "**/*Test*.class"/>  -->
-    <jar destfile="${dist}/JBombermanClient.jar">
+    <!-- Put everything in JBombermanClient.jar from Client Packages (Exclude Testfiles) -->
+     <jar destfile="${dist}/JBombermanClient.jar">
     <fileset dir="${build.jbomberman}/application/client"
              excludes="**/*Test*.class"
     />
@@ -78,7 +73,7 @@
   </target>
   
   <target name="distServer" description="Distribution for Server">
-      <!-- Jar File for Server -->
+    <!-- Put everything in JBombermanServer.jar from Server Packages (Exclude Testfiles) -->
     <jar destfile="${dist}/JBombermanServer.jar">
     <fileset dir="${build.jbomberman}/application/server"
              excludes="**/*Test*.class"
@@ -107,7 +102,7 @@
   </target>
 
   <target name="clean" description="clean up" >
-    <!-- Delete the ${build} and ${dist} directory trees -->
+    <!-- Delete the ${build} + ${dist} + ${report.dir} directory trees -->
     <delete dir="${build}"/>
     <delete dir="${dist}"/>
     <delete dir="${report.dir}"/>
@@ -121,7 +116,6 @@
 			<test name="tests.TestClass" todir="${report.dir}/junit"/>
 		</junit>
 	</target>
-	
 	 
 	 <target name="findbugs" depends="distClient,distServer">
 	    <mkdir dir="${report.dir}/findbugs/" />
