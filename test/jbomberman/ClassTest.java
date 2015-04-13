@@ -1,10 +1,8 @@
-package tests;
-
-import static org.junit.Assert.*;
+package jbomberman;
 
 import org.junit.*;
 
-public class TestClass {
+public class ClassTest {
 	
 	@Test
 	public void mySimpleTest(){
