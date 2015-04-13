@@ -27,14 +27,13 @@
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
-    <mkdir dir="${build.test.dir}" />
     <mkdir dir="${report.dir}" />
   	<mkdir dir="${dist}"/>
   	<mkdir dir="${report.dir}/junit/" />
   </target>
   <target name="compile" depends="init" description="compile the source " >
     <!-- Compile the java code from ${src} into ${build} -->
-   <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
+   <javac includeantruntime="false" srcdir="${basedir}" destdir="${build}">
         <classpath refid="jbomberman.classpath" />
   </javac>
   </target>
