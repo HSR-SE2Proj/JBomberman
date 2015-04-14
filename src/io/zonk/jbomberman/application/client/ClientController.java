@@ -7,7 +7,9 @@ import io.zonk.jbomberman.network.NetworkFacade;
 import java.util.Observable;
 
 public class ClientController extends Observable {
-
+	private String server;
+	private int connectionState = 0; //0 => Connect; 1 => Lobby
+	
 	private NetworkFacade network;
 	private Party party;
 	
@@ -33,14 +35,23 @@ public class ClientController extends Observable {
 	}
 	
 	public void connectToServer(String hostname) {
-		
+		this.server = server;
+		connectionState = 1;	
+		setChanged();
+		notifyObservers(connectionState);
 	}
 	
 	public void disconnect() {
-		
+		connectionState = 0;
+		setChanged();
+		notifyObservers(connectionState);
 	}
 	
 	public void setReady(boolean b) {
 		
+	}
+	
+	public String getServer() {
+		return server;
 	}
 }
