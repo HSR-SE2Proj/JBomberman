@@ -1,6 +1,7 @@
 package io.zonk.jbomberman.view;
 
 import io.zonk.jbomberman.application.client.ClientController;
+import io.zonk.jbomberman.network.client.ClientNetwork;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -13,12 +14,11 @@ public class StartFrame extends JFrame implements Observer{
 	private LobbyPanel lp;
 	
 	public static void main(String[] args) {
-		new StartFrame(new ClientController(null, null));
+		new StartFrame(new ClientController());
 	}
 	
 	public StartFrame(ClientController cc) {
 		cp = new ConnectionPanel(cc);
-		lp = new LobbyPanel(cc);
 		cc.addObserver(this);
 		
 		setTitle("JBomberman");
@@ -42,11 +42,13 @@ public class StartFrame extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		switch ((int)arg1) {
+		ClientController cc = (ClientController) arg0;
+		switch (cc.getConnState()) {
 		case 0:
 			switchPanel(lp, cp);
 			break;
 		case 1:
+			lp = new LobbyPanel(cc);
 			switchPanel(cp, lp);
 			break;
 

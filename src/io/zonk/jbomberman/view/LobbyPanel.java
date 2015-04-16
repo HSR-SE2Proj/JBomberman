@@ -28,7 +28,8 @@ import javax.swing.Box;
 public class LobbyPanel extends JPanel {
 	
 	public LobbyPanel(ClientController cc){
-		String server = cc.getServer();
+		String server = cc.getServer();		
+		cc.getStates();
 		
 		setBorder(new EmptyBorder(20, 20, 20, 20));
 		
@@ -243,13 +244,12 @@ public class LobbyPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(btnReady.getText().contains("not")) {
 					btnReady.setText("I'm ready");
-					cc.setReady(true);
+					cc.setReady(false);
 				} else {
 					btnReady.setText("I'm not ready");
-					cc.setReady(false);
+					cc.setReady(true);
 				}
 			}
 		});
 	}
-
 }

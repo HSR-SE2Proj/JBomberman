@@ -7,7 +7,7 @@ import com.rabbitmq.client.Connection;
 
 public class ClientSender {
 	
-	private static final String QUEUE_NAME = "Bomberman_Input";
+	private static final String QUEUE_NAME = "Client_To_Server";
 	
 	private Channel channel;
 	

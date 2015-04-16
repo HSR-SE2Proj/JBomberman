@@ -1,16 +1,23 @@
 package io.zonk.jbomberman.game;
 
+import java.util.ArrayList;
+
 public class Party {
+	ArrayList<Player> playerList = new ArrayList<>();
 	
 	public void add(Player player) {
-		
+		playerList.add(player);
 	}
 	
 	public Player remove(Player player){
-		return null;
+		return (playerList.remove(player)) ? player : null;
 	}
 	
 	public Player get(int id) {
-		return null;
+		return playerList.get(id);
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return playerList;
 	}
 }

@@ -13,7 +13,7 @@ import com.rabbitmq.client.ShutdownSignalException;
 
 public class ServerReceiver {
 	
-	private static final String QUEUE_NAME = "Bomberman_Input";
+	private static final String QUEUE_NAME = "Client_To_Server";
 	
 	private Channel channel;
 	private QueueingConsumer consumer;
