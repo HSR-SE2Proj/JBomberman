@@ -77,11 +77,6 @@ public class ClientController extends Observable {
 	}
 	
 	public void setReady(boolean b) {
-		if(b) {
-			network.sendMessage("true".getBytes());
-		} else {
-			network.sendMessage("false".getBytes());
-		}
 	}
 	
 	public String getServer() {
