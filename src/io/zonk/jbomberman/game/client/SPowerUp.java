@@ -13,7 +13,7 @@ public abstract class SPowerUp extends Sprite {
 	
 	public SPowerUp(Position position, int id, String imgName, 
 			Dimension size, PowerUpType type) {
-		super(position, id, imgName, size);
+		super(position, id, imgName, size, 6);
 		this.type = type;
 	}
 

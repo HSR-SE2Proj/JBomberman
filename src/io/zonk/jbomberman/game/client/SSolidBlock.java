@@ -7,7 +7,7 @@ import java.awt.Dimension;
 public class SSolidBlock extends Sprite {
 
 	public SSolidBlock(Position position, int id, Dimension size) {
-		super(position, id, "IMG_SOLIDBLOCK", size);
+		super(position, id, "IMG_SOLIDBLOCK", size, 2);
 		//imgName = "IMG_SOLIDBLOCK";
 	}
 

@@ -8,7 +8,7 @@ import java.awt.Dimension;
 public class SBomb extends Sprite {
 
 	public SBomb(Position position, int id, Dimension size) {
-		super(position, id, "IMG_BOMB", size);
+		super(position, id, "IMG_BOMB", size, 4);
 		//imgName = "IMG_BOMB";
 	}
 

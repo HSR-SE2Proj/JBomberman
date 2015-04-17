@@ -7,7 +7,7 @@ import java.awt.Dimension;
 public class SExplosion extends Sprite {
 
 	public SExplosion(Position position, int id, Dimension size) {
-		super(position, id, "IMG_EXPLOSION", size);
+		super(position, id, "IMG_EXPLOSION", size, 7);
 		//imgName = "IMG_EXPLOSION";
 	}
 
