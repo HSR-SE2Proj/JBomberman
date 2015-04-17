@@ -4,7 +4,7 @@ import org.junit.*;
 
 public class SpriteManagerTest {
 	
-	private SpriteManager sm = new SpriteManager();
+	private SpriteManager sm;
 	private SBomb bomb1 = new SBomb(null, 0, null);
 	private SBomb bomb2 = new SBomb(null, 10, null);
 	private SBomb bomb3 = new SBomb(null, 999, null);
@@ -14,6 +14,7 @@ public class SpriteManagerTest {
 	
 	@Before
 	public void init() {
+		sm = new SpriteManager();
 		sm.add(bomb1);
 		sm.add(bomb2);
 		sm.add(bomb3);
