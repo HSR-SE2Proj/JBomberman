@@ -1,6 +1,7 @@
 package io.zonk.jbomberman.game.server;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,10 @@ public class GameObjectManager {
 				break;
 		}
 		return object;
+	}
+	
+	public Collection<GameObject> getAll() {
+		return objectId.values();
 	}
 
 }

@@ -1,5 +1,6 @@
 package io.zonk.jbomberman.game.server;
 
+import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.Party;
@@ -20,6 +21,35 @@ public class ServerGame extends Observable implements GameLoop {
 
 	@Override
 	public void loop() {
+		
+		while(true) { //game running?
+			
+			//handle all available Actions
+			while(!queue.isEmpty()) {
+				Action action = queue.take();
+				switch(action.getActionType()) {
+				
+				/*
+				 * 
+				 */
+				case PLAYER_INPUT:
+					break;
+					
+					
+				default:
+					break;
+				
+				}
+			}
+			
+			//Tick all Objects
+			for(GameObject object : manager.getAll()) {
+				object.tick();
+			}
+			
+			//send Updates
+			
+		}
 		
 	}
 }
