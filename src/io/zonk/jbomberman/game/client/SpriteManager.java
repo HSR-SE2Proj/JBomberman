@@ -2,6 +2,7 @@ package io.zonk.jbomberman.game.client;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,5 +41,9 @@ public class SpriteManager {
 				break;
 		}
 		return sprite;
+	}
+	
+	public Collection<Sprite> getAll() {
+		return spriteId.values();
 	}
 }

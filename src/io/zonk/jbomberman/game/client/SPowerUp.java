@@ -1,20 +1,15 @@
 package io.zonk.jbomberman.game.client;
 
 import io.zonk.jbomberman.game.Action;
-import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.utils.Position;
 
 import java.awt.Dimension;
 
-//evtl. nochmals von SPowerUp extenden für die einzelnen konkreten PowerUps
 public abstract class SPowerUp extends Sprite {
 
-	private PowerUpType type;
-	
 	public SPowerUp(Position position, int id, String imgName, 
-			Dimension size, PowerUpType type) {
+			Dimension size) {
 		super(position, id, imgName, size, 6);
-		this.type = type;
 	}
 
 	@Override
