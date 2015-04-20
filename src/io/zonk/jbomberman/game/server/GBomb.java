@@ -29,7 +29,7 @@ public class GBomb extends GameObject {
 	}
 
 	@Override
-	public boolean checkCollisionWidth(GameObject object) {
+	public boolean checkCollisionWith(GameObject object) {
 		// TODO Auto-generated method stub
 		return false;
 	}

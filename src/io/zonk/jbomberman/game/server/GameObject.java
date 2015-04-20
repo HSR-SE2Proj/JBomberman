@@ -21,7 +21,7 @@ public abstract class GameObject {
 	public abstract void tick();
 	public abstract void update(Action action);
 	public abstract void sendUpdates();//evtl. hier die NetworkFacade mitgeben
-	public abstract boolean checkCollisionWidth(GameObject object);
+	public abstract boolean checkCollisionWith(GameObject object);
 
 	public Position getPosition() {
 		return position;
