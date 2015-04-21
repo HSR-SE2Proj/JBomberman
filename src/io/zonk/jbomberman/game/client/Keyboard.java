@@ -20,7 +20,7 @@ public class Keyboard extends KeyAdapter {
 	}
 
     public void keyPressed(KeyEvent e) {
-    	System.out.println("key");
+    	
     	switch(e.getKeyCode()) {
     	case KeyEvent.VK_W:
     		if(w == false)

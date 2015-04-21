@@ -33,4 +33,8 @@ public class Player {
 	public GBomberman getBomberman() {
 		return bman;
 	}
+	
+	public void setBomberman(GBomberman bman) {
+		this.bman = bman;
+	}
 }

@@ -14,6 +14,18 @@ public class Timer extends Thread {
 
 	@Override
 	public void run() {
-		
+		long lastTime = System.currentTimeMillis();
+		long now;
+		long delta;
+		System.out.println("[*] Timer started");
+		while(true) {
+			now = System.currentTimeMillis();
+			delta = now - lastTime;
+			if(delta >= millis) {
+				//System.out.println("Delta: " + (delta - millis));
+				loop.loop();
+				lastTime = System.currentTimeMillis();
+			}
+		}
 	}
 }

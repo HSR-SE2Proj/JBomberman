@@ -5,9 +5,13 @@ import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
+import io.zonk.jbomberman.game.client.Keyboard;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
+import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
+import io.zonk.jbomberman.view.GameCanvas;
+import io.zonk.jbomberman.view.GameFrame;
 
 import java.util.HashMap;
 import java.util.Observable;
@@ -29,8 +33,14 @@ public class ClientController extends Observable {
 		this.party = new Party();
 	}
 	
+	//Achtung GUI-Thread
 	public void startGame() {
-//		new ClientGame(network, party);
+		ClientGame game = new ClientGame(network, party);
+		Timer timer = new Timer(1000/30, game);
+		Keyboard keyboard = new Keyboard(playerId, network);
+		GameFrame frame = new GameFrame(new GameCanvas(game, keyboard), this, game);
+		frame.setVisible(true);
+		timer.start();
 	}
 	
 	public void finishGame() {

@@ -14,7 +14,7 @@ public class Party {
 	}
 	
 	public Player get(int id) {
-		return playerList.get(id);
+		return playerList.get(id-1);
 	}
 	
 	public ArrayList<Player> getPlayers() {

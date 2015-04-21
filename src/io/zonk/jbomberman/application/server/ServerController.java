@@ -43,7 +43,7 @@ public class ServerController implements Observer {
 	}
 	
 	public void startGame(Party party) {
-//		new ServerGame(network, party);
+		new ServerGame(network, party);
 		String[][] sParty = new String[4][2];
 		int i = 0;
 		for(Player p : party.getPlayers()) {

@@ -47,7 +47,9 @@ public class GBomberman extends GameObject {
 		switch(action.getActionType()) {
 		
 		case PLAYER_INPUT:
+			
 			int key = (int)action.getProperty(1);
+			System.out.println("input: " + key);
 			boolean pressed = (boolean)action.getProperty(2);
 			if(key == KeyEvent.VK_W)
 				w = pressed;

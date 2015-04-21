@@ -7,6 +7,7 @@ import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.network.NetworkFacade;
+import io.zonk.jbomberman.time.Timer;
 
 import java.util.Observable;
 
@@ -21,18 +22,26 @@ public class ServerGame extends Observable implements GameLoop {
 		this.network = network;
 		this.party = party;
 		
+		manager = new GameObjectManager();
+		
 		for(Player player : party.getPlayers()) {
-			
+			player.setBomberman(new GBomberman(null, player.getId()));//Position
 		}
 		
 		queue = new ActionQueue();
 		ActionDispatcher dispatcher = new ActionDispatcher(network, queue);
 		dispatcher.start();
+		
+		Timer timer = new Timer(1000/30, this);
+		timer.start();
+		
 	}
+	
+	
 
 	@Override
 	public void loop() {
-		
+		System.out.println("Server Game Running");
 		while(true) { //game running?
 			
 			//handle all available Actions
@@ -64,5 +73,13 @@ public class ServerGame extends Observable implements GameLoop {
 			
 		}
 		
+	}
+	
+	private void initMap() {
+		Map map = new StandardMap();
+		for(int y = 0; y < 13; ++y)
+			for(int x = 0; x < 13; ++x) {
+				//manager.add(new );
+			}
 	}
 }

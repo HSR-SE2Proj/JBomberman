@@ -23,11 +23,12 @@ public class GameFrame
 		this.controller = controller;
 		this.game = game;
 		game.addObserver(this);
+		add(canvas);
+		pack();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+		canvas.render();
 	}
 }
