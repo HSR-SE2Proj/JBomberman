@@ -31,7 +31,7 @@ public class GSolidBlock extends GameObject {
 	@Override
 	public boolean checkCollisionWith(GameObject object) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

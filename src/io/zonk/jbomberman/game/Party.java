@@ -3,7 +3,7 @@ package io.zonk.jbomberman.game;
 import java.util.ArrayList;
 
 public class Party {
-	ArrayList<Player> playerList = new ArrayList<>();
+	private ArrayList<Player> playerList = new ArrayList<>();
 	
 	public void add(Player player) {
 		playerList.add(player);
