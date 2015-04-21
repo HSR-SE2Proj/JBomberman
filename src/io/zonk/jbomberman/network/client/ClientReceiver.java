@@ -35,6 +35,7 @@ public class ClientReceiver {
 	}
 	
 	public void close() throws IOException {
+		channel.basicCancel(consumer.getConsumerTag());
 		channel.close();
 	}
 
