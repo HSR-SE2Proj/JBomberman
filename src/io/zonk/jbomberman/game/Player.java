@@ -8,10 +8,9 @@ public class Player {
 	private int id;
 	private GBomberman bman;
 	
-	public Player(String name, int id, GBomberman bman) {
+	public Player(String name, int id) {
 		this.name = name;
 		this.id = id;
-		this.bman = bman;
 	}
 
 	public String getName() {
