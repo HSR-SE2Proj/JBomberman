@@ -7,7 +7,7 @@ import io.zonk.jbomberman.utils.Position;
 
 public abstract class GameObject {
 	
-	private Position position;
+	protected Position position;
 	private int id;
 	private NetworkFacade network;
 	private GameObjectType type;
