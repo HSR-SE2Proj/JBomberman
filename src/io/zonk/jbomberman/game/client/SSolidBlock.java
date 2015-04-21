@@ -11,8 +11,8 @@ public class SSolidBlock extends Sprite {
 	private Position position;
 	private int width, height;
 	public SSolidBlock(Position position, int id, Dimension size) {
-		super(position, id, "SolidBlock", size, 2);
-		this.imageName = "SolidBlock";
+		super(position, id, "IMG_SOLIDBLOCK", size, 2);
+		//this.imageName = "SolidBlock";
 	}
 
 	@Override

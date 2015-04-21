@@ -38,8 +38,9 @@ public class ClientController extends Observable {
 		ClientGame game = new ClientGame(network, party);
 		Timer timer = new Timer(1000/30, game);
 		Keyboard keyboard = new Keyboard(playerId, network);
-		GameFrame frame = new GameFrame(new GameCanvas(game, keyboard), this, game);
-		frame.setVisible(true);
+		GameCanvas canvas = new GameCanvas(game, keyboard);
+		//GameFrame frame = new GameFrame(new GameCanvas(game, keyboard), this, game);
+		//frame.setVisible(true);
 		timer.start();
 	}
 	

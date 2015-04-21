@@ -3,11 +3,15 @@ package io.zonk.jbomberman.game.server;
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionDispatcher;
 import io.zonk.jbomberman.game.ActionQueue;
+import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.time.Timer;
+import io.zonk.jbomberman.utils.ActionSerializer;
+import io.zonk.jbomberman.utils.IDGenerator;
+import io.zonk.jbomberman.utils.Position;
 
 import java.util.Observable;
 
@@ -28,12 +32,16 @@ public class ServerGame extends Observable implements GameLoop {
 			player.setBomberman(new GBomberman(null, player.getId()));//Position
 		}
 		
+		
+		
 		queue = new ActionQueue();
 		ActionDispatcher dispatcher = new ActionDispatcher(network, queue);
 		dispatcher.start();
 		
 		Timer timer = new Timer(1000/30, this);
 		timer.start();
+		
+		//initMap();
 		
 	}
 	
@@ -79,7 +87,13 @@ public class ServerGame extends Observable implements GameLoop {
 		Map map = new StandardMap();
 		for(int y = 0; y < 13; ++y)
 			for(int x = 0; x < 13; ++x) {
-				//manager.add(new );
+				if(map.get(x, y) == '#') {
+					Position position = new Position(x*64, y*64);
+					Integer id = IDGenerator.getId();
+					manager.add(new GSolidBlock(position, id));
+					Action action = new Action(ActionType.CREATE_SOLIDBLOCK, new Object[]{position, id});
+					network.sendMessage(ActionSerializer.serialize(action));
+				}
 			}
 	}
 }

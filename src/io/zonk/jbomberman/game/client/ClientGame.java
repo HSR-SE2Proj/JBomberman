@@ -7,8 +7,13 @@ import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.time.Timer;
+import io.zonk.jbomberman.utils.ActionSerializer;
+import io.zonk.jbomberman.utils.IDGenerator;
+import io.zonk.jbomberman.utils.Position;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 public class ClientGame extends Observable 
@@ -18,6 +23,8 @@ public class ClientGame extends Observable
 	private SpriteManager manager;
 	private ActionQueue queue;
 	private Party party;
+	
+	private List<Sprite> background = new ArrayList<>();
 	
 	public ClientGame(NetworkFacade network, Party party) {
 		this.network = network;
@@ -31,6 +38,11 @@ public class ClientGame extends Observable
 		
 		//Timer timer = new Timer(1000/30, this);
 		//timer.start();
+		
+		for(int x = 0; x < 13; ++x)
+			for(int y = 0; y < 13; ++y) {
+				background.add(new SFloor(new Position(x*64, y*64), 0));
+			}
 	}
 
 	@Override
@@ -43,6 +55,9 @@ public class ClientGame extends Observable
 			while(!queue.isEmpty()) {
 				Action action = queue.take();
 				switch(action.getActionType()) {
+				case CREATE_SOLIDBLOCK:
+					manager.add(new SSolidBlock((Position) action.getProperty(0), (int)action.getProperty(1), null));
+				
 				default:
 					break;
 				}
@@ -60,8 +75,14 @@ public class ClientGame extends Observable
 		}
 	}
 	
-	public void drawAll(Graphics2D g2d) {
-		//draw Sprites layer by layer
+	public void drawAll(int[] pixels) {
+		
+		for(Sprite sprite : background)
+			sprite.draw(pixels);
+		
+		for(Sprite sprite : manager.getAll()) {
+			sprite.draw(pixels);
+		}
 	}
 }
 

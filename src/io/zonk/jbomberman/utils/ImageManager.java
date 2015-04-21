@@ -22,8 +22,8 @@ public class ImageManager {
 	private ImageManager() {
 		try {
 			//Blocks and Floor
-			imageMap.put("BackgroundTile", ImageIO.read(new File(link + "BackgroundTile.png")));
-		    imageMap.put("SolidBlock", ImageIO.read(new File(link + "SolidBlock.png")));
+			imageMap.put("IMG_FLOOR", ImageIO.read(new File(link + "BackgroundTile.png")));
+		    imageMap.put("IMG_SOLIDBLOCK", ImageIO.read(new File(link + "SolidBlock.png")));
 			imageMap.put("ExplodableBlock", ImageIO.read(new File(link + "ExplodableBlock.png")));
 			// Power Ups
 			imageMap.put("BombPowerup", ImageIO.read(new File(link + "BombPowerup.png")));
