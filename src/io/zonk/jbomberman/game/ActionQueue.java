@@ -1,17 +1,26 @@
 package io.zonk.jbomberman.game;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class ActionQueue {
 	
+	private BlockingQueue<Action> queue = new LinkedBlockingQueue<>();
+	
 	public Action take() {
-		return null;
+		try {
+			return queue.take();
+		} catch (InterruptedException e) {
+			return null;
+		}
 	}
 	
 	public void put(Action action) {
-		
+		queue.add(action);
 	}
 	
 	public boolean isEmpty() {
-		return false;
+		return queue.isEmpty();
 	}
 
 }
