@@ -44,6 +44,8 @@ public class ServerGame extends Observable implements GameLoop {
 				 * 
 				 */
 				case PLAYER_INPUT:
+					int id = (int) action.getProperty(0);
+					party.get(id).getBomberman().update(action);
 					break;
 					
 					

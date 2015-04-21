@@ -28,4 +28,20 @@ public class Position {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public void incrementY(int delta) {
+		y+=delta;
+	}
+	
+	public void incrementX(int delta) {
+		x+=delta;
+	}
+	
+	public void decrementY(int delta) {
+		y-=delta;
+	}
+	
+	public void decrementX(int delta) {
+		x-=delta;
+	}
 }
