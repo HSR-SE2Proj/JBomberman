@@ -7,17 +7,19 @@ import org.junit.*;
 public class PartyTest {
 	private Party party;
 	private Player player;
+	private Player player2;
 	@Before
 	public void init() {
 		party = new Party();
 		player = new Player("Test",0);
+		player2 = new Player("Test",2);
 		party.add(player);
 	}
 	
 	@Test
 	public void testAddPlayers(){
 		assertEquals(1,party.getPlayers().size());
-		party.add(player);
+		party.add(player2);
 		assertEquals(2,party.getPlayers().size());
 	}
 	

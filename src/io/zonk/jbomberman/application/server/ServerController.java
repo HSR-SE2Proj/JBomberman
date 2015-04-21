@@ -11,6 +11,7 @@ import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.server.ServerNetwork;
 import io.zonk.jbomberman.utils.ActionSerializer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Observable;
@@ -46,7 +47,7 @@ public class ServerController implements Observer {
 		new ServerGame(network, party);
 		String[][] sParty = new String[4][2];
 		int i = 0;
-		for(Player p : party.getPlayers()) {
+		for(Player p : party.getPlayers().values()) {
 			sParty[i][0] = p.getName();
 			sParty[i][1] = p.getId() + "";
 			i++;
@@ -60,7 +61,6 @@ public class ServerController implements Observer {
 	}
 	
 	public void waitForPlayers() {
-		int playerCount = 0;
 		int readyCount = 0;
 		HashMap<Integer, Boolean> playerStates = new HashMap<>();
 		while (readyCount < READY_THRESHOLD) {
@@ -68,14 +68,18 @@ public class ServerController implements Observer {
 			if(receivedAction.getActionType().equals(ActionType.LOBBY_COMMUNICATION)) {
 				switch ((String)receivedAction.getProperty(0)) {
 				case "connect":
-					Player p = new Player("Player" + (playerCount + 1), playerCount + 1);
+					int pid = getNextId();
+					if(pid == 0) {
+						Object[] prop = {"serverFull"};
+						sendLobbyUpdate(prop);
+						break;
+					}
+					Player p = new Player("Player" + pid, pid);
 					party.add(p);
 					playerStates.put(p.getId(), false);
 
 					Object[] prop = {"lobbyList", playerStates, p.getId()};
 					sendLobbyUpdate(prop);
-
-					playerCount++;
 					break;
 					
 				case "updateState":
@@ -83,14 +87,20 @@ public class ServerController implements Observer {
 					Boolean playerState = (Boolean)receivedAction.getProperty(2);
 					
 					playerStates.put(playerId, playerState);
-					Object[] plStates = {"updateStates", playerStates};
-					sendLobbyUpdate(plStates);
+					updateStates(playerStates);
 					if(playerState) {
 						readyCount++;
 					} else {
-						readyCount++;
+						readyCount--;
 					}
 					break;
+					
+				case "disconnect":
+					int id = (Integer)receivedAction.getProperty(1);
+					party.remove(party.get(id));
+					playerStates.remove(id);
+					updateStates(playerStates);
+ 					break;
 
 				default:
 					break;
@@ -103,6 +113,18 @@ public class ServerController implements Observer {
 	private void sendLobbyUpdate(Object[] prop) {
 		Action replyAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
 		network.sendMessage(ActionSerializer.serialize(replyAction));
+	}
+	
+	private void updateStates(HashMap<Integer, Boolean> playerStates) {
+		Object[] plStates = {"updateStates", playerStates};
+		sendLobbyUpdate(plStates);
+ 	}
+
+	private int getNextId() {
+		for(int i = 1; i <= 4; i++) {
+			if(!party.getPlayers().containsKey(i)) return i;
+		}
+		return 0;
 	}
 
 	@Override

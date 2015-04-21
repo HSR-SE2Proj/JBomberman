@@ -28,7 +28,7 @@ public class ServerGame extends Observable implements GameLoop {
 		
 		manager = new GameObjectManager();
 		
-		for(Player player : party.getPlayers()) {
+		for(Player player : party.getPlayers().values()) {
 			player.setBomberman(new GBomberman(null, player.getId()));//Position
 		}
 		

@@ -18,6 +18,7 @@ import java.util.Observable;
 
 public class ClientController extends Observable {
 	private String server;
+	private Thread t;
 	private int connectionState = 0; //0 => Connect; 1 => Lobby
 	
 	HashMap<Integer, Boolean> states;
@@ -35,13 +36,14 @@ public class ClientController extends Observable {
 	
 	//Achtung GUI-Thread
 	public void startGame() {
-		ClientGame game = new ClientGame(network, party);
-		Timer timer = new Timer(1000/30, game);
-		Keyboard keyboard = new Keyboard(playerId, network);
+		t.stop();		
+ 		ClientGame game = new ClientGame(network, party);
+ 		Timer timer = new Timer(1000/30, game);
+ 		Keyboard keyboard = new Keyboard(playerId, network);
 		GameCanvas canvas = new GameCanvas(game, keyboard);
 		//GameFrame frame = new GameFrame(new GameCanvas(game, keyboard), this, game);
 		//frame.setVisible(true);
-		timer.start();
+ 		timer.start();
 	}
 	
 	public void finishGame() {
@@ -75,13 +77,18 @@ public class ClientController extends Observable {
 				connectionState = 1;
 				setChanged();
 				notifyObservers("connChanged");
+
+				startReceiving();
+			} else if(((String)returnAction.getProperty(0)).equals("serverFull")) {
+				//TODO: implement popup
 			}
-			startReceiving();
 		}
 	}
 
 
 	public void disconnect() {
+		Object[] prop = {"disconnect", playerId};
+		send(prop);
 		network.close();
 		connectionState = 0;
 		setChanged();
@@ -133,14 +140,14 @@ public class ClientController extends Observable {
 	}
 	
 	private void startReceiving() {
-		new Thread(() -> {
+		t = new Thread(() -> {
 			msgReceived(network.receiveMessage());
-		}).start();
+		});
+		t.start();
 	}
 	
 	private void send(Object[] prop) {
 		Action connAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
-		
 		network.sendMessage(ActionSerializer.serialize(connAction));
 	}
 }

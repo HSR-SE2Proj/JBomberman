@@ -1,23 +1,24 @@
 package io.zonk.jbomberman.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Party {
-	private ArrayList<Player> playerList = new ArrayList<>();
+	private HashMap<Integer, Player> playerList = new HashMap<>();
 	
 	public void add(Player player) {
-		playerList.add(player);
+		playerList.put(player.getId(), player);
 	}
 	
 	public Player remove(Player player){
-		return (playerList.remove(player)) ? player : null;
+		return playerList.remove(player.getId());
 	}
 	
 	public Player get(int id) {
-		return playerList.get(id-1);
+		return playerList.get(id);
 	}
 	
-	public ArrayList<Player> getPlayers() {
+	public HashMap<Integer, Player> getPlayers() {
 		return playerList;
 	}
 }

@@ -30,13 +30,20 @@ import javax.swing.Box;
 
 public class LobbyPanel extends JPanel implements Observer {
 	private ClientController cc;
+	HashMap<Integer, Boolean> states = new HashMap<>();
 	private String server = "";
 
+	private JLabel lblPl1Name = new JLabel("");
+	private JLabel lblPl2Name = new JLabel("");
+	private JLabel lblPl3Name = new JLabel("");
+	private JLabel lblPl4Name = new JLabel("");
+	
+	private JLabel lblPl1Stat = new JLabel("");
+	private JLabel lblPl2Stat = new JLabel("");
+	private JLabel lblPl3Stat = new JLabel("");
+	private JLabel lblPl4Stat = new JLabel("");
+
 	private JLabel lblMeImg = new JLabel("");
-	private JLabel lblPl1Stat = new JLabel("not ready");
-	private JLabel lblPl2Stat = new JLabel("not ready");
-	private JLabel lblPl3Stat = new JLabel("not ready");
-	private JLabel lblPl4Stat = new JLabel("not ready");
 	private JLabel lblPl1Img = new JLabel("");
 	private JLabel lblPl2Img = new JLabel("");
 	private JLabel lblPl3Img = new JLabel("");
@@ -49,6 +56,7 @@ public class LobbyPanel extends JPanel implements Observer {
 			new ImageIcon(LobbyPanel.class.getResource("../resources/BmanProfileWhite.png"))
 	};
 
+	private JLabel[] lblPlName = {lblPl1Name, lblPl2Name, lblPl3Name, lblPl4Name};
 	private JLabel[] lblPlStat = {lblPl1Stat, lblPl2Stat, lblPl3Stat, lblPl4Stat};
 	private JLabel[] lblPlImg = {lblPl1Img, lblPl2Img, lblPl3Img, lblPl4Img};
 	
@@ -147,7 +155,6 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl1Img.gridy = 4;
 		add(lblPl1Img, gbc_lblPl1Img);
 		
-		JLabel lblPl1Name = new JLabel("Player1");
 		lblPl1Name.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblPl1Name = new GridBagConstraints();
 		gbc_lblPl1Name.anchor = GridBagConstraints.WEST;
@@ -186,7 +193,6 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl2Img.gridy = 7;
 		add(lblPl2Img, gbc_lblPl2Img);
 		
-		JLabel lblPl2Name = new JLabel("Player2");
 		lblPl2Name.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblPl2Name = new GridBagConstraints();
 		gbc_lblPl2Name.anchor = GridBagConstraints.WEST;
@@ -225,7 +231,6 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl3Img.gridy = 10;
 		add(lblPl3Img, gbc_lblPl3Img);
 		
-		JLabel lblPl3Name = new JLabel("Player3");
 		lblPl3Name.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblPl3Name = new GridBagConstraints();
 		gbc_lblPl3Name.anchor = GridBagConstraints.WEST;
@@ -257,7 +262,6 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl4Img.gridy = 13;
 		add(lblPl4Img, gbc_lblPl4Img);
 		
-		JLabel lblPl4Name = new JLabel("Player4");
 		lblPl4Name.setFont(new Font("Tahoma", Font.BOLD, 13));
 		GridBagConstraints gbc_lblPl4Name = new GridBagConstraints();
 		gbc_lblPl4Name.anchor = GridBagConstraints.WEST;
@@ -298,17 +302,31 @@ public class LobbyPanel extends JPanel implements Observer {
 	}
 	
 	/**
-	 * Update UI parameters, do refresh of UI after this
+	 * Update UI parameters, do repaint of UI after this
 	 */
 	private void updatePanel() {
-		server = cc.getServer();		
-		HashMap<Integer, Boolean> states = cc.getStates();
+		server = cc.getServer();
+		HashMap<Integer, Boolean> tmpStat = cc.getStates();
+		for(int i : states.keySet()) {
+			if(tmpStat.get(i) == null) {
+				lblPlName[i - 1].setText("");
+				lblPlImg[i - 1].setIcon(null);
+				lblPlStat[i - 1].setText("");
+			}
+		}
+		states = tmpStat;
 		int playerId = cc.getPlayerId();
 		
 		for(int id : states.keySet()) {
 			int i = id - 1;
-			lblPlStat[i].setText("Ready: " + states.get(id).toString());
+			lblPlName[i].setText("Player" + id);
 			lblPlImg[i].setIcon(bmanProfile[i]);
+			
+			if(states.get(id)) {
+				lblPlStat[i].setText("ready");
+			} else {
+				lblPlStat[i].setText("not ready");
+			}
 			
 			if(id == playerId) lblMeImg.setIcon(bmanProfile[i]);
 		}
@@ -318,6 +336,5 @@ public class LobbyPanel extends JPanel implements Observer {
 	public void update(Observable arg0, Object arg1) {
 			updatePanel();
 			repaint();
-			//refresh ui
 	}
 }
