@@ -12,7 +12,7 @@ public class ImageManager {
 	
 	private static ImageManager im = null;
 	private Map<String, BufferedImage> imageMap = new HashMap<>();
-	private String link = "../resources";
+	private String link = "src/io/zonk/jbomberman/resources/";
 	public static ImageManager getInstance() {
 		if(im == null)
 			im = new ImageManager();
@@ -22,13 +22,13 @@ public class ImageManager {
 	private ImageManager() {
 		try {
 			//Blocks and Floor
-			imageMap.put("BackgroundTile", ImageIO.read(	new File(link + "BackgroundTile.png")));
-		    imageMap.put("SolidBlock", ImageIO.read(		new File(link + "SolidBlock.png")));
-			imageMap.put("ExplodableBlock", ImageIO.read(	new File(link + "ExplodableBlock.png")));
+			imageMap.put("BackgroundTile", ImageIO.read(new File(link + "BackgroundTile.png")));
+		    imageMap.put("SolidBlock", ImageIO.read(new File(link + "SolidBlock.png")));
+			imageMap.put("ExplodableBlock", ImageIO.read(new File(link + "ExplodableBlock.png")));
 			// Power Ups
-			imageMap.put("BombPowerup", ImageIO.read(	new File(link + "BombPowerup.png")));
-			imageMap.put("FlamePowerup", ImageIO.read(	new File(link + "FlamePowerup.png")));
-		    imageMap.put("SpeedPowerup", ImageIO.read(	new File(link + "SpeedPowerup.png")));
+			imageMap.put("BombPowerup", ImageIO.read(new File(link + "BombPowerup.png")));
+			imageMap.put("FlamePowerup", ImageIO.read(new File(link + "FlamePowerup.png")));
+		    imageMap.put("SpeedPowerup", ImageIO.read(new File(link + "SpeedPowerup.png")));
 			//Bomb and Explosion
 			imageMap.put("Bomb", ImageIO.read(	new File(link + "Bomb.png")));
 			imageMap.put("Explosion", ImageIO.read(	new File(link + "Explosion.png")));
