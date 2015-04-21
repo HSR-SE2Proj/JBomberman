@@ -1,17 +1,21 @@
 package io.zonk.jbomberman.application.server;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
+import io.zonk.jbomberman.game.server.GameObjectManager;
 import io.zonk.jbomberman.game.server.ServerGame;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.server.ServerNetwork;
 import io.zonk.jbomberman.utils.ActionSerializer;
 
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import javax.swing.plaf.SliderUI;
 
@@ -39,7 +43,16 @@ public class ServerController implements Observer {
 	}
 	
 	public void startGame(Party party) {
-		
+//		new ServerGame(network, party);
+		String[][] sParty = new String[4][2];
+		int i = 0;
+		for(Player p : party.getPlayers()) {
+			sParty[i][0] = p.getName();
+			sParty[i][1] = p.getId() + "";
+			i++;
+		}
+		Object[] start = {"startGame", sParty};
+		sendLobbyUpdate(start);
 	}
 	
 	public void finishGame() {
@@ -49,26 +62,34 @@ public class ServerController implements Observer {
 	public void waitForPlayers() {
 		int playerCount = 0;
 		int readyCount = 0;
-		String[][] playerStates = new String[4][3];
+		HashMap<Integer, Boolean> playerStates = new HashMap<>();
 		while (readyCount < READY_THRESHOLD) {
 			Action receivedAction = ActionSerializer.deserialize(network.receiveMessage());
 			if(receivedAction.getActionType().equals(ActionType.LOBBY_COMMUNICATION)) {
 				switch ((String)receivedAction.getProperty(0)) {
-				case "Connect":
-					Player p = new Player("Player" + (playerCount + 1), ((Integer)receivedAction.getProperty(1)));
+				case "connect":
+					Player p = new Player("Player" + (playerCount + 1), playerCount + 1);
 					party.add(p);
-					playerStates[playerCount][0] = p.getName();
-					playerStates[playerCount][1] = p.getId() + "";
-					playerStates[playerCount][2] = "false";
-					
-					Object[] prop = {"LobbyList", playerStates, playerCount};
-					Action replyAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
-					network.sendMessage(ActionSerializer.serialize(replyAction));
+					playerStates.put(p.getId(), false);
+
+					Object[] prop = {"lobbyList", playerStates, p.getId()};
+					sendLobbyUpdate(prop);
 
 					playerCount++;
 					break;
 					
-				case "StateUpdate":
+				case "updateState":
+					int playerId = (Integer)receivedAction.getProperty(1);
+					Boolean playerState = (Boolean)receivedAction.getProperty(2);
+					
+					playerStates.put(playerId, playerState);
+					Object[] plStates = {"updateStates", playerStates};
+					sendLobbyUpdate(plStates);
+					if(playerState) {
+						readyCount++;
+					} else {
+						readyCount++;
+					}
 					break;
 
 				default:
@@ -77,6 +98,11 @@ public class ServerController implements Observer {
 			}
 		}
 		startGame(party);
+	}
+
+	private void sendLobbyUpdate(Object[] prop) {
+		Action replyAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
+		network.sendMessage(ActionSerializer.serialize(replyAction));
 	}
 
 	@Override

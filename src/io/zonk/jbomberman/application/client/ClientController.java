@@ -4,31 +4,33 @@ import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
+import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.utils.ActionSerializer;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Observable;
-import java.util.Random;
 
 public class ClientController extends Observable {
 	private String server;
 	private int connectionState = 0; //0 => Connect; 1 => Lobby
 	
-	String[][] states = {};
-	int mePlayer = 0;
+	HashMap<Integer, Boolean> states;
+	
+	// Player this instance is associated with [PlayerName, ID, state]
+	int playerId = 0;
 	
 	private NetworkFacade network;
 	private Party party;
 	
 	public ClientController() {
 		this.network = new ClientNetwork();
-		this.party = null;
+		this.party = new Party();
 	}
 	
 	public void startGame() {
-		
+//		new ClientGame(network, party);
 	}
 	
 	public void finishGame() {
@@ -47,36 +49,37 @@ public class ClientController extends Observable {
 		this.server = hostname;
 		network.connect(hostname);
 		if(network.isOpen()) {
-		    Random randomGenerator = new Random();
-			Object[] prop = {"Connect", randomGenerator.nextInt(1000) + 1000};
-			Action connAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
-			
-			network.sendMessage(ActionSerializer.serialize(connAction));
+			Object[] prop = {"connect"};
+			send(prop);
 
 			byte[] recMsg = network.receiveMessage();
 			while(recMsg.length < 1) {
 				recMsg = network.receiveMessage();
 			}
 			Action returnAction = ActionSerializer.deserialize(recMsg);
-			if(((String)returnAction.getProperty(0)).equals("LobbyList")) {
-				states = (String[][])returnAction.getProperty(1);
-				mePlayer = (Integer)returnAction.getProperty(2);
+			if(((String)returnAction.getProperty(0)).equals("lobbyList")) {
+				states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
+				playerId = (Integer)returnAction.getProperty(2);
 				
-				connectionState = 1;	
+				connectionState = 1;
 				setChanged();
-				notifyObservers(connectionState);
+				notifyObservers("connChanged");
 			}
+			startReceiving();
 		}
 	}
+
 
 	public void disconnect() {
 		network.close();
 		connectionState = 0;
 		setChanged();
-		notifyObservers();
+		notifyObservers("connChanged");
 	}
 	
 	public void setReady(boolean b) {
+		Object[] prop = {"updateState", playerId, b};
+		send(prop);
 	}
 	
 	public String getServer() {
@@ -87,11 +90,46 @@ public class ClientController extends Observable {
 		return connectionState;
 	}
 	
-	public String[][] getStates() {
+	public HashMap<Integer, Boolean> getStates() {
 		return states;
 	}
 
-	public int getMePlayer() {
-		return mePlayer;
+	public int getPlayerId() {
+		return playerId;
+	}
+	
+	public void msgReceived(byte[] recMsg) {
+		Action returnAction = ActionSerializer.deserialize(recMsg);
+		String s = ((String)returnAction.getProperty(0));
+		
+		if(s != null){
+			if(s.equals("updateStates") || s.equals("lobbyList")) {
+				states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
+
+				setChanged();
+				notifyObservers();
+			}
+			
+			if(s.equals("startGame")) {
+				String[][] sParty = (String[][])returnAction.getProperty(1);
+				for(String[] p : sParty) {
+					if(p[0] != null && p[1] != null) party.add(new Player(p[0], Integer.parseInt(p[1])));
+				}
+				startGame();
+			}
+		}
+		startReceiving();
+	}
+	
+	private void startReceiving() {
+		new Thread(() -> {
+			msgReceived(network.receiveMessage());
+		}).start();
+	}
+	
+	private void send(Object[] prop) {
+		Action connAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
+		
+		network.sendMessage(ActionSerializer.serialize(connAction));
 	}
 }

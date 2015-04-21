@@ -42,18 +42,21 @@ public class StartFrame extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		ClientController cc = (ClientController) arg0;
-		switch (cc.getConnState()) {
-		case 0:
-			switchPanel(lp, cp);
-			break;
-		case 1:
-			lp = new LobbyPanel(cc);
-			switchPanel(cp, lp);
-			break;
-
-		default:
-			break;
+		String s = (String)arg1;
+		if(s != null && s.equals("connChanged")){
+			ClientController cc = (ClientController) arg0;
+			switch (cc.getConnState()) {
+			case 0:
+				switchPanel(lp, cp);
+				break;
+			case 1:
+				lp = new LobbyPanel(cc);
+				switchPanel(cp, lp);
+				break;
+	
+			default:
+				break;
+			}
 		}
 	}
 }
