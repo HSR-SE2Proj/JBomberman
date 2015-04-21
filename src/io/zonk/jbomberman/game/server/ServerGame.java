@@ -1,22 +1,33 @@
 package io.zonk.jbomberman.game.server;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionDispatcher;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.Party;
+import io.zonk.jbomberman.game.Player;
+import io.zonk.jbomberman.network.NetworkFacade;
 
 import java.util.Observable;
 
 public class ServerGame extends Observable implements GameLoop {
 
+	private NetworkFacade network;
 	private ActionQueue queue;
 	private GameObjectManager manager;
 	private Party party;
 	
-	public ServerGame(ActionQueue queue, GameObjectManager manager, Party party) {
-		this.queue = queue;
-		this.manager = manager;
+	public ServerGame(NetworkFacade network, Party party) {
+		this.network = network;
 		this.party = party;
+		
+		for(Player player : party.getPlayers()) {
+			
+		}
+		
+		queue = new ActionQueue();
+		ActionDispatcher dispatcher = new ActionDispatcher(network, queue);
+		dispatcher.start();
 	}
 
 	@Override

@@ -5,14 +5,20 @@ import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.utils.Position;
 
 public class GBomb extends GameObject {
+	
+	private static final int FUSE_TIME = 2000;
+	private long placed;
 
 	public GBomb(Position position, int id) {
 		super(position, id, GameObjectType.BOMB);
+		placed = System.currentTimeMillis();
 	}
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
+		if(System.currentTimeMillis() - placed >= FUSE_TIME) {
+			//Bombe zünden
+		}
 		
 	}
 
