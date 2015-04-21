@@ -36,71 +36,48 @@
    <javac includeantruntime="false" srcdir="${basedir}" destdir="${build}">
         <classpath refid="jbomberman.classpath" />
   </javac>
+  	<copy todir="${build}">
+  	    <fileset dir="${src}"
+  	             includes="**/*.png" />
+  		<fileset dir="${basedir}"
+  		  	     includes="**/rabbitmq-client.jar" />
+  	</copy>
   </target>
   
   <target name="dist" description="Dist with all Classfiles" depends="compile">
        <!-- Create the distribution directory -->
-      <jar jarfile="${dist}/JBomberman.jar" basedir="${build}" excludes = "**/*Test*.class"/>
+  	<delete file="${dist}/JBomberman.jar"/>
+  	<delete file="${dist}/JBombermanClient.jar"/>
+  	<delete file="${dist}/JBombermanServer.jar"/>
+
+      <jar jarfile="${dist}/JBomberman.jar" basedir="${build}" excludes = "**/*Test*.class">
+      	 <manifest>
+      	     	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
+      	    </manifest>
+      </jar>
   </target>
   
   <target name="distClient" depends="compile" description="generate the distribution" >
     <!-- Put everything in JBombermanClient.jar from Client Packages (Exclude Testfiles) -->
      <jar destfile="${dist}/JBombermanClient.jar">
-    <fileset dir="${build.jbomberman}/application/client"
-             excludes="**/*Test*.class"
+    <fileset dir="${build}"
+             excludes="**/server/*"
     />
-     <fileset dir="${build.jbomberman}/game"
-             excludes="**/*Test*.class"
-             includes="*.class"
-    />
-      <fileset dir="${build.jbomberman}/game/client"
-             excludes="**/*Test*.class"
-    />
-     <fileset dir="${build.jbomberman}/network"
-             excludes="**/*Test*.class"
-             includes="*.class"
-    />
-      <fileset dir="${build.jbomberman}/network/client"
-             excludes="**/*Test*.class"
-    />
-      <fileset dir="${build.jbomberman}/time"
-             excludes="**/*Test*.class"
-    />
-     <fileset dir="${build.jbomberman}/utils"
-             excludes="**/*Test*.class"
-    />
-     <fileset dir="${build.jbomberman}/view"
-             excludes="**/*Test*.class"
-    />
+    <manifest>
+     	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
+    </manifest>
   </jar>
   </target>
   
-  <target name="distServer" description="Distribution for Server">
+  <target name="distServer" depends="compile" description="Distribution for Server">
     <!-- Put everything in JBombermanServer.jar from Server Packages (Exclude Testfiles) -->
     <jar destfile="${dist}/JBombermanServer.jar">
-    <fileset dir="${build.jbomberman}/application/server"
-             excludes="**/*Test*.class"
+    <fileset dir="${build}"
+             excludes="**/client/*,**/view/*,**/resources/"
     />
-     <fileset dir="${build.jbomberman}/game"
-             excludes="**/*Test*.class"
-             includes="*.class"
-    />
-      <fileset dir="${build.jbomberman}/game/server"
-             excludes="**/*Test*.class"
-    />
-     <fileset dir="${build.jbomberman}/network"
-             excludes="**/*Test*.class"
-             includes="*.class"
-    />
-      <fileset dir="${build.jbomberman}/network/server"
-             excludes="**/*Test*.class"
-    />
-      <fileset dir="${build.jbomberman}/time"
-             excludes="**/*Test*.class"
-    />
-     <fileset dir="${build.jbomberman}/utils"
-             excludes="**/*Test*.class"
-    />
+    <manifest>
+    	 <attribute name="Main-Class" value="io.zonk.jbomberman.application.ServerController"/>
+    </manifest>
   </jar>
   </target>
 
