@@ -50,10 +50,10 @@ public class LobbyPanel extends JPanel implements Observer {
 	private JLabel lblPl4Img = new JLabel("");
 	
 	private ImageIcon[] bmanProfile = {
-			new ImageIcon(LobbyPanel.class.getResource("../resources/BmanProfileBlack.png")),
-			new ImageIcon(LobbyPanel.class.getResource("../resources/BmanProfileBlue.png")),
-			new ImageIcon(LobbyPanel.class.getResource("../resources/BmanProfileRed.png")),
-			new ImageIcon(LobbyPanel.class.getResource("../resources/BmanProfileWhite.png"))
+			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileBlack.png")),
+			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileBlue.png")),
+			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileRed.png")),
+			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileWhite.png"))
 	};
 
 	private JLabel[] lblPlName = {lblPl1Name, lblPl2Name, lblPl3Name, lblPl4Name};
