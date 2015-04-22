@@ -58,14 +58,15 @@
   <target name="distClient" depends="compile" description="generate the distribution" >
     <!-- Put everything in JBombermanClient.jar from Client Packages (Exclude Testfiles) -->
      <jar destfile="${dist}/JBombermanClient.jar" filesetmanifest="mergewithoutmain">
+
     <fileset dir="${build}"
              excludes="**/server/*"
     />
     <manifest>
      	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
     	<attribute name="Class-Path" value="."/>
-    </manifest>
      	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
+    </manifest>
   </jar>
   </target>
   
@@ -78,8 +79,9 @@
     <manifest>
     	<attribute name="Main-Class" value="io.zonk.jbomberman.application.server.ServerController"/>
 		<attribute name="Class-Path" value="."/>
-    </manifest>
     	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
+    	 <attribute name="Main-Class" value="io.zonk.jbomberman.application.ServerController"/>
+    </manifest>
   </jar>
   </target>
 
