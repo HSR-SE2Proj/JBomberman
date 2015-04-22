@@ -12,7 +12,7 @@ public class ImageManager {
 	
 	private static ImageManager im = null;
 	private Map<String, BufferedImage> imageMap = new HashMap<>();
-	private String link = "/io/zonk/jbomberman/resources/";
+	private String link = "src/io/zonk/jbomberman/resources/";
 	public static ImageManager getInstance() {
 		if(im == null)
 			im = new ImageManager();

@@ -65,8 +65,8 @@
     <manifest>
      	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
     	<attribute name="Class-Path" value="."/>
-     	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
     </manifest>
+     	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
   </jar>
   </target>
   
@@ -79,9 +79,8 @@
     <manifest>
     	<attribute name="Main-Class" value="io.zonk.jbomberman.application.server.ServerController"/>
 		<attribute name="Class-Path" value="."/>
-    	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
-    	 <attribute name="Main-Class" value="io.zonk.jbomberman.application.ServerController"/>
     </manifest>
+    	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
   </jar>
   </target>
 
