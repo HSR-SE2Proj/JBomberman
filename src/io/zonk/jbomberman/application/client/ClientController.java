@@ -48,6 +48,7 @@ public class ClientController extends Observable {
 			e.printStackTrace();
 		}
 		*/
+
  		ClientGame game = new ClientGame(network, party);
  		Timer timer = new Timer(1000/60, game);
  		Keyboard keyboard = new Keyboard(playerId, network);

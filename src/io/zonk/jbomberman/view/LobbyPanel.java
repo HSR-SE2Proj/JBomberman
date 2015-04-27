@@ -1,6 +1,7 @@
 package io.zonk.jbomberman.view;
 
 import io.zonk.jbomberman.application.client.ClientController;
+import io.zonk.jbomberman.utils.ImageManager;
 
 import javax.swing.JPanel;
 
@@ -50,10 +51,10 @@ public class LobbyPanel extends JPanel implements Observer {
 	private JLabel lblPl4Img = new JLabel("");
 	
 	private ImageIcon[] bmanProfile = {
-			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileBlack.png")),
-			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileBlue.png")),
-			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileRed.png")),
-			new ImageIcon(LobbyPanel.class.getResource("/io/zonk/jbomberman/resources/BmanProfileWhite.png"))
+			new ImageIcon(ImageManager.getInstance().get("IMG_BMAN_PROFBLACK")),
+			new ImageIcon(ImageManager.getInstance().get("IMG_BMAN_PROFBLUE")),
+			new ImageIcon(ImageManager.getInstance().get("IMG_BMAN_PROFRED")),
+			new ImageIcon(ImageManager.getInstance().get("IMG_BMAN_PROFWHITE"))
 	};
 
 	private JLabel[] lblPlName = {lblPl1Name, lblPl2Name, lblPl3Name, lblPl4Name};
