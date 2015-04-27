@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class StartFrame extends JFrame implements Observer{
@@ -46,14 +47,18 @@ public class StartFrame extends JFrame implements Observer{
 		if(s != null && s.equals("connChanged")){
 			ClientController cc = (ClientController) arg0;
 			switch (cc.getConnState()) {
-			case 0:
+			case CONNECT:
 				switchPanel(lp, cp);
 				break;
-			case 1:
+			case LOBBY:
 				lp = new LobbyPanel(cc);
 				switchPanel(cp, lp);
 				break;
-	
+			
+			case SERVER_FULL:
+				JOptionPane.showMessageDialog(this, "Could not connect: Server full", "Connection error", JOptionPane.ERROR_MESSAGE);
+				break;
+				
 			default:
 				break;
 			}
