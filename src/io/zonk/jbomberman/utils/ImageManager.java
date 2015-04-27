@@ -12,7 +12,7 @@ public class ImageManager {
 	
 	private static ImageManager im = null;
 	private Map<String, BufferedImage> imageMap = new HashMap<>();
-	private String link = "src/io/zonk/jbomberman/resources/";
+	private String link = "/io/zonk/jbomberman/resources/";
 	public static ImageManager getInstance() {
 		if(im == null)
 			im = new ImageManager();
@@ -22,7 +22,7 @@ public class ImageManager {
 	private ImageManager() {
 		try {
 			//Blocks and Floor
-			imageMap.put("IMG_FLOOR", ImageIO.read(new File(link + "BackgroundTile.png")));
+			imageMap.put("IMG_FLOOR", ImageIO.read(getClass().getResource(link + "BackgroundTile.png")));
 		    imageMap.put("IMG_SOLIDBLOCK", ImageIO.read(new File(link + "SolidBlock.png")));
 			imageMap.put("ExplodableBlock", ImageIO.read(new File(link + "ExplodableBlock.png")));
 			// Power Ups
