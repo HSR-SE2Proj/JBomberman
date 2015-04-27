@@ -24,19 +24,19 @@ public class ImageManager {
 			//Blocks and Floor
 			imageMap.put("IMG_FLOOR", ImageIO.read(getClass().getResource(link + "BackgroundTile.png")));
 		    imageMap.put("IMG_SOLIDBLOCK", ImageIO.read(new File(link + "SolidBlock.png")));
-			imageMap.put("ExplodableBlock", ImageIO.read(new File(link + "ExplodableBlock.png")));
+			imageMap.put("IMG_EXPLODABLEBLOCK", ImageIO.read(new File(link + "ExplodableBlock.png")));
 			// Power Ups
-			imageMap.put("BombPowerup", ImageIO.read(new File(link + "BombPowerup.png")));
-			imageMap.put("FlamePowerup", ImageIO.read(new File(link + "FlamePowerup.png")));
-		    imageMap.put("SpeedPowerup", ImageIO.read(new File(link + "SpeedPowerup.png")));
+			imageMap.put("IMG_BOMBPOWERUP", ImageIO.read(new File(link + "BombPowerup.png")));
+			imageMap.put("IMG_FLAMEPOWERUP", ImageIO.read(new File(link + "FlamePowerup.png")));
+		    imageMap.put("IMG_SPEEDPOWERUP", ImageIO.read(new File(link + "SpeedPowerup.png")));
 			//Bomb and Explosion
-			imageMap.put("Bomb", ImageIO.read(	new File(link + "Bomb.png")));
-			imageMap.put("Explosion", ImageIO.read(	new File(link + "Explosion.png")));
+			imageMap.put("IMG_BOMB", ImageIO.read(	new File(link + "Bomb.png")));
+			imageMap.put("IMG_EXPLOSION", ImageIO.read(	new File(link + "Explosion.png")));
 		    //JBombermans
-			imageMap.put("BmanBlack", ImageIO.read(	new File(link + "BmanBlack.png")));
-			imageMap.put("BmanW", ImageIO.read(	new File(link + "BmanBlue.png")));
-			imageMap.put("BmanBlue", ImageIO.read(	new File(link + "BmanBlue.png")));
-			imageMap.put("BmanR", ImageIO.read(	new File(link + "BmanR.png")));
+			imageMap.put("IMG_BMANBLACK", ImageIO.read(	new File(link + "BmanBlack.png")));
+			imageMap.put("IMG_BMANBLUE", ImageIO.read(	new File(link + "BmanBlue.png")));
+			imageMap.put("IMG_BMANWHITE", ImageIO.read(	new File(link + "BmanWhite.png")));
+			imageMap.put("IMG_BMANRED", ImageIO.read(	new File(link + "BmanRed.png")));
 		} catch(IOException e) {
 			System.out.println("Error: Could not load images");
 			e.printStackTrace();
