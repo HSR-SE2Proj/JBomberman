@@ -11,6 +11,7 @@ import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
 
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +94,18 @@ public class ClientGame extends Observable
 			sprite.draw(pixels);
 		}
 	}
+	
+	public void drawAll(Graphics g) {
+		
+		for(Sprite sprite : background)
+			sprite.draw(g);
+		
+		for(Sprite sprite : manager.getAll()) {
+			sprite.draw(g);
+		}
+	}
+	
+	
 }
 
 

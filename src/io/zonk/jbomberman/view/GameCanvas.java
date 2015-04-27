@@ -2,6 +2,7 @@ package io.zonk.jbomberman.view;
 
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
+import io.zonk.jbomberman.utils.ImageManager;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
@@ -40,7 +41,7 @@ public class GameCanvas extends Canvas implements Observer {
 		frame.setVisible(true);
 		frame.pack();
 		
-		image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
 		this.addKeyListener(keyboard);
@@ -58,10 +59,15 @@ public class GameCanvas extends Canvas implements Observer {
 			pixels[i] = 0;
 		}
 		
-		game.drawAll(pixels);
+		//game.drawAll(pixels);
+	
+		
 		
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		//g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		game.drawAll(g);
+		
+		
 		g.dispose();
 		bs.show();
 	}

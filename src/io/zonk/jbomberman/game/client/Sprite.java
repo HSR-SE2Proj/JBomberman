@@ -1,6 +1,8 @@
 package io.zonk.jbomberman.game.client;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import io.zonk.jbomberman.game.Action;
@@ -26,14 +28,22 @@ public abstract class Sprite {
 	public abstract void update(Action action);
 	public abstract void tick();
 	
+	public void draw(Graphics g) {
+		g.drawImage(ImageManager.getInstance().get(imgName).getSubimage(0, 0, size.width, size.height), position.getX(), position.getY(), null);
+	}
+	
 	public void draw(int[] screen) {
+		
+		
+		
 		int[] pixels = new int[size.width*size.height];
-		ImageManager.getInstance().get(imgName).getRGB(0, 0, size.width, size.height, pixels, 0, 64);
+		ImageManager.getInstance().get(imgName).getRGB(0, 0, size.width, size.height, pixels, 0, size.width);
 		for(int y = position.getY(); y < position.getY()+size.height; y++) {
 			if(y < 0 || y >= 832) continue;
 			for(int x = position.getX(); x < position.getX()+size.width; x++) {
 				if(x < 0 || x >= 832) continue;
-				screen[x + y * 832] = pixels[(x-position.getX()) + (y - position.getY()) * size.width];
+				//if(pixels[(x-position.getX()) + (y - position.getY()) * size.width])
+					screen[x + y * 832] = pixels[(x-position.getX()) + (y - position.getY()) * size.width];
 			}
 		}
 	}
