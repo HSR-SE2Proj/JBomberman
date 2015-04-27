@@ -3,13 +3,16 @@ package io.zonk.jbomberman.game.server;
 import java.awt.event.KeyEvent;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.GameObjectType;
+import io.zonk.jbomberman.network.NetworkFacade;
+import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.Position;
 
 public class GBomberman extends GameObject {
 	
 	private boolean w, a, s, d, enter;
-	private int speed = 5;
+	private int speed = 4;
 	private boolean updatePosition;
 
 	public GBomberman(Position position, int id) {
@@ -28,11 +31,11 @@ public class GBomberman extends GameObject {
 			updatePosition = true;
 		}
 		if(s) {
-			position.incrementX(speed);
+			position.incrementY(speed);
 			updatePosition = true;
 		}
 		if(d) {
-			position.incrementY(speed);
+			position.incrementX(speed);
 			updatePosition = true;
 		}
 		if(enter) {
@@ -72,9 +75,10 @@ public class GBomberman extends GameObject {
 	}
 
 	@Override
-	public void sendUpdates() {
+	public void sendUpdates(NetworkFacade network) {
 		if(updatePosition) {
-			
+			Action action = new Action(ActionType.MOVEMENT, new Object[]{id, position});
+			network.sendMessage(ActionSerializer.serialize(action));
 			updatePosition = false;
 		}
 		

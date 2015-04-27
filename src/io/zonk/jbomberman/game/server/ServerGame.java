@@ -14,6 +14,7 @@ import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
 
 import java.util.Observable;
+import java.util.Random;
 
 public class ServerGame extends Observable implements GameLoop {
 
@@ -21,6 +22,7 @@ public class ServerGame extends Observable implements GameLoop {
 	private ActionQueue queue;
 	private GameObjectManager manager;
 	private Party party;
+	private boolean initmap;
 	
 	public ServerGame(NetworkFacade network, Party party) {
 		this.network = network;
@@ -41,7 +43,7 @@ public class ServerGame extends Observable implements GameLoop {
 		Timer timer = new Timer(1000/30, this);
 		timer.start();
 		
-		//initMap();
+		
 		
 	}
 	
@@ -49,9 +51,11 @@ public class ServerGame extends Observable implements GameLoop {
 
 	@Override
 	public void loop() {
-		System.out.println("Server Game Running");
-		while(true) { //game running?
-			
+		if(!initmap)
+			initMap();
+		
+		//while(true) { //game running?
+		//System.out.println("loop");	
 			//handle all available Actions
 			while(!queue.isEmpty()) {
 				Action action = queue.take();
@@ -77,23 +81,54 @@ public class ServerGame extends Observable implements GameLoop {
 				object.tick();
 			}
 			
-			//send Updates
-			
-		}
+		
+			for(Player player : party.getPlayers().values()) {
+				if(player == null)
+					continue;
+				player.getBomberman().tick();
+				player.getBomberman().sendUpdates(network);
+			}
+		//}
 		
 	}
 	
 	private void initMap() {
+		Random rnd = new Random();
 		Map map = new StandardMap();
 		for(int y = 0; y < 13; ++y)
 			for(int x = 0; x < 13; ++x) {
-				if(map.get(x, y) == '#') {
-					Position position = new Position(x*64, y*64);
-					Integer id = IDGenerator.getId();
+				Position position = new Position(x*64, y*64);
+				Integer id;
+				Action action;
+				switch(map.get(x, y)) {
+				case '#':
+					id = IDGenerator.getId();
 					manager.add(new GSolidBlock(position, id));
-					Action action = new Action(ActionType.CREATE_SOLIDBLOCK, new Object[]{position, id});
+					action = new Action(ActionType.CREATE_SOLIDBLOCK, new Object[]{position, id});
 					network.sendMessage(ActionSerializer.serialize(action));
+					break;
+				case ' ':
+					if(rnd.nextInt(100) > 70)
+						break;
+					id = IDGenerator.getId();
+					manager.add(new GDestroyableBlock(position, id));
+					action = new Action(ActionType.CREATE_DESTROYABLEBLOCK, new Object[]{position, id});
+					network.sendMessage(ActionSerializer.serialize(action));
+					break;
+				case '1':
+					party.get(1).getBomberman().setPosition(position);
+					action = new Action(ActionType.CREATE_BOMBERMAN, new Object[]{position, 1});
+					network.sendMessage(ActionSerializer.serialize(action));
+					break;
+				case '2':
+					party.get(2).getBomberman().setPosition(position);
+					action = new Action(ActionType.CREATE_BOMBERMAN, new Object[]{position, 2});
+					network.sendMessage(ActionSerializer.serialize(action));
+					break;
+				default:
+					break;
 				}
 			}
+		initmap = true;
 	}
 }

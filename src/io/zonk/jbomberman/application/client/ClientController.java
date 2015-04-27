@@ -36,9 +36,20 @@ public class ClientController extends Observable {
 	
 	//Achtung GUI-Thread
 	public void startGame() {
-		t.stop();		
+		
+		/*
+		System.out.println("interrupt");
+		t.interrupt();
+		try {
+			System.out.println("join");
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
  		ClientGame game = new ClientGame(network, party);
- 		Timer timer = new Timer(1000/30, game);
+ 		Timer timer = new Timer(1000/60, game);
  		Keyboard keyboard = new Keyboard(playerId, network);
 		GameCanvas canvas = new GameCanvas(game, keyboard);
 		//GameFrame frame = new GameFrame(new GameCanvas(game, keyboard), this, game);
@@ -134,6 +145,7 @@ public class ClientController extends Observable {
 					if(p[0] != null && p[1] != null) party.add(new Player(p[0], Integer.parseInt(p[1])));
 				}
 				startGame();
+				return;
 			}
 		}
 		startReceiving();
@@ -141,7 +153,7 @@ public class ClientController extends Observable {
 	
 	private void startReceiving() {
 		t = new Thread(() -> {
-			msgReceived(network.receiveMessage());
+				msgReceived(network.receiveMessage());
 		});
 		t.start();
 	}

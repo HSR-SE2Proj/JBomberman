@@ -47,21 +47,30 @@ public class ClientGame extends Observable
 
 	@Override
 	public void loop() {
-		System.out.println("Client Game Running");
-		while(true) { //game running?
-			
+		
+		//while(true) { //game running?
+			//System.out.println("loop");
 			
 			//Handle all available Actions
 			while(!queue.isEmpty()) {
 				Action action = queue.take();
 				switch(action.getActionType()) {
+				case MOVEMENT:
+					manager.getById((int)action.getProperty(0)).setPosition((Position)action.getProperty(1));
+					System.out.println("movement");
+					break;
 				case CREATE_SOLIDBLOCK:
 					manager.add(new SSolidBlock((Position) action.getProperty(0), (int)action.getProperty(1), null));
-				
+					System.out.println("solid");
+					break;
+				case CREATE_DESTROYABLEBLOCK:
+					manager.add(new SDestroyableBlock((Position) action.getProperty(0), (int)action.getProperty(1), null));
+					break;
+				case CREATE_BOMBERMAN:
+					manager.add(new SBomberman((Position)action.getProperty(0), (int)action.getProperty(1), null));
 				default:
 					break;
 				}
-				
 			}
 			
 			//Tick all Sprites
@@ -72,7 +81,7 @@ public class ClientGame extends Observable
 			setChanged();
 			notifyObservers();
 			
-		}
+		//}
 	}
 	
 	public void drawAll(int[] pixels) {

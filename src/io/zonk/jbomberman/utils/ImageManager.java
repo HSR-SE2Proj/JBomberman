@@ -24,7 +24,7 @@ public class ImageManager {
 			//Blocks and Floor
 			imageMap.put("IMG_FLOOR", ImageIO.read(new File(link + "BackgroundTile.png")));
 		    imageMap.put("IMG_SOLIDBLOCK", ImageIO.read(new File(link + "SolidBlock.png")));
-			imageMap.put("ExplodableBlock", ImageIO.read(new File(link + "ExplodableBlock.png")));
+			imageMap.put("IMG_DESTROYABLEBLOCK", ImageIO.read(new File(link + "ExplodableBlock.png")));
 			// Power Ups
 			imageMap.put("BombPowerup", ImageIO.read(new File(link + "BombPowerup.png")));
 			imageMap.put("FlamePowerup", ImageIO.read(new File(link + "FlamePowerup.png")));
@@ -33,7 +33,7 @@ public class ImageManager {
 			imageMap.put("Bomb", ImageIO.read(	new File(link + "Bomb.png")));
 			imageMap.put("Explosion", ImageIO.read(	new File(link + "Explosion.png")));
 		    //JBombermans
-			imageMap.put("BmanBlack", ImageIO.read(	new File(link + "BmanBlack.png")));
+			imageMap.put("IMG_BMAN_BLACK", ImageIO.read(	new File(link + "BmanBlack.png")));
 			imageMap.put("BmanW", ImageIO.read(	new File(link + "BmanBlue.png")));
 			imageMap.put("BmanBlue", ImageIO.read(	new File(link + "BmanBlue.png")));
 			imageMap.put("BmanR", ImageIO.read(	new File(link + "BmanR.png")));

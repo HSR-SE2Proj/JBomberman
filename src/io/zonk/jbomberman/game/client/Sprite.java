@@ -9,9 +9,9 @@ import io.zonk.jbomberman.utils.Position;
 
 public abstract class Sprite {
 	
-	private Position position;
+	protected Position position;
 	private int id;
-	private String imgName;
+	protected String imgName;
 	private Dimension size;
 	private int layer;
 	

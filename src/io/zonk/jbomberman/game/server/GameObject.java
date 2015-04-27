@@ -8,7 +8,7 @@ import io.zonk.jbomberman.utils.Position;
 public abstract class GameObject {
 	
 	protected Position position;
-	private int id;
+	protected int id;
 	private NetworkFacade network;
 	private GameObjectType type;
 	
@@ -20,7 +20,7 @@ public abstract class GameObject {
 	
 	public abstract void tick();
 	public abstract void update(Action action);
-	public abstract void sendUpdates();//evtl. hier die NetworkFacade mitgeben
+	public abstract void sendUpdates(NetworkFacade network);//evtl. hier die NetworkFacade mitgeben
 	public abstract boolean checkCollisionWith(GameObject object);
 
 	public Position getPosition() {

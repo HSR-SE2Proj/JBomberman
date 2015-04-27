@@ -9,7 +9,10 @@ public class SBomberman extends Sprite {
 
 	public SBomberman(Position position, int id, Dimension size) {
 		super(position, id, "IMG_BOMBERMAN", size, 5);
-		//imgName = "IMG_BOMBERMAN";
+		if(id == 1)
+			imgName = "IMG_BMAN_BLACK";
+		if(id == 2)
+			imgName = "IMG_BMAN_BLACK";
 	}
 
 	@Override
