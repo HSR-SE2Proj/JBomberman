@@ -12,7 +12,7 @@ public class SBomberman extends Sprite {
 		if(id == 1)
 			imgName = "IMG_BMAN_BLACK";
 		if(id == 2)
-			imgName = "IMG_BMAN_BLACK";
+			imgName = "IMG_BMAN_BLUE";
 	}
 
 	@Override

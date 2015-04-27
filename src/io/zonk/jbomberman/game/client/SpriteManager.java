@@ -44,6 +44,13 @@ public class SpriteManager {
 	}
 	
 	public Collection<Sprite> getAll() {
-		return spriteId.values();
+		Collection<Sprite> col = new ArrayList<>();
+		for(int i : spriteLayer.keySet()) {
+			col.addAll(spriteLayer.get(i));
+		}
+		
+		
+		
+		return col;
 	}
 }

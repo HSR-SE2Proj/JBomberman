@@ -33,12 +33,7 @@ public class ImageManager {
 			imageMap.put("IMG_BOMB", ImageIO.read(getClass().getResource(link + "Bomb.png")));
 			imageMap.put("IMG_EXPLOSION", ImageIO.read(getClass().getResource(link + "Explosion.png")));
 		    //JBombermans
-			//BufferedImage buf = new BufferedImage(64, 128, BufferedImage.TYPE_INT_ARGB);
-			//BufferedImage buf1 = ImageIO.read(getClass().getResource(link + "BmanBlack.png"));
 			imageMap.put("IMG_BMAN_BLACK", ImageIO.read(getClass().getResource(link + "BmanBlack.png")));
-			
-			
-			
 			imageMap.put("IMG_BMAN_BLUE", ImageIO.read(getClass().getResource(link + "BmanBlue.png")));
 			imageMap.put("IMG_BMAN_WHITE", ImageIO.read(getClass().getResource(link + "BmanWhite.png")));
 			imageMap.put("IMG_BMAN_RED", ImageIO.read(getClass().getResource(link + "BmanRed.png")));
