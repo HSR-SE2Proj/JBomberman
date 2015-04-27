@@ -7,8 +7,8 @@ import java.awt.Dimension;
 
 public class SDestroyableBlock extends Sprite {
 	
-	public SDestroyableBlock(Position position, int id, Dimension size) {
-		super(position, id, "IMG_DESTROYABLEBLOCK", size, 3);
+	public SDestroyableBlock(Position position, int id) {
+		super(position, id, "IMG_DESTROYABLEBLOCK", new Dimension(64, 64), 3);
 	}
 
 	@Override

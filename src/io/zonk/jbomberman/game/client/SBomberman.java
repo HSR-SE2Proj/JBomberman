@@ -7,8 +7,8 @@ import java.awt.Dimension;
 
 public class SBomberman extends Sprite {
 
-	public SBomberman(Position position, int id, Dimension size) {
-		super(position, id, "IMG_BOMBERMAN", size, 5);
+	public SBomberman(Position position, int id) {
+		super(position, id, "IMG_BOMBERMAN", new Dimension(64, 128), 5);
 		if(id == 1)
 			imgName = "IMG_BMAN_BLACK";
 		if(id == 2)
