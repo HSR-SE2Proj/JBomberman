@@ -10,8 +10,8 @@ import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
+import io.zonk.jbomberman.view.ClientControllerState;
 import io.zonk.jbomberman.view.GameCanvas;
-import io.zonk.jbomberman.view.GameFrame;
 
 import java.util.HashMap;
 import java.util.Observable;
@@ -19,7 +19,7 @@ import java.util.Observable;
 public class ClientController extends Observable {
 	private String server;
 	private Thread t;
-	private int connectionState = 0; //0 => Connect; 1 => Lobby
+	private ClientControllerState connectionState = ClientControllerState.CONNECT;
 	
 	HashMap<Integer, Boolean> states;
 	
@@ -86,13 +86,15 @@ public class ClientController extends Observable {
 				states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
 				playerId = (Integer)returnAction.getProperty(2);
 				
-				connectionState = 1;
+				connectionState = ClientControllerState.LOBBY;
 				setChanged();
 				notifyObservers("connChanged");
 
 				startReceiving();
 			} else if(((String)returnAction.getProperty(0)).equals("serverFull")) {
-				//TODO: implement popup
+				connectionState = ClientControllerState.SERVER_FULL;
+				setChanged();
+				notifyObservers("connChanged");
 			}
 		}
 	}
@@ -102,7 +104,7 @@ public class ClientController extends Observable {
 		Object[] prop = {"disconnect", playerId};
 		send(prop);
 		network.close();
-		connectionState = 0;
+		connectionState = ClientControllerState.CONNECT;
 		setChanged();
 		notifyObservers("connChanged");
 	}
@@ -116,7 +118,7 @@ public class ClientController extends Observable {
 		return server;
 	}
 	
-	public int getConnState() {
+	public ClientControllerState getConnState() {
 		return connectionState;
 	}
 	
