@@ -8,7 +8,7 @@ import java.awt.Dimension;
 public class SFloor extends Sprite {
 
 	public SFloor(Position position, int id) {
-		super(position, id, "IMG_FLOOR", null, 1);
+		super(position, id, "IMG_FLOOR", new Dimension(64, 64), 1);
 		//imgName = "IMG_FLOOR";
 	}
 

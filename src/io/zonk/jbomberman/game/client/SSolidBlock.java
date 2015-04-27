@@ -8,8 +8,8 @@ import java.awt.Dimension;
 
 public class SSolidBlock extends Sprite {
 	
-	public SSolidBlock(Position position, int id, Dimension size) {
-		super(position, id, "IMG_SOLIDBLOCK", size, 2);
+	public SSolidBlock(Position position, int id) {
+		super(position, id, "IMG_SOLIDBLOCK", new Dimension(64, 64), 2);
 	}
 
 	@Override
