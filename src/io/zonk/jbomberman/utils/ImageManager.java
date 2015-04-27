@@ -23,20 +23,25 @@ public class ImageManager {
 		try {
 			//Blocks and Floor
 			imageMap.put("IMG_FLOOR", ImageIO.read(getClass().getResource(link + "BackgroundTile.png")));
-		    imageMap.put("IMG_SOLIDBLOCK", ImageIO.read(new File(link + "SolidBlock.png")));
-			imageMap.put("IMG_EXPLODABLEBLOCK", ImageIO.read(new File(link + "ExplodableBlock.png")));
+		    imageMap.put("IMG_SOLIDBLOCK", ImageIO.read(getClass().getResource(link + "SolidBlock.png")));
+			imageMap.put("IMG_EXPLODABLEBLOCK", ImageIO.read(getClass().getResource(link + "SolidBlock.png")));
 			// Power Ups
-			imageMap.put("IMG_BOMBPOWERUP", ImageIO.read(new File(link + "BombPowerup.png")));
-			imageMap.put("IMG_FLAMEPOWERUP", ImageIO.read(new File(link + "FlamePowerup.png")));
-		    imageMap.put("IMG_SPEEDPOWERUP", ImageIO.read(new File(link + "SpeedPowerup.png")));
+			imageMap.put("IMG_BOMBPOWERUP", ImageIO.read(getClass().getResource(link + "BombPowerup.png")));
+			imageMap.put("IMG_FLAMEPOWERUP", ImageIO.read(getClass().getResource(link + "FlamePowerup.png")));
+		    imageMap.put("IMG_SPEEDPOWERUP", ImageIO.read(getClass().getResource(link + "SpeedPowerup.png")));
 			//Bomb and Explosion
-			imageMap.put("IMG_BOMB", ImageIO.read(	new File(link + "Bomb.png")));
-			imageMap.put("IMG_EXPLOSION", ImageIO.read(	new File(link + "Explosion.png")));
+			imageMap.put("IMG_BOMB", ImageIO.read(getClass().getResource(link + "Bomb.png")));
+			imageMap.put("IMG_EXPLOSION", ImageIO.read(getClass().getResource(link + "Explosion.png")));
 		    //JBombermans
-			imageMap.put("IMG_BMANBLACK", ImageIO.read(	new File(link + "BmanBlack.png")));
-			imageMap.put("IMG_BMANBLUE", ImageIO.read(	new File(link + "BmanBlue.png")));
-			imageMap.put("IMG_BMANWHITE", ImageIO.read(	new File(link + "BmanWhite.png")));
-			imageMap.put("IMG_BMANRED", ImageIO.read(	new File(link + "BmanRed.png")));
+			imageMap.put("IMG_BMANBLACK", ImageIO.read(getClass().getResource(link + "BmanBlack.png")));
+			imageMap.put("IMG_BMANBLUE", ImageIO.read(getClass().getResource(link + "BmanBlue.png")));
+			imageMap.put("IMG_BMANWHITE", ImageIO.read(getClass().getResource(link + "BmanWhite.png")));
+			imageMap.put("IMG_BMANRED", ImageIO.read(getClass().getResource(link + "BmanRed.png")));
+			//JBombermans Profilepics
+			imageMap.put("IMG_BMANPROFRED", ImageIO.read(getClass().getResource(link + "BmanProfileRed.png")));
+			imageMap.put("IMG_BMANPROFBLUE", ImageIO.read(getClass().getResource(link + "BmanProfileBlue.png")));
+			imageMap.put("IMG_BMANPROFWHITE", ImageIO.read(getClass().getResource(link + "BmanProfileWhite.png")));
+			imageMap.put("IMG_BMANPROFBLACK", ImageIO.read(getClass().getResource(link + "BmanProfileBlack.png")));
 		} catch(IOException e) {
 			System.out.println("Error: Could not load images");
 			e.printStackTrace();

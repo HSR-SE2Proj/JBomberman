@@ -36,7 +36,7 @@ public class ClientController extends Observable {
 	
 	//Achtung GUI-Thread
 	public void startGame() {
-		t.stop();		
+		//t.stop();		
  		ClientGame game = new ClientGame(network, party);
  		Timer timer = new Timer(1000/30, game);
  		Keyboard keyboard = new Keyboard(playerId, network);
