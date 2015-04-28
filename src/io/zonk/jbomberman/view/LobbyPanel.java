@@ -33,6 +33,7 @@ public class LobbyPanel extends JPanel implements Observer {
 	private ClientController cc;
 	HashMap<Integer, Boolean> states = new HashMap<>();
 	private String server = "";
+	private JButton btnReady;
 
 	private JLabel lblPl1Name = new JLabel("");
 	private JLabel lblPl2Name = new JLabel("");
@@ -209,7 +210,7 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl2Stat.gridy = 8;
 		add(lblPl2Stat, gbc_lblPl2Stat);
 		
-		JButton btnReady = new JButton("I'm ready");
+		btnReady = new JButton("I'm ready");
 		GridBagConstraints gbc_btnReady = new GridBagConstraints();
 		gbc_btnReady.insets = new Insets(0, 0, 5, 5);
 		gbc_btnReady.gridx = 1;
@@ -277,7 +278,7 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl4Stat.gridx = 9;
 		gbc_lblPl4Stat.gridy = 14;
 		add(lblPl4Stat, gbc_lblPl4Stat);
-		
+
 
 		btnDisconnect.addActionListener(new ActionListener() {
 			
@@ -337,5 +338,9 @@ public class LobbyPanel extends JPanel implements Observer {
 	public void update(Observable arg0, Object arg1) {
 			updatePanel();
 			repaint();
+	}
+	
+	public JButton getDefaultButton() {
+		return btnReady;
 	}
 }

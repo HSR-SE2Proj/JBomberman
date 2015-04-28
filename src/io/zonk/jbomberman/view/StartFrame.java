@@ -28,6 +28,7 @@ public class StartFrame extends JFrame implements Observer{
 		add(cp);		
 
 		setLocationRelativeTo(null);
+		getRootPane().setDefaultButton(cp.getDefaultButton());
 
 		pack();
 		setResizable(false);
@@ -49,14 +50,24 @@ public class StartFrame extends JFrame implements Observer{
 			switch (cc.getConnState()) {
 			case CONNECT:
 				switchPanel(lp, cp);
+				getRootPane().setDefaultButton(cp.getDefaultButton());
 				break;
 			case LOBBY:
 				lp = new LobbyPanel(cc);
 				switchPanel(cp, lp);
+				getRootPane().setDefaultButton(lp.getDefaultButton());
 				break;
-			
+				
 			case SERVER_FULL:
 				JOptionPane.showMessageDialog(this, "Could not connect: Server full", "Connection error", JOptionPane.ERROR_MESSAGE);
+				break;
+				
+			case GAME_STARTED:
+				this.setVisible(false);
+				break;
+				
+			case GAME_FINISHED:
+				this.setVisible(true);
 				break;
 				
 			default:
