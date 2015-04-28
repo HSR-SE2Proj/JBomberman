@@ -1,6 +1,8 @@
 package io.zonk.jbomberman.game.server;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionQueue;
+import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.utils.Position;
@@ -16,11 +18,11 @@ public class GBomb extends GameObject {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(ActionQueue queue) {
 		if(System.currentTimeMillis() - placed >= FUSE_TIME) {
-			//Bombe zünden
+			queue.put(new Action(ActionType.DESTROY_BOMB, new Object[]{id}));
 		}
-		
+
 	}
 
 	@Override

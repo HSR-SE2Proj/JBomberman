@@ -1,6 +1,7 @@
 package io.zonk.jbomberman.game.server;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.utils.Position;
@@ -12,7 +13,7 @@ public class GExplosion extends GameObject {
 	}
 
 	@Override
-	public void tick() {
+	public void tick(ActionQueue queue) {
 		// TODO Auto-generated method stub
 		
 	}

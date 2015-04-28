@@ -22,8 +22,12 @@ public class GameObjectManager {
 		return objectId.get(id);
 	}
 	
-	public List<GameObject> getByType(GameObjectType type) {
-		return objectType.get(type);
+	public List<GameObject> getByType(GameObjectType... type) {
+		List<GameObject> list = new ArrayList<>();
+		for(GameObjectType t : type) {
+			list.addAll(objectType.get(t));
+		}
+		return list;
 	}
 	
 	public void add(GameObject object) {

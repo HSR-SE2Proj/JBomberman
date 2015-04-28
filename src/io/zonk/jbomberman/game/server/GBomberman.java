@@ -3,34 +3,30 @@ package io.zonk.jbomberman.game.server;
 import java.awt.event.KeyEvent;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.game.client.SpriteManager;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.utils.ActionSerializer;
+import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
 
 public class GBomberman extends GameObject {
 	
 	private boolean w, a, s, d, enter;
-	private int speed = 4;
+	private int speed = 8;
 	private boolean updatePosition;
 	
-	private Position newPosition;
-
 	public GBomberman(Position position, int id) {
 		super(position, id, GameObjectType.BOMBERMAN);
-		newPosition = position.clone();
 	}
 	
-	
-
-	
-	public void tick(GameObjectManager manager) {
+	public void tick(GameObjectManager manager, ActionQueue queue) {
 		if(w) {
 			Position oldPosition = position.clone();
 			position.decrementY(speed);
-			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK)) {
+			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
 					position = oldPosition;
 				}
@@ -41,7 +37,7 @@ public class GBomberman extends GameObject {
 		if(a) {
 			Position oldPosition = position.clone();
 			position.decrementX(speed);
-			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK)) {
+			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
 					position = oldPosition;
 				}
@@ -51,7 +47,7 @@ public class GBomberman extends GameObject {
 		if(s) {
 			Position oldPosition = position.clone();
 			position.incrementY(speed);
-			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK)) {
+			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
 					position = oldPosition;
 				}
@@ -61,7 +57,7 @@ public class GBomberman extends GameObject {
 		if(d) {
 			Position oldPosition = position.clone();
 			position.incrementX(speed);
-			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK)) {
+			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
 					position = oldPosition;
 				}
@@ -69,7 +65,9 @@ public class GBomberman extends GameObject {
 			updatePosition = true;
 		}
 		if(enter) {
-			//place bomb
+			Position pos = new Position(position.getX()/64*64, position.getY()/64*64);
+			Action action = new Action(ActionType.CREATE_BOMB, new Object[]{pos, IDGenerator.getId()});
+			queue.put(action);
 		}
 		
 	}
@@ -115,29 +113,7 @@ public class GBomberman extends GameObject {
 	}
 
 	@Override
-	public boolean checkCollisionWith(GameObject object) {
-		
-		
-		
-		if(	position.getX() < object.getPosition().getX() + 64 &&
-			position.getX() + 64 > object.getPosition().getX() &&
-			position.getY() < object.getPosition().getY() + 64 &&
-			64 + position.getY() > object.getPosition().getY()) {
-			return true;
-		} else {
-			return false;
-		}
-			
-		
-			
-		
-		
-		
-	}
-
-
-	@Override
-	public void tick() {
+	public void tick(ActionQueue queue) {
 		// TODO Auto-generated method stub
 		
 	}

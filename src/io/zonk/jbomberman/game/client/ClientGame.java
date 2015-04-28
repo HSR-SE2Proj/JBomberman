@@ -67,6 +67,12 @@ public class ClientGame extends Observable
 					break;
 				case CREATE_BOMBERMAN:
 					manager.add(new SBomberman((Position)action.getProperty(0), (int)action.getProperty(1)));
+					break;
+				case CREATE_BOMB:
+					manager.add(new SBomb((Position)action.getProperty(0), (int)action.getProperty(1)));
+					break;
+				case DESTROY_BOMB:
+					manager.remove((int)action.getProperty(0));
 				default:
 					break;
 				}

@@ -7,9 +7,10 @@ import java.awt.Dimension;
 
 public class SBomb extends Sprite {
 
-	public SBomb(Position position, int id, Dimension size) {
-		super(position, id, "IMG_BOMB", size, 4);
-		//imgName = "IMG_BOMB";
+	public SBomb(Position position, int id) {
+		super(position, id, "IMG_BOMB", new Dimension(64, 64), 4);
+		frameCnt = 3;
+		
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class SBomb extends Sprite {
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
+		super.tick();
 		
 	}
 

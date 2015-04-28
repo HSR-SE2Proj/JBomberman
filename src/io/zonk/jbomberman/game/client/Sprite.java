@@ -17,6 +17,9 @@ public abstract class Sprite {
 	protected Dimension size;
 	private int layer;
 	
+	private int cnt, frameNr;
+	protected int frameCnt = 1, frameStep = 5, animState = 0;
+	
 	public Sprite(Position position, int id, String imgName, Dimension size, int layer) {
 		this.position = position;
 		this.id = id;
@@ -26,10 +29,22 @@ public abstract class Sprite {
 	}
 	
 	public abstract void update(Action action);
-	public abstract void tick();
+	
+	public void tick() {
+		if(frameStep != 0) {
+			if(frameStep == cnt) {
+				cnt = 0;
+				frameNr++;
+				if(frameNr > frameCnt -1) {
+					frameNr = 0;
+				}
+			}
+			cnt++;
+		}
+	}
 	
 	public void draw(Graphics g) {
-		g.drawImage(ImageManager.getInstance().get(imgName).getSubimage(0, 0, size.width, size.height), position.getX(), position.getY(), null);
+		g.drawImage(ImageManager.getInstance().get(imgName).getSubimage(frameNr*size.width, animState*size.height, size.width, size.height), position.getX(), position.getY(), null);
 	}
 	
 	public void draw(int[] screen) {

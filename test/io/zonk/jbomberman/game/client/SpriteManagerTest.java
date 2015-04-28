@@ -5,9 +5,9 @@ import org.junit.*;
 public class SpriteManagerTest {
 	
 	private SpriteManager sm;
-	private SBomb bomb1 = new SBomb(null, 0, null);
-	private SBomb bomb2 = new SBomb(null, 10, null);
-	private SBomb bomb3 = new SBomb(null, 999, null);
+	private SBomb bomb1 = new SBomb(null, 0);
+	private SBomb bomb2 = new SBomb(null, 10);
+	private SBomb bomb3 = new SBomb(null, 999);
 	private SDestroyableBlock block1 = new SDestroyableBlock(null, 2);
 	private SDestroyableBlock block2 = new SDestroyableBlock(null, 80);
 	private SDestroyableBlock block3 = new SDestroyableBlock(null, 5);

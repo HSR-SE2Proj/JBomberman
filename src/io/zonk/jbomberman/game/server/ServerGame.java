@@ -70,8 +70,14 @@ public class ServerGame extends Observable implements GameLoop {
 					int id = (int) action.getProperty(0);
 					party.get(id).getBomberman().update(action);
 					break;
-					
-					
+				case CREATE_BOMB:
+					manager.add(new GBomb((Position)action.getProperty(0), (int)action.getProperty(1)));
+					network.sendMessage(ActionSerializer.serialize(action));
+					break;
+				case DESTROY_BOMB:
+					manager.remove((int)action.getProperty(0));
+					network.sendMessage(ActionSerializer.serialize(action));
+					break;
 				default:
 					break;
 				
@@ -80,13 +86,13 @@ public class ServerGame extends Observable implements GameLoop {
 			
 			//Tick all Objects
 			for(GameObject object : manager.getAll()) {
-				object.tick();
+				object.tick(queue);
 			}
 			
 			for(Player player : party.getPlayers().values()) {
 				if(player == null)
 					continue;
-				player.getBomberman().tick(manager);
+				player.getBomberman().tick(manager, queue);
 				
 				
 				
@@ -98,7 +104,7 @@ public class ServerGame extends Observable implements GameLoop {
 	
 	private void initMap() {
 		Random rnd = new Random();
-		Map map = new StandardMap();
+		Map map = new SpecialMap();
 		for(int y = 0; y < 13; ++y)
 			for(int x = 0; x < 13; ++x) {
 				Position position = new Position(x*64, y*64);
