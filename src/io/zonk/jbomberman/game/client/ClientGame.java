@@ -58,11 +58,9 @@ public class ClientGame extends Observable
 				switch(action.getActionType()) {
 				case MOVEMENT:
 					manager.getById((int)action.getProperty(0)).setPosition((Position)action.getProperty(1));
-					System.out.println("movement");
 					break;
 				case CREATE_SOLIDBLOCK:
 					manager.add(new SSolidBlock((Position) action.getProperty(0), (int)action.getProperty(1)));
-					System.out.println("solid");
 					break;
 				case CREATE_DESTROYABLEBLOCK:
 					manager.add(new SDestroyableBlock((Position) action.getProperty(0), (int)action.getProperty(1)));

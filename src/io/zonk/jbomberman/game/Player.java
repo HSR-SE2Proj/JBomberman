@@ -11,7 +11,7 @@ public class Player {
 	public Player(String name, int id) {
 		this.name = name;
 		this.id = id;
-		bman = new GBomberman(null, id); //Position noch irgendwie setzten
+		//bman = new GBomberman(null, id); //Position noch irgendwie setzten
 	}
 
 	public String getName() {

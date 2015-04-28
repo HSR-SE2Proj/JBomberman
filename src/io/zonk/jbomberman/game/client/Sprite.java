@@ -14,7 +14,7 @@ public abstract class Sprite {
 	protected Position position;
 	private int id;
 	protected String imgName;
-	private Dimension size;
+	protected Dimension size;
 	private int layer;
 	
 	public Sprite(Position position, int id, String imgName, Dimension size, int layer) {

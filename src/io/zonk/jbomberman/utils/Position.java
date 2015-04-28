@@ -46,4 +46,8 @@ public class Position implements Serializable {
 	public void decrementX(int delta) {
 		x-=delta;
 	}
+	
+	public Position clone() {
+		return new Position(x, y);
+	}
 }

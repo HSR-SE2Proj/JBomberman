@@ -5,6 +5,7 @@ import io.zonk.jbomberman.game.ActionDispatcher;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.GameLoop;
+import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.network.NetworkFacade;
@@ -30,9 +31,10 @@ public class ServerGame extends Observable implements GameLoop {
 		
 		manager = new GameObjectManager();
 		
+		/*
 		for(Player player : party.getPlayers().values()) {
 			player.setBomberman(new GBomberman(null, player.getId()));//Position
-		}
+		}*/
 		
 		
 		
@@ -81,11 +83,13 @@ public class ServerGame extends Observable implements GameLoop {
 				object.tick();
 			}
 			
-		
 			for(Player player : party.getPlayers().values()) {
 				if(player == null)
 					continue;
-				player.getBomberman().tick();
+				player.getBomberman().tick(manager);
+				
+				
+				
 				player.getBomberman().sendUpdates(network);
 			}
 		//}
@@ -116,12 +120,12 @@ public class ServerGame extends Observable implements GameLoop {
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
 				case '1':
-					party.get(1).getBomberman().setPosition(position);
+					party.get(1).setBomberman(new GBomberman(position, 1));
 					action = new Action(ActionType.CREATE_BOMBERMAN, new Object[]{position, 1});
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
 				case '2':
-					party.get(2).getBomberman().setPosition(position);
+					party.get(2).setBomberman(new GBomberman(position, 2));
 					action = new Action(ActionType.CREATE_BOMBERMAN, new Object[]{position, 2});
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
