@@ -1,12 +1,10 @@
 package io.zonk.jbomberman.game.server;
 
 import java.awt.event.KeyEvent;
-
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.GameObjectType;
-import io.zonk.jbomberman.game.client.SpriteManager;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.IDGenerator;
@@ -17,6 +15,8 @@ public class GBomberman extends GameObject {
 	private boolean w, a, s, d, enter;
 	private int speed = 8;
 	private boolean updatePosition;
+	
+	private int bombPower = 3;
 	
 	public GBomberman(Position position, int id) {
 		super(position, id, GameObjectType.BOMBERMAN);
@@ -31,7 +31,6 @@ public class GBomberman extends GameObject {
 					position = oldPosition;
 				}
 			}
-				
 			updatePosition = true;
 		}
 		if(a) {

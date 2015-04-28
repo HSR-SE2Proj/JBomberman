@@ -35,9 +35,6 @@ public class GameObjectManagerTest {
 		Assert.assertTrue(om.getByType(bomb1.getType()).contains(bomb1));
 		Assert.assertTrue(om.getByType(bomb2.getType()).contains(bomb2));
 		Assert.assertTrue(om.getByType(bomb3.getType()).contains(bomb3));
-		
-		//invalid type == null
-		Assert.assertTrue(om.getByType(GameObjectType.BOMBERMAN) == null);
 	}
 	
 	@Test
