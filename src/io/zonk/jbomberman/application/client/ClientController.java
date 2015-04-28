@@ -56,10 +56,17 @@ public class ClientController extends Observable {
 		//GameFrame frame = new GameFrame(new GameCanvas(game, keyboard), this, game);
 		//frame.setVisible(true);
  		timer.start();
+ 		
+ 		connectionState = ClientControllerState.GAME_STARTED;
+		setChanged();
+		notifyObservers("connChanged");
 	}
 	
 	public void finishGame() {
-		
+
+ 		connectionState = ClientControllerState.GAME_FINISHED;
+		setChanged();
+		notifyObservers("connChanged");
 	}
 	
 	public void addPlayer(Player player) {

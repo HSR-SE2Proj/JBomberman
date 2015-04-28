@@ -2,7 +2,9 @@ package io.zonk.jbomberman.view;
 
 import io.zonk.jbomberman.application.client.ClientController;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import java.awt.GridBagLayout;
 
@@ -21,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 
 public class ConnectionPanel extends JPanel{
 	private JTextField serverAddress;
+	private JButton btnConnect;
 
 	public ConnectionPanel(ClientController cc) {
 		
@@ -50,13 +53,12 @@ public class ConnectionPanel extends JPanel{
 		add(serverAddress, gbc_serverAddress);
 		serverAddress.setColumns(19);
 		
-		JButton btnConnect = new JButton("Connect");
+		btnConnect = new JButton("Connect");
 		GridBagConstraints gbc_btnConnect = new GridBagConstraints();
 		gbc_btnConnect.insets = new Insets(0, 10, 0, 0);
 		gbc_btnConnect.gridx = 2;
 		gbc_btnConnect.gridy = 2;
 		add(btnConnect, gbc_btnConnect);
-		
 		
 		btnConnect.addActionListener(new ActionListener() {
 			
@@ -65,5 +67,9 @@ public class ConnectionPanel extends JPanel{
 				cc.connectToServer(serverAddress.getText());
 			}
 		});
+	}
+	
+	public JButton getDefaultButton() {
+		return btnConnect;
 	}
 }
