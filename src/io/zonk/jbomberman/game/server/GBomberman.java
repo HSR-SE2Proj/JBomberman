@@ -16,13 +16,19 @@ public class GBomberman extends GameObject {
 	private int speed = 8;
 	private boolean updatePosition;
 	
-	private int bombPower = 3;
+	private int bombPower = 1;
+	private int bombs = 1;
 	
 	public GBomberman(Position position, int id) {
 		super(position, id, GameObjectType.BOMBERMAN);
 	}
 	
 	public void tick(GameObjectManager manager, ActionQueue queue) {
+		
+		
+		
+		
+		
 		if(w) {
 			Position oldPosition = position.clone();
 			position.decrementY(speed);
@@ -64,11 +70,13 @@ public class GBomberman extends GameObject {
 			updatePosition = true;
 		}
 		if(enter) {
-			Position pos = new Position(position.getX()/64*64, position.getY()/64*64);
-			Action action = new Action(ActionType.CREATE_BOMB, new Object[]{pos, IDGenerator.getId()});
-			queue.put(action);
+			if(bombs > 0) {
+				Position pos = new Position(position.getX()/64*64, position.getY()/64*64);
+				Action action = new Action(ActionType.CREATE_BOMB, new Object[]{pos, IDGenerator.getId(), bombPower, id});
+				queue.put(action);
+				bombs--;
+			}
 		}
-		
 	}
 
 	@Override
@@ -112,9 +120,13 @@ public class GBomberman extends GameObject {
 	}
 
 	@Override
-	public void tick(ActionQueue queue) {
+	public void tick(ActionQueue queue, GameObjectManager manager) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void addBomb() {
+		bombs++;
 	}
 
 }

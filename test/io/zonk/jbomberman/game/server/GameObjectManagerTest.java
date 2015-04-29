@@ -7,9 +7,9 @@ import org.junit.*;
 public class GameObjectManagerTest {
 	
 	private GameObjectManager om;
-	private GBomb bomb1 = new GBomb(null, 0);
-	private GBomb bomb2 = new GBomb(null, 100);
-	private GBomb bomb3 = new GBomb(null, 123);
+	private GBomb bomb1 = new GBomb(null, 0, 1, 0);
+	private GBomb bomb2 = new GBomb(null, 100, 1, 0);
+	private GBomb bomb3 = new GBomb(null, 123, 1, 0);
 	
 	@Before
 	public void init() {

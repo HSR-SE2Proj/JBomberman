@@ -62,19 +62,49 @@ public class ServerGame extends Observable implements GameLoop {
 			while(!queue.isEmpty()) {
 				Action action = queue.take();
 				switch(action.getActionType()) {
-				
-				/*
-				 * 
-				 */
+
 				case PLAYER_INPUT:
 					int id = (int) action.getProperty(0);
 					party.get(id).getBomberman().update(action);
 					break;
+					
 				case CREATE_BOMB:
-					manager.add(new GBomb((Position)action.getProperty(0), (int)action.getProperty(1)));
+					manager.add(new GBomb((Position)action.getProperty(0), 
+							(int)action.getProperty(1), 
+							(int)action.getProperty(2), 
+							(int)action.getProperty(3)));
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
+					
 				case DESTROY_BOMB:
+					manager.remove((int)action.getProperty(0));
+					network.sendMessage(ActionSerializer.serialize(action));
+					break;
+					
+				case CREATE_EXPLOSION:
+					GExplosion explosion = new GExplosion((Position)action.getProperty(0), 				
+							(int)action.getProperty(1), 						
+							(int)action.getProperty(2), 						
+							(GExplosion.Direction)action.getProperty(3));
+					boolean collision = false;
+					for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
+						if(explosion.checkCollisionWith(object)) {
+							if(object instanceof GDestroyableBlock) {
+								explosion.setPower(0);
+							} 
+							if(object instanceof GSolidBlock) {
+								collision = true;
+							}
+							break;
+						}
+					}
+					if(!collision) {
+						manager.add(explosion);
+						network.sendMessage(ActionSerializer.serialize(action));
+					}
+					break;
+					
+				case DESTROY:
 					manager.remove((int)action.getProperty(0));
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
@@ -86,7 +116,7 @@ public class ServerGame extends Observable implements GameLoop {
 			
 			//Tick all Objects
 			for(GameObject object : manager.getAll()) {
-				object.tick(queue);
+				object.tick(queue, manager);
 			}
 			
 			for(Player player : party.getPlayers().values()) {

@@ -6,9 +6,9 @@ import java.awt.Dimension;
 
 public class SExplosion extends Sprite {
 
-	public SExplosion(Position position, int id, Dimension size) {
-		super(position, id, "IMG_EXPLOSION", size, 7);
-		//imgName = "IMG_EXPLOSION";
+	public SExplosion(Position position, int id) {
+		super(position, id, "IMG_EXPLOSION", new Dimension(64, 64), 7);
+		frameCnt = 5;
 	}
 
 	@Override
@@ -19,8 +19,6 @@ public class SExplosion extends Sprite {
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
-		
+		super.tick();
 	}
-
 }

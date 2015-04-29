@@ -25,7 +25,8 @@ public class GameObjectManager {
 	public List<GameObject> getByType(GameObjectType... type) {
 		List<GameObject> list = new ArrayList<>();
 		for(GameObjectType t : type) {
-			list.addAll(objectType.get(t));
+			if(objectType.get(t) != null)
+				list.addAll(objectType.get(t));
 		}
 		return list;
 	}

@@ -19,9 +19,9 @@ public abstract class GameObject {
 		this.type = type;
 	}
 	
-	public abstract void tick(ActionQueue queue);
+	public abstract void tick(ActionQueue queue, GameObjectManager manager);
 	public abstract void update(Action action);
-	public abstract void sendUpdates(NetworkFacade network);//evtl. hier die NetworkFacade mitgeben
+	public abstract void sendUpdates(NetworkFacade network);
 	
 	public boolean checkCollisionWith(GameObject object) {
 		return	position.getX() < object.getPosition().getX() + 64 &&

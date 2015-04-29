@@ -13,7 +13,7 @@ public class GSolidBlock extends GameObject {
 	}
 
 	@Override
-	public void tick(ActionQueue queue) {
+	public void tick(ActionQueue queue, GameObjectManager manager) {
 		// TODO Auto-generated method stub
 		
 	}
