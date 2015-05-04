@@ -9,7 +9,7 @@ import java.awt.Dimension;
 public class SPowerUp extends Sprite {
 
 	public SPowerUp(Position position, int id, PowerUpType type) {
-		super(position, id, "DEFAULT", new Dimension(32, 32), 6);
+		super(position, id, "DEFAULT", new Dimension(32, 32), 5);
 		position.incrementX(16);
 		position.incrementY(16);
 		switch(type) {

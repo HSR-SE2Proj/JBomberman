@@ -13,7 +13,7 @@ public class SBomberman extends Sprite {
 	private BombermanState state = BombermanState.IDLE_DOWN;
 
 	public SBomberman(Position position, int id) {
-		super(position, id, "IMG_BOMBERMAN", new Dimension(64, 128), 5);
+		super(position, id, "IMG_BOMBERMAN", new Dimension(64, 128), 6);
 		frameStep = 2;
 		if(id == 1)
 			imgName = "IMG_BMAN_BLACK";

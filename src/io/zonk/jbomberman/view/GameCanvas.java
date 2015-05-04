@@ -22,7 +22,7 @@ public class GameCanvas extends Canvas implements Observer {
 	
 	private ClientGame game;
 	private Dimension size;
-	private Keyboard keyboard;
+	//private Keyboard keyboard;
 	
 	private BufferedImage image;
 	public int[] pixels;
@@ -31,7 +31,7 @@ public class GameCanvas extends Canvas implements Observer {
 	
 	public GameCanvas(ClientGame game, Keyboard keyboard) {
 		this.game = game;
-		this.keyboard = keyboard;
+		//this.keyboard = keyboard;
 		game.addObserver(this);
 		size = new Dimension(832, 832);
 		setPreferredSize(size);
@@ -55,9 +55,11 @@ public class GameCanvas extends Canvas implements Observer {
 			return;
 		}
 		
+		
+		/*
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
-		}
+		}*/
 		
 		//game.drawAll(pixels);
 	
@@ -65,8 +67,8 @@ public class GameCanvas extends Canvas implements Observer {
 		
 		Graphics g = bs.getDrawGraphics();
 		//g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		game.drawAll(g);
-		
+		game.drawAll(image.getGraphics());
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		
 		g.dispose();
 		bs.show();
