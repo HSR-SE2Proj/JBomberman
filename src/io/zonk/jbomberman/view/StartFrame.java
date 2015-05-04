@@ -58,8 +58,16 @@ public class StartFrame extends JFrame implements Observer{
 				getRootPane().setDefaultButton(lp.getDefaultButton());
 				break;
 				
-			case SERVER_FULL:
+			case CONN_POP_FULL:
 				JOptionPane.showMessageDialog(this, "Could not connect: Server full", "Connection error", JOptionPane.ERROR_MESSAGE);
+				break;
+			
+			case CONN_POP_LOST:
+				JOptionPane.showMessageDialog(this, "Connection lost", "Connection error", JOptionPane.ERROR_MESSAGE);
+				break;
+				
+			case CONN_POP_DIS:
+				JOptionPane.showMessageDialog(this, "Could not connect: Connection refused", "Connection error", JOptionPane.ERROR_MESSAGE);
 				break;
 				
 			case GAME_STARTED:

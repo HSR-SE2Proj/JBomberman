@@ -19,7 +19,7 @@ import java.util.Observable;
 public class ClientController extends Observable {
 	private String server;
 	private Thread t;
-	private ClientControllerState connectionState = ClientControllerState.CONNECT;
+	private ClientControllerState controllerState = ClientControllerState.CONNECT;
 	
 	HashMap<Integer, Boolean> states;
 	
@@ -57,14 +57,14 @@ public class ClientController extends Observable {
 		//frame.setVisible(true);
  		timer.start();
  		
- 		connectionState = ClientControllerState.GAME_STARTED;
+ 		controllerState = ClientControllerState.GAME_STARTED;
 		setChanged();
 		notifyObservers("connChanged");
 	}
 	
 	public void finishGame() {
 
- 		connectionState = ClientControllerState.GAME_FINISHED;
+ 		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
 		notifyObservers("connChanged");
 	}
@@ -85,33 +85,35 @@ public class ClientController extends Observable {
 			send(prop);
 
 			byte[] recMsg = network.receiveMessage();
-			while(recMsg.length < 1) {
-				recMsg = network.receiveMessage();
-			}
-			Action returnAction = ActionSerializer.deserialize(recMsg);
-			if(((String)returnAction.getProperty(0)).equals("lobbyList")) {
-				states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
-				playerId = (Integer)returnAction.getProperty(2);
-				
-				connectionState = ClientControllerState.LOBBY;
-				setChanged();
-				notifyObservers("connChanged");
+			if(recMsg != null) {
+				while(recMsg.length < 1) {
+					recMsg = network.receiveMessage();
+				}
 
-				startReceiving();
-			} else if(((String)returnAction.getProperty(0)).equals("serverFull")) {
-				connectionState = ClientControllerState.SERVER_FULL;
-				setChanged();
-				notifyObservers("connChanged");
-			}
+				Action returnAction = ActionSerializer.deserialize(recMsg);
+				if(((String)returnAction.getProperty(0)).equals("lobbyList")) {
+					states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
+					playerId = (Integer)returnAction.getProperty(2);
+					
+					controllerState = ClientControllerState.LOBBY;
+					setChanged();
+					notifyObservers("connChanged");
+
+					startReceiving();
+				} else if(((String)returnAction.getProperty(0)).equals("serverFull")) {
+					controllerState = ClientControllerState.CONN_POP_FULL;
+					setChanged();
+					notifyObservers("connChanged");
+				}
+			};
 		}
 	}
-
 
 	public void disconnect() {
 		Object[] prop = {"disconnect", playerId};
 		send(prop);
 		network.close();
-		connectionState = ClientControllerState.CONNECT;
+		controllerState = ClientControllerState.CONNECT;
 		setChanged();
 		notifyObservers("connChanged");
 	}
@@ -126,7 +128,7 @@ public class ClientController extends Observable {
 	}
 	
 	public ClientControllerState getConnState() {
-		return connectionState;
+		return controllerState;
 	}
 	
 	public HashMap<Integer, Boolean> getStates() {
