@@ -8,6 +8,7 @@ import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
+import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
@@ -76,6 +77,11 @@ public class ServerGame extends Observable implements GameLoop {
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
 					
+				case CREATE_POWERUP:
+					manager.add(new GPowerUp((Position)action.getProperty(0),(int)action.getProperty(1), (PowerUpType)action.getProperty(2)));
+					network.sendMessage(ActionSerializer.serialize(action));
+					break;
+					
 				case DESTROY_BOMB:
 					manager.remove((int)action.getProperty(0));
 					network.sendMessage(ActionSerializer.serialize(action));
@@ -134,7 +140,7 @@ public class ServerGame extends Observable implements GameLoop {
 	
 	private void initMap() {
 		Random rnd = new Random();
-		Map map = new SpecialMap();
+		Map map = new StandardMap();
 		for(int y = 0; y < 13; ++y)
 			for(int x = 0; x < 13; ++x) {
 				Position position = new Position(x*64, y*64);

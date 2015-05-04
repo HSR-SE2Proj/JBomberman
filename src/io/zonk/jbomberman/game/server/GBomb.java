@@ -88,11 +88,4 @@ public class GBomb extends GameObject {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public boolean checkCollisionWith(GameObject object) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

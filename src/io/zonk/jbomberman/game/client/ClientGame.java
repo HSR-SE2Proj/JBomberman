@@ -3,8 +3,10 @@ package io.zonk.jbomberman.game.client;
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionDispatcher;
 import io.zonk.jbomberman.game.ActionQueue;
+import io.zonk.jbomberman.game.BombermanState;
 import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.Party;
+import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
@@ -57,7 +59,9 @@ public class ClientGame extends Observable
 				Action action = queue.take();
 				switch(action.getActionType()) {
 				case MOVEMENT:
-					manager.getById((int)action.getProperty(0)).setPosition((Position)action.getProperty(1));
+					SBomberman bman = (SBomberman)manager.getById((int)action.getProperty(0));
+					bman.setPosition((Position)action.getProperty(1));
+					bman.setState((BombermanState)action.getProperty(2));
 					break;
 				case CREATE_SOLIDBLOCK:
 					manager.add(new SSolidBlock((Position) action.getProperty(0), (int)action.getProperty(1)));
@@ -76,6 +80,9 @@ public class ClientGame extends Observable
 					break;
 				case CREATE_EXPLOSION:
 					manager.add(new SExplosion((Position)action.getProperty(0), (int)action.getProperty(1)));
+					break;
+				case CREATE_POWERUP:
+					manager.add(new SPowerUp((Position)action.getProperty(0), (int)action.getProperty(1), (PowerUpType)action.getProperty(2)));
 					break;
 				case DESTROY:
 					manager.remove((int)action.getProperty(0));

@@ -1,15 +1,30 @@
 package io.zonk.jbomberman.game.client;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.utils.Position;
 
 import java.awt.Dimension;
 
-public abstract class SPowerUp extends Sprite {
+public class SPowerUp extends Sprite {
 
-	public SPowerUp(Position position, int id, String imgName, 
-			Dimension size) {
-		super(position, id, imgName, size, 6);
+	public SPowerUp(Position position, int id, PowerUpType type) {
+		super(position, id, "DEFAULT", new Dimension(32, 32), 6);
+		position.incrementX(16);
+		position.incrementY(16);
+		switch(type) {
+		case BOMB:
+			imgName = "IMG_BOMBPOWERUP";
+			break;
+		case POWER:
+			imgName = "IMG_FLAMEPOWERUP";
+			break;
+		case SPEED:
+			imgName = "IMG_SPEEDPOWERUP";
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

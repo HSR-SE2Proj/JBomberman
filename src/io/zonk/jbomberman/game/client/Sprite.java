@@ -17,8 +17,8 @@ public abstract class Sprite {
 	protected Dimension size;
 	private int layer;
 	
-	private int cnt, frameNr;
-	protected int frameCnt = 1, frameStep = 5, animState = 0;
+	private int cnt;
+	protected int frameCnt = 1, frameStep = 5, animState = 0, frameNr;
 	
 	public Sprite(Position position, int id, String imgName, Dimension size, int layer) {
 		this.position = position;
