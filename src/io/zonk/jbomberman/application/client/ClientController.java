@@ -21,12 +21,14 @@ public class ClientController extends Observable {
 	private Thread t;
 	private ClientControllerState controllerState = ClientControllerState.CONNECT;
 	
+	private final int CONNECT_TIMEOUT = 5000;
+	
 	HashMap<Integer, Boolean> states;
 	
 	// Player this instance is associated with [PlayerName, ID, state]
 	int playerId = 0;
 	
-	private NetworkFacade network;
+	private ClientNetwork network;
 	private Party party;
 	
 	public ClientController() {
@@ -84,7 +86,7 @@ public class ClientController extends Observable {
 			Object[] prop = {"connect"};
 			send(prop);
 
-			byte[] recMsg = network.receiveMessage();
+			byte[] recMsg = network.receiveMessage(CONNECT_TIMEOUT);
 			if(recMsg != null) {
 				while(recMsg.length < 1) {
 					recMsg = network.receiveMessage();
@@ -105,7 +107,11 @@ public class ClientController extends Observable {
 					setChanged();
 					notifyObservers("connChanged");
 				}
-			};
+			} else {
+				controllerState = ClientControllerState.CONN_POP_NF;
+				setChanged();
+				notifyObservers("connChanged");
+			}
 		}
 	}
 

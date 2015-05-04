@@ -66,8 +66,8 @@ public class StartFrame extends JFrame implements Observer{
 				JOptionPane.showMessageDialog(this, "Connection lost", "Connection error", JOptionPane.ERROR_MESSAGE);
 				break;
 				
-			case CONN_POP_DIS:
-				JOptionPane.showMessageDialog(this, "Could not connect: Connection refused", "Connection error", JOptionPane.ERROR_MESSAGE);
+			case CONN_POP_NF:
+				JOptionPane.showMessageDialog(this, "Could not connect: Server not found", "Connection error", JOptionPane.ERROR_MESSAGE);
 				break;
 				
 			case GAME_STARTED:

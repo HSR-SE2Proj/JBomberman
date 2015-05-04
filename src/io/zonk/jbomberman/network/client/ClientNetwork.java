@@ -11,11 +11,11 @@ import com.rabbitmq.client.ShutdownSignalException;
 
 public class ClientNetwork implements NetworkFacade {
 
-	private static final int CONNECT_TIMEOUT = 5000;
 	private Connection connection;
 	private ClientSender sender;
 	private ClientReceiver receiver;
 	
+	private Thread currThread;
 	private byte[] recMsg;
 
 	@Override
@@ -62,24 +62,39 @@ public class ClientNetwork implements NetworkFacade {
 	@Override
 	public byte[] receiveMessage() {
 		try {
-			recMsg = null;
-			Thread t = new Thread(() -> {
-				try {
-					recMsg = receiver.receive();
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-				}
-			});
+			return receiver.receive();
+		} catch (ShutdownSignalException | ConsumerCancelledException
+				| InterruptedException e) {
+			System.err.println("Error: Could not receive message");
+			e.printStackTrace();
+			assert false;
+			return null;
+		}
+	}
 
-			Object monitoredObject = new Object();
-			synchronized (monitoredObject) {
-				try {
-					monitoredObject.notifyAll();
-					monitoredObject.wait(CONNECT_TIMEOUT);
-				} catch (InterruptedException e) {
+	public byte[] receiveMessage(int timeout) {
+		try {
+			recMsg = null;
+
+			currThread = Thread.currentThread();
+			new Thread(() -> {
+				Object monitoredObject = new Object();
+				synchronized (monitoredObject) {
+					try {
+						monitoredObject.notifyAll();
+						monitoredObject.wait(timeout);
+						if (recMsg == null) currThread.interrupt();
+					} catch (InterruptedException e) {
+					}
 				}
+			}).start();
+			
+			try {
+				recMsg = receiver.receive();
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
 			}
-			t.interrupt();
+
 			return recMsg;
 		} catch (ShutdownSignalException | ConsumerCancelledException e) {
 			System.err.println("Error: Could not receive message");
