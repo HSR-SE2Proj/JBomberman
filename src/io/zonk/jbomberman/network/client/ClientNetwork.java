@@ -11,9 +11,12 @@ import com.rabbitmq.client.ShutdownSignalException;
 
 public class ClientNetwork implements NetworkFacade {
 
+	private static final int CONNECT_TIMEOUT = 5000;
 	private Connection connection;
 	private ClientSender sender;
 	private ClientReceiver receiver;
+	
+	private byte[] recMsg;
 
 	@Override
 	public void connect(String hostname) {
@@ -59,9 +62,26 @@ public class ClientNetwork implements NetworkFacade {
 	@Override
 	public byte[] receiveMessage() {
 		try {
-			return receiver.receive();
-		} catch (ShutdownSignalException | ConsumerCancelledException
-				| InterruptedException e) {
+			recMsg = null;
+			Thread t = new Thread(() -> {
+				try {
+					recMsg = receiver.receive();
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			});
+
+			Object monitoredObject = new Object();
+			synchronized (monitoredObject) {
+				try {
+					monitoredObject.notifyAll();
+					monitoredObject.wait(CONNECT_TIMEOUT);
+				} catch (InterruptedException e) {
+				}
+			}
+			t.interrupt();
+			return recMsg;
+		} catch (ShutdownSignalException | ConsumerCancelledException e) {
 			System.err.println("Error: Could not receive message");
 			e.printStackTrace();
 			assert false;
