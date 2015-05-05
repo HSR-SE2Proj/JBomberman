@@ -24,6 +24,13 @@ public class StartFrame extends JFrame implements Observer{
 		
 		setTitle("JBomberman");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        if(cc.getConnState() == ClientControllerState.LOBBY) cc.disconnect();
+		        System.exit(0);
+		    }
+		});
 
 		add(cp);		
 
