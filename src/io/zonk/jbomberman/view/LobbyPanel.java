@@ -61,6 +61,7 @@ public class LobbyPanel extends JPanel implements Observer {
 	private JLabel[] lblPlName = {lblPl1Name, lblPl2Name, lblPl3Name, lblPl4Name};
 	private JLabel[] lblPlStat = {lblPl1Stat, lblPl2Stat, lblPl3Stat, lblPl4Stat};
 	private JLabel[] lblPlImg = {lblPl1Img, lblPl2Img, lblPl3Img, lblPl4Img};
+	private final JLabel lblCountdown = new JLabel("");
 	
 	public LobbyPanel(ClientController cc){
 		this.cc = cc;
@@ -116,7 +117,7 @@ public class LobbyPanel extends JPanel implements Observer {
 		JLabel lblPlayers = new JLabel("Players");
 		lblPlayers.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblPlayers = new GridBagConstraints();
-		gbc_lblPlayers.anchor = GridBagConstraints.EAST;
+		gbc_lblPlayers.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_lblPlayers.insets = new Insets(20, 0, 10, 5);
 		gbc_lblPlayers.gridx = 8;
 		gbc_lblPlayers.gridy = 3;
@@ -133,6 +134,13 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_vSep.gridx = 3;
 		gbc_vSep.gridy = 3;
 		add(vSep, gbc_vSep);
+		
+		GridBagConstraints gbc_lblCountdown = new GridBagConstraints();
+		gbc_lblCountdown.anchor = GridBagConstraints.SOUTH;
+		gbc_lblCountdown.insets = new Insets(0, 0, 11, 0);
+		gbc_lblCountdown.gridx = 9;
+		gbc_lblCountdown.gridy = 3;
+		add(lblCountdown, gbc_lblCountdown);
 		
 		GridBagConstraints gbc_lblMeImg = new GridBagConstraints();
 		gbc_lblMeImg.gridheight = 3;
@@ -331,6 +339,13 @@ public class LobbyPanel extends JPanel implements Observer {
 			}
 			
 			if(id == playerId) lblMeImg.setIcon(bmanProfile[i]);
+		}
+		
+		int c = cc.getCountdown();
+		if(c < 10) {
+			lblCountdown.setText("Start in 00:0" + c);
+		} else {
+			lblCountdown.setText("");
 		}
 	}
 

@@ -23,6 +23,9 @@ import javax.swing.plaf.SliderUI;
 public class ServerController implements Observer {
 
 	private final int READY_THRESHOLD = 2;
+	private final int COUNTDOWN_TIME = 10;
+	private int countdown = 10;
+	private int readyCount = 0;
 	
 	//state???
 	private ServerGame game;
@@ -61,9 +64,9 @@ public class ServerController implements Observer {
 	}
 	
 	public void waitForPlayers() {
-		int readyCount = 0;
+		boolean countStarted = false;
 		HashMap<Integer, Boolean> playerStates = new HashMap<>();
-		while (readyCount < READY_THRESHOLD) {
+		while (readyCount < READY_THRESHOLD || countdown > 0) {
 			Action receivedAction = ActionSerializer.deserialize(network.receiveMessage());
 			if(receivedAction.getActionType().equals(ActionType.LOBBY_COMMUNICATION)) {
 				switch ((String)receivedAction.getProperty(0)) {
@@ -80,9 +83,13 @@ public class ServerController implements Observer {
 
 					Object[] prop = {"lobbyList", playerStates, p.getId()};
 					sendLobbyUpdate(prop);
+
+					Object[] c = {"countUpdate", countdown};
+					sendLobbyUpdate(c);
 					break;
 					
 				case "updateState":
+					countdown = COUNTDOWN_TIME;
 					int playerId = (Integer)receivedAction.getProperty(1);
 					Boolean playerState = (Boolean)receivedAction.getProperty(2);
 					
@@ -90,12 +97,33 @@ public class ServerController implements Observer {
 					updateStates(playerStates);
 					if(playerState) {
 						readyCount++;
+						if(readyCount >= READY_THRESHOLD && !countStarted) {
+							countStarted = true;
+							new Thread(() -> {
+								Object monitoredObject = new Object();
+								synchronized (monitoredObject) {
+									try {
+										while(countdown > 0) {
+											monitoredObject.notifyAll();
+											monitoredObject.wait(1000);
+											if(readyCount >= READY_THRESHOLD) countdown--;
+											Object[] c2 = {"countUpdate", countdown};
+											sendLobbyUpdate(c2);
+										}
+									} catch (InterruptedException e) {
+									}
+								}
+								startGame(party);
+							}).start();
+						}
 					} else {
 						readyCount--;
 					}
 					break;
 					
 				case "disconnect":
+					countdown = COUNTDOWN_TIME;
+					readyCount--;
 					int id = (Integer)receivedAction.getProperty(1);
 					party.remove(party.get(id));
 					playerStates.remove(id);
@@ -107,7 +135,6 @@ public class ServerController implements Observer {
 				}
 			}
 		}
-		startGame(party);
 	}
 
 	private void sendLobbyUpdate(Object[] prop) {

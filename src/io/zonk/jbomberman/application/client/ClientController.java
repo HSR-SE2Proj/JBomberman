@@ -22,6 +22,7 @@ public class ClientController extends Observable {
 	private ClientControllerState controllerState = ClientControllerState.CONNECT;
 	
 	private final int CONNECT_TIMEOUT = 5000;
+	private int countdown = 0;
 	
 	HashMap<Integer, Boolean> states;
 	
@@ -157,6 +158,12 @@ public class ClientController extends Observable {
 				notifyObservers();
 			}
 			
+			if(s.equals("countUpdate")) {
+				countdown = (Integer)returnAction.getProperty(1);
+				setChanged();
+				notifyObservers();
+			}
+			
 			if(s.equals("startGame")) {
 				String[][] sParty = (String[][])returnAction.getProperty(1);
 				for(String[] p : sParty) {
@@ -179,5 +186,9 @@ public class ClientController extends Observable {
 	private void send(Object[] prop) {
 		Action connAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
 		network.sendMessage(ActionSerializer.serialize(connAction));
+	}
+	
+	public int getCountdown() {
+		return countdown;
 	}
 }
