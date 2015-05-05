@@ -1,24 +1,17 @@
 package io.zonk.jbomberman.application.server;
 
 import io.zonk.jbomberman.game.Action;
-import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
-import io.zonk.jbomberman.game.server.GameObjectManager;
 import io.zonk.jbomberman.game.server.ServerGame;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.server.ServerNetwork;
 import io.zonk.jbomberman.utils.ActionSerializer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
-
-import javax.swing.plaf.SliderUI;
 
 public class ServerController implements Observer {
 
@@ -71,17 +64,15 @@ public class ServerController implements Observer {
 			if(receivedAction.getActionType().equals(ActionType.LOBBY_COMMUNICATION)) {
 				switch ((String)receivedAction.getProperty(0)) {
 				case "connect":
-					int pid = getNextId();
+					int pid = getNextId(playerStates);
 					if(pid == 0) {
 						Object[] prop = {"serverFull"};
 						sendLobbyUpdate(prop);
 						break;
 					}
-					Player p = new Player("Player" + pid, pid);
-					party.add(p);
-					playerStates.put(p.getId(), false);
+					playerStates.put(pid, false);
 
-					Object[] prop = {"lobbyList", playerStates, p.getId()};
+					Object[] prop = {"lobbyList", playerStates, pid};
 					sendLobbyUpdate(prop);
 
 					Object[] c = {"countUpdate", countdown};
@@ -89,43 +80,29 @@ public class ServerController implements Observer {
 					break;
 					
 				case "updateState":
-					countdown = COUNTDOWN_TIME;
 					int playerId = (Integer)receivedAction.getProperty(1);
 					Boolean playerState = (Boolean)receivedAction.getProperty(2);
 					
 					playerStates.put(playerId, playerState);
 					updateStates(playerStates);
 					if(playerState) {
+						Player p = new Player("Player" + playerId, playerId);
+						party.add(p);
 						readyCount++;
 						if(readyCount >= READY_THRESHOLD && !countStarted) {
 							countStarted = true;
-							new Thread(() -> {
-								Object monitoredObject = new Object();
-								synchronized (monitoredObject) {
-									try {
-										while(countdown > 0) {
-											monitoredObject.notifyAll();
-											monitoredObject.wait(1000);
-											if(readyCount >= READY_THRESHOLD) countdown--;
-											Object[] c2 = {"countUpdate", countdown};
-											sendLobbyUpdate(c2);
-										}
-									} catch (InterruptedException e) {
-									}
-								}
-								startGame(party);
-							}).start();
+							startTimer();
 						}
 					} else {
+						party.remove(party.get(playerId));
 						readyCount--;
 					}
 					break;
 					
 				case "disconnect":
-					countdown = COUNTDOWN_TIME;
 					readyCount--;
 					int id = (Integer)receivedAction.getProperty(1);
-					party.remove(party.get(id));
+					if(playerStates.get(id)) party.remove(party.get(id));
 					playerStates.remove(id);
 					updateStates(playerStates);
  					break;
@@ -135,6 +112,29 @@ public class ServerController implements Observer {
 				}
 			}
 		}
+	}
+
+	private void startTimer() {
+		new Thread(() -> {
+			Object monitoredObject = new Object();
+			synchronized (monitoredObject) {
+				try {
+					while(countdown > 0) {
+						monitoredObject.notifyAll();
+						monitoredObject.wait(1000);
+						if(readyCount >= READY_THRESHOLD) {
+							countdown--;
+						} else {
+							countdown = COUNTDOWN_TIME;
+						}
+						Object[] c2 = {"countUpdate", countdown};
+						sendLobbyUpdate(c2);
+					}
+				} catch (InterruptedException e) {
+				}
+			}
+			startGame(party);
+		}).start();
 	}
 
 	private void sendLobbyUpdate(Object[] prop) {
@@ -147,9 +147,9 @@ public class ServerController implements Observer {
 		sendLobbyUpdate(plStates);
  	}
 
-	private int getNextId() {
+	private int getNextId(HashMap<Integer, Boolean> playerStates) {
 		for(int i = 1; i <= 4; i++) {
-			if(!party.getPlayers().containsKey(i)) return i;
+			if(!playerStates.containsKey(i)) return i;
 		}
 		return 0;
 	}
