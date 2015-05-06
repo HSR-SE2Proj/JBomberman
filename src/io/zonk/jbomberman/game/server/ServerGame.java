@@ -162,14 +162,18 @@ public class ServerGame extends Observable implements GameLoop {
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
 				case '1':
+					if (party.get(1) != null) {
 					party.get(1).setBomberman(new GBomberman(position, 1));
 					action = new Action(ActionType.CREATE_BOMBERMAN, new Object[]{position, 1});
 					network.sendMessage(ActionSerializer.serialize(action));
+					}
 					break;
 				case '2':
+					if (party.get(2) != null) {
 					party.get(2).setBomberman(new GBomberman(position, 2));
 					action = new Action(ActionType.CREATE_BOMBERMAN, new Object[]{position, 2});
 					network.sendMessage(ActionSerializer.serialize(action));
+					}
 					break;
 				case '3':
 					if (party.get(3) != null) {
