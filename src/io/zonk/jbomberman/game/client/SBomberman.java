@@ -19,6 +19,10 @@ public class SBomberman extends Sprite {
 			imgName = "IMG_BMAN_BLACK";
 		if(id == 2)
 			imgName = "IMG_BMAN_BLUE";
+		if(id == 3)
+			imgName = "IMG_BMAN_RED";
+		if(id == 4)
+			imgName = "IMG_BMAN_WHITE";
 	}
 	
 	public void setState(BombermanState state) {
