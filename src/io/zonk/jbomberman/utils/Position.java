@@ -2,7 +2,7 @@ package io.zonk.jbomberman.utils;
 
 import java.io.Serializable;
 
-public class Position implements Serializable {
+public class Position implements Serializable,Cloneable {
 	private static final long serialVersionUID = -6439880102819075178L;
 	private int x, y;
 

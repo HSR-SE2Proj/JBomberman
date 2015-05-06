@@ -66,4 +66,9 @@ public class PositionTest {
 		pos.decrementY(3);
 		assertEquals(1,pos.getY());
 	}
+	
+	@Test
+	public void testClone() {
+		assert(pos.equals(pos.clone()));
+	}
 }
