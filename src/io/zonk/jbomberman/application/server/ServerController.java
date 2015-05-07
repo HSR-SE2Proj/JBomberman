@@ -15,12 +15,11 @@ import java.util.Observer;
 
 public class ServerController implements Observer {
 
-	private final int READY_THRESHOLD = 2;
-	private final int COUNTDOWN_TIME = 10;
+	private static final int READY_THRESHOLD = 2;
+	private static final int COUNTDOWN_TIME = 10;
 	private int countdown = 10;
 	private int readyCount = 0;
 	
-	//state???
 	private ServerGame game;
 	private NetworkFacade network;
 	private Party party;
@@ -30,17 +29,16 @@ public class ServerController implements Observer {
 	}
 	
 	public ServerController() {
-		this.game = null;
 		this.network = new ServerNetwork();
 		network.connect("localhost");
 		this.party = new Party();
-//		game.addObserver(this);
 		
 		waitForPlayers();
 	}
 	
 	public void startGame(Party party) {
-		new ServerGame(network, party);
+		game = new ServerGame(network, party);
+		game.addObserver(this);
 		String[][] sParty = new String[4][2];
 		int i = 0;
 		for(Player p : party.getPlayers().values()) {

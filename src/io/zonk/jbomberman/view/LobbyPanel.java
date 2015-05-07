@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -327,18 +328,18 @@ public class LobbyPanel extends JPanel implements Observer {
 		states = tmpStat;
 		int playerId = cc.getPlayerId();
 		
-		for(int id : states.keySet()) {
-			int i = id - 1;
-			lblPlName[i].setText("Player" + id);
+		for(Entry<Integer, Boolean> e : states.entrySet()) {
+			int i = e.getKey() - 1;
+			lblPlName[i].setText("Player" + e.getKey());
 			lblPlImg[i].setIcon(bmanProfile[i]);
 			
-			if(states.get(id)) {
+			if(e.getValue()) {
 				lblPlStat[i].setText("ready");
 			} else {
 				lblPlStat[i].setText("not ready");
 			}
 			
-			if(id == playerId) lblMeImg.setIcon(bmanProfile[i]);
+			if(e.getKey() == playerId) lblMeImg.setIcon(bmanProfile[i]);
 		}
 		
 		int c = cc.getCountdown();

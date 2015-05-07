@@ -6,7 +6,6 @@ import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
-import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
@@ -21,12 +20,12 @@ public class ClientController extends Observable {
 	private Thread t;
 	private ClientControllerState controllerState = ClientControllerState.CONNECT;
 	
-	private final int CONNECT_TIMEOUT = 5000;
+	private static final int CONNECT_TIMEOUT = 5000;
 	private int countdown = 0;
 	
 	HashMap<Integer, Boolean> states;
 	
-	// Player this instance is associated with [PlayerName, ID, state]
+	// Player this instance is associated  with
 	int playerId = 0;
 	
 	private ClientNetwork network;
@@ -39,25 +38,10 @@ public class ClientController extends Observable {
 	
 	//Achtung GUI-Thread
 	public void startGame() {
-		
-		/*
-		System.out.println("interrupt");
-		t.interrupt();
-		try {
-			System.out.println("join");
-			t.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-
  		ClientGame game = new ClientGame(network, party);
  		Timer timer = new Timer(1000/60, game);
  		Keyboard keyboard = new Keyboard(playerId, network);
-		GameCanvas canvas = new GameCanvas(game, keyboard);
-		//GameFrame frame = new GameFrame(new GameCanvas(game, keyboard), this, game);
-		//frame.setVisible(true);
+		new GameCanvas(game, keyboard);
  		timer.start();
  		
  		controllerState = ClientControllerState.GAME_STARTED;
@@ -66,18 +50,9 @@ public class ClientController extends Observable {
 	}
 	
 	public void finishGame() {
-
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
 		notifyObservers("connChanged");
-	}
-	
-	public void addPlayer(Player player) {
-		
-	}
-	
-	public void removePlayer(Player player) {
-		
 	}
 	
 	public void connectToServer(String hostname) {
@@ -114,36 +89,6 @@ public class ClientController extends Observable {
 				notifyObservers("connChanged");
 			}
 		}
-	}
-
-	public void disconnect() {
-		Object[] prop = {"disconnect", playerId};
-		send(prop);
-		network.close();
-		controllerState = ClientControllerState.CONNECT;
-		setChanged();
-		notifyObservers("connChanged");
-	}
-	
-	public void setReady(boolean b) {
-		Object[] prop = {"updateState", playerId, b};
-		send(prop);
-	}
-	
-	public String getServer() {
-		return server;
-	}
-	
-	public ClientControllerState getConnState() {
-		return controllerState;
-	}
-	
-	public HashMap<Integer, Boolean> getStates() {
-		return states;
-	}
-
-	public int getPlayerId() {
-		return playerId;
 	}
 	
 	public void msgReceived(byte[] recMsg) {
@@ -186,6 +131,36 @@ public class ClientController extends Observable {
 	private void send(Object[] prop) {
 		Action connAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
 		network.sendMessage(ActionSerializer.serialize(connAction));
+	}
+
+	public void disconnect() {
+		Object[] prop = {"disconnect", playerId};
+		send(prop);
+		network.close();
+		controllerState = ClientControllerState.CONNECT;
+		setChanged();
+		notifyObservers("connChanged");
+	}
+	
+	public void setReady(boolean b) {
+		Object[] prop = {"updateState", playerId, b};
+		send(prop);
+	}
+	
+	public String getServer() {
+		return server;
+	}
+	
+	public ClientControllerState getConnState() {
+		return controllerState;
+	}
+	
+	public HashMap<Integer, Boolean> getStates() {
+		return states;
+	}
+
+	public int getPlayerId() {
+		return playerId;
 	}
 	
 	public int getCountdown() {
