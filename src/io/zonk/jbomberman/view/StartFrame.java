@@ -1,7 +1,6 @@
 package io.zonk.jbomberman.view;
 
 import io.zonk.jbomberman.application.client.ClientController;
-import io.zonk.jbomberman.network.client.ClientNetwork;
 
 import java.util.Observable;
 import java.util.Observer;

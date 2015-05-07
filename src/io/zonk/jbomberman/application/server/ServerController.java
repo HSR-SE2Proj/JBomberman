@@ -51,7 +51,8 @@ public class ServerController implements Observer {
 	}
 	
 	public void finishGame() {
-		
+		Object[] finish = {"finishGame"};
+		sendLobbyUpdate(finish);
 	}
 	
 	public void waitForPlayers() {

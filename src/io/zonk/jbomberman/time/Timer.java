@@ -6,6 +6,8 @@ public class Timer extends Thread {
 
 	private GameLoop loop;
 	private int millis;
+	
+	public boolean run = true;
 
 	public Timer(int millis, GameLoop loop) {
 		this.loop = loop;
@@ -14,11 +16,8 @@ public class Timer extends Thread {
 
 	@Override
 	public void run() {
-// 		long lastTime = System.currentTimeMillis();
-// 		long now;
-// 		long delta;
 		System.out.println("[*] Timer started");
-		while (true) {
+		while (run) {
 			Object monitoredObject = new Object();
 			synchronized (monitoredObject) {
 				try {
@@ -28,13 +27,6 @@ public class Timer extends Thread {
 				}
 			}
 			loop.loop();
-// 			now = System.currentTimeMillis();
-// 			delta = now - lastTime;
-// 			if(delta >= millis) {
-// 				//System.out.println("Delta: " + (delta - millis));
-// 				loop.loop();
-// 				lastTime = System.currentTimeMillis();
-// 			}
 		}
 	}
 }

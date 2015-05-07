@@ -95,7 +95,7 @@ public class ClientNetwork implements NetworkFacade {
 				Thread.currentThread().interrupt();
 			}
 
-			return recMsg;
+			return recMsg.clone();
 		} catch (ShutdownSignalException | ConsumerCancelledException e) {
 			System.err.println("Error: Could not receive message");
 			e.printStackTrace();

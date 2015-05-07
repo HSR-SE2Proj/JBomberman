@@ -2,9 +2,7 @@ package io.zonk.jbomberman.view;
 
 import io.zonk.jbomberman.application.client.ClientController;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import java.awt.GridBagLayout;
 

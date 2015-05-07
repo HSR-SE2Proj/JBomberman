@@ -94,31 +94,43 @@ public class ClientController extends Observable {
 	public void msgReceived(byte[] recMsg) {
 		Action returnAction = ActionSerializer.deserialize(recMsg);
 		String s = ((String)returnAction.getProperty(0));
-		
+
 		if(s != null){
-			if(s.equals("updateStates") || s.equals("lobbyList")) {
+			switch (s) {
+			case "updateStates":
+			case "lobbyList":
 				states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
 
 				setChanged();
 				notifyObservers();
-			}
-			
-			if(s.equals("countUpdate")) {
+				break;
+	
+			case "countUpdate":
 				countdown = (Integer)returnAction.getProperty(1);
 				setChanged();
 				notifyObservers();
-			}
-			
-			if(s.equals("startGame")) {
+				break;
+	
+			case "finish":
+				
+				break;
+	
+			case "startGame":
 				String[][] sParty = (String[][])returnAction.getProperty(1);
 				for(String[] p : sParty) {
 					if(p[0] != null && p[1] != null) party.add(new Player(p[0], Integer.parseInt(p[1])));
 				}
 				startGame();
-				return;
+				break;
+	
+			default:
+				break;
 			}
+			
+			if(!s.equals("startGame")) startReceiving();
+		} else {
+			startReceiving();
 		}
-		startReceiving();
 	}
 	
 	private void startReceiving() {
