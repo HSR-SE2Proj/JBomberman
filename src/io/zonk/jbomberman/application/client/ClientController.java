@@ -14,8 +14,10 @@ import io.zonk.jbomberman.view.GameCanvas;
 
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Observer;
+import java.util.Random;
 
-public class ClientController extends Observable {
+public class ClientController extends Observable implements Observer  {
 	private String server;
 	private Thread t;
 	private ClientControllerState controllerState = ClientControllerState.CONNECT;
@@ -30,6 +32,8 @@ public class ClientController extends Observable {
 	
 	private ClientNetwork network;
 	private Party party;
+	private Timer timer;
+	private GameCanvas gCanvas;
 	
 	public ClientController() {
 		this.network = new ClientNetwork();
@@ -39,9 +43,10 @@ public class ClientController extends Observable {
 	//Achtung GUI-Thread
 	public void startGame() {
  		ClientGame game = new ClientGame(network, party);
- 		Timer timer = new Timer(1000/60, game);
+ 		game.addObserver(this);
+ 		timer = new Timer(1000/60, game);
  		Keyboard keyboard = new Keyboard(playerId, network);
-		new GameCanvas(game, keyboard);
+ 		gCanvas = new GameCanvas(game, keyboard);
  		timer.start();
  		
  		controllerState = ClientControllerState.GAME_STARTED;
@@ -50,25 +55,53 @@ public class ClientController extends Observable {
 	}
 	
 	public void finishGame() {
+		timer.run = false;
+		gCanvas.dispose();
+		Object monitoredObject = new Object();
+		synchronized (monitoredObject) {
+			try {
+				monitoredObject.notifyAll();
+				monitoredObject.wait(500);
+			} catch (InterruptedException e) {
+			}
+		}
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
 		notifyObservers("connChanged");
+		party = new Party();
+		Object[] prop = {"finished"};
+		send(prop);
+	}
+	
+	private Action receiveLobby(int rand) {
+		byte[] recMsg = network.receiveMessage(CONNECT_TIMEOUT);
+		Action returnAction = ActionSerializer.deserialize(recMsg);
+		int i = 0;
+		while(returnAction == null || (((String)returnAction.getProperty(0)).equals("lobbyList") && 
+				((Integer)returnAction.getProperty(3)) != rand && i < 5)) {
+			Random randomGenerator = new Random();
+	        rand = randomGenerator.nextInt(1000);
+			Object[] prop = {"connect", rand};
+			send(prop);
+			recMsg = network.receiveMessage(CONNECT_TIMEOUT);
+			returnAction = ActionSerializer.deserialize(recMsg);
+			i++;
+		}
+		return returnAction;
 	}
 	
 	public void connectToServer(String hostname) {
 		this.server = hostname;
 		network.connect(hostname);
 		if(network.isOpen()) {
-			Object[] prop = {"connect"};
+			Random randomGenerator = new Random();
+	        int randomInt = randomGenerator.nextInt(1000);
+			Object[] prop = {"connect", randomInt};
 			send(prop);
 
-			byte[] recMsg = network.receiveMessage(CONNECT_TIMEOUT);
-			if(recMsg != null) {
-				while(recMsg.length < 1) {
-					recMsg = network.receiveMessage();
-				}
+			Action returnAction = receiveLobby(randomInt);
+			if(returnAction != null) {
 
-				Action returnAction = ActionSerializer.deserialize(recMsg);
 				if(((String)returnAction.getProperty(0)).equals("lobbyList")) {
 					states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
 					playerId = (Integer)returnAction.getProperty(2);
@@ -109,10 +142,6 @@ public class ClientController extends Observable {
 				countdown = (Integer)returnAction.getProperty(1);
 				setChanged();
 				notifyObservers();
-				break;
-	
-			case "finish":
-				
 				break;
 	
 			case "startGame":
@@ -177,5 +206,10 @@ public class ClientController extends Observable {
 	
 	public int getCountdown() {
 		return countdown;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg != null && ((String)arg).equals("finishGame")) finishGame();
 	}
 }

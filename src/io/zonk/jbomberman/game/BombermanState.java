@@ -8,6 +8,6 @@ public enum BombermanState {
 	IDLE_RIGHT,
 	IDLE_LEFT,
 	IDLE_UP,
-	IDLE_DOWN
-
+	IDLE_DOWN,
+	DEAD
 }

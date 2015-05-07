@@ -7,6 +7,7 @@ import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.server.ServerGame;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.server.ServerNetwork;
+import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class ServerController implements Observer {
 	private ServerGame game;
 	private NetworkFacade network;
 	private Party party;
+	private Timer timer;
 	
 	public static void main(String[] args) {
 		new ServerController();
@@ -39,6 +41,9 @@ public class ServerController implements Observer {
 	public void startGame(Party party) {
 		game = new ServerGame(network, party);
 		game.addObserver(this);
+
+		timer = new Timer(1000/30, game);
+		timer.start();
 		String[][] sParty = new String[4][2];
 		int i = 0;
 		for(Player p : party.getPlayers().values()) {
@@ -51,12 +56,17 @@ public class ServerController implements Observer {
 	}
 	
 	public void finishGame() {
+		timer.run = false;
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);
+		party = new Party();
+		waitForPlayers();
 	}
 	
 	public void waitForPlayers() {
 		boolean countStarted = false;
+		readyCount = 0;
+		countdown = 10;
 		HashMap<Integer, Boolean> playerStates = new HashMap<>();
 		while (readyCount < READY_THRESHOLD || countdown > 0) {
 			Action receivedAction = ActionSerializer.deserialize(network.receiveMessage());
@@ -64,14 +74,14 @@ public class ServerController implements Observer {
 				switch ((String)receivedAction.getProperty(0)) {
 				case "connect":
 					int pid = getNextId(playerStates);
+					playerStates.put(pid, false);
 					if(pid == 0) {
 						Object[] prop = {"serverFull"};
 						sendLobbyUpdate(prop);
 						break;
 					}
-					playerStates.put(pid, false);
 
-					Object[] prop = {"lobbyList", playerStates, pid};
+					Object[] prop = {"lobbyList", playerStates, pid, (Integer)receivedAction.getProperty(1)};
 					sendLobbyUpdate(prop);
 
 					Object[] c = {"countUpdate", countdown};
@@ -155,6 +165,6 @@ public class ServerController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+		if(((String)arg).equals("finishGame")) finishGame();
 	}
 }

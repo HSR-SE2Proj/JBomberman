@@ -77,4 +77,8 @@ public class GameCanvas extends Canvas implements Observer {
 		render();
 		
 	}
+	
+	public void dispose() {
+		frame.dispose();
+	}
 }

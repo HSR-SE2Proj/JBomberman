@@ -40,27 +40,29 @@ public class ActionSerializer {
 	}
 	
 	public static Action deserialize(byte[] data) {
-		ByteArrayInputStream bis = new ByteArrayInputStream(data);
-		ObjectInput in = null;
 		Action a = null;
-		try {
-		  in = new ObjectInputStream(bis);
-		  a = (Action)in.readObject(); 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-		  try {
-		    bis.close();
-		  } catch (IOException ex) {
-		    // ignore close exception
-		  }
-		  try {
-		    if (in != null) {
-		      in.close();
-		    }
-		  } catch (IOException ex) {
-		    // ignore close exception
-		  }
+		if(data != null) {
+			ByteArrayInputStream bis = new ByteArrayInputStream(data);
+			ObjectInput in = null;
+			try {
+			  in = new ObjectInputStream(bis);
+			  a = (Action)in.readObject(); 
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+			  try {
+			    bis.close();
+			  } catch (IOException ex) {
+			    // ignore close exception
+			  }
+			  try {
+			    if (in != null) {
+			      in.close();
+			    }
+			  } catch (IOException ex) {
+			    // ignore close exception
+			  }
+			}
 		}
 		return a;
 	}

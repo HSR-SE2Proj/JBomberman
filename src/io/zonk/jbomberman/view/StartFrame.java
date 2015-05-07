@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class StartFrame extends JFrame implements Observer{
+	private static final long serialVersionUID = -8317409060308366477L;
 	private ConnectionPanel cp;
 	private LobbyPanel lp;
 	
@@ -81,6 +82,8 @@ public class StartFrame extends JFrame implements Observer{
 				break;
 				
 			case GAME_FINISHED:
+				switchPanel(lp, cp);
+				getRootPane().setDefaultButton(cp.getDefaultButton());
 				this.setVisible(true);
 				break;
 				

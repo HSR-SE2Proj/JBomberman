@@ -8,13 +8,9 @@ import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.network.NetworkFacade;
-import io.zonk.jbomberman.time.Timer;
-import io.zonk.jbomberman.utils.ActionSerializer;
-import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -22,21 +18,17 @@ import java.util.Observable;
 public class ClientGame extends Observable 
 	implements GameLoop {
 	
-	private NetworkFacade network;
 	private SpriteManager manager;
 	private ActionQueue queue;
-	private Party party;
+	private ActionDispatcher dispatcher;
 	
 	private List<Sprite> background = new ArrayList<>();
 	
-	public ClientGame(NetworkFacade network, Party party) {
-		this.network = network;
-		this.party = party;
-		
+	public ClientGame(NetworkFacade network, Party party) {		
 		manager = new SpriteManager();
 		
 		queue = new ActionQueue();
-		ActionDispatcher dispatcher = new ActionDispatcher(network, queue);
+		dispatcher = new ActionDispatcher(network, queue);
 		dispatcher.start();
 		
 		//Timer timer = new Timer(1000/30, this);
@@ -53,7 +45,8 @@ public class ClientGame extends Observable
 		
 		//while(true) { //game running?
 			//System.out.println("loop");
-			
+
+			String notifyMsg = "";
 			//Handle all available Actions
 			while(!queue.isEmpty()) {
 				Action action = queue.take();
@@ -87,6 +80,8 @@ public class ClientGame extends Observable
 				case DESTROY:
 					manager.remove((int)action.getProperty(0));
 				default:
+					dispatcher.run = false;
+					notifyMsg = "finishGame";
 					break;
 				}
 			}
@@ -97,7 +92,7 @@ public class ClientGame extends Observable
 			}
 			
 			setChanged();
-			notifyObservers();
+			notifyObservers(notifyMsg);
 			
 		//}
 	}
@@ -120,13 +115,5 @@ public class ClientGame extends Observable
 		for(Sprite sprite : manager.getAll()) {
 			sprite.draw(g);
 		}
-	}
-	
-	
+	}	
 }
-
-
-
-
-
-

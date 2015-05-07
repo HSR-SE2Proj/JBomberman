@@ -35,7 +35,7 @@ public class GBomberman extends GameObject {
 		 */
 		for(GameObject object: manager.getByType(GameObjectType.EXPLOSION)) {
 			if(checkCollisionWith(object)) {
-				//DIE
+				state = BombermanState.DEAD;
 				break;
 			}
 		}
@@ -222,6 +222,10 @@ public class GBomberman extends GameObject {
 	public void tick(ActionQueue queue, GameObjectManager manager) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public BombermanState getState() {
+		return state;
 	}
 	
 	public void addBomb() {
