@@ -36,7 +36,9 @@ public class GBomberman extends GameObject {
 		for(GameObject object: manager.getByType(GameObjectType.EXPLOSION)) {
 			if(checkCollisionWith(object)) {
 				state = BombermanState.DEAD;
-				break;
+				
+				queue.put(new Action(ActionType.DESTROY, new Object[]{id}));
+				return;
 			}
 		}
 		

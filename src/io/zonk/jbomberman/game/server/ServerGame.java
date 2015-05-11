@@ -118,11 +118,13 @@ public class ServerGame extends Observable implements GameLoop {
 			if (player == null)
 				continue;
 			GBomberman b = player.getBomberman();
-			b.tick(manager, queue);
-
-			b.sendUpdates(network);
 			
-			if(b.getState() != BombermanState.DEAD) aliveCount++;
+			if(b.getState() != BombermanState.DEAD) {
+				b.tick(manager, queue);
+
+				b.sendUpdates(network);
+				aliveCount++;
+			}
 		}
 		
 		if(aliveCount < 2) {
