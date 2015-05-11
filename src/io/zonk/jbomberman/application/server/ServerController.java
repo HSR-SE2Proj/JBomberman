@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.plaf.SliderUI;
+
 public class ServerController implements Observer {
 
 	private static final int READY_THRESHOLD = 2;
@@ -56,6 +58,14 @@ public class ServerController implements Observer {
 	}
 	
 	public void finishGame() {
+		Object monitoredObject = new Object();
+		synchronized (monitoredObject) {
+			try {
+				monitoredObject.notifyAll();
+				monitoredObject.wait(3000);
+			} catch (InterruptedException e) {
+			}
+		}
 		timer.run = false;
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);
