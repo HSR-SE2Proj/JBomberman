@@ -17,11 +17,30 @@ public abstract class GameObject {
 		this.id = id;
 		this.type = type;
 	}
-	
+	/**
+	 * Aktualisiert Zustände und Variablen. 
+	 * Hauptsächlich Zeitbedingte Werte (Wann kann ich die nächste Bombe legen)
+	 * @param queue
+	 * @param manager
+	 */
 	public abstract void tick(ActionQueue queue, GameObjectManager manager);
+	/**
+	 * Interpretiert die Action und aktualisiert sich selbst.
+	 * @param action
+	 */
 	public abstract void update(Action action);
+	/**
+	 * Falls das Object neue Werte besitzt muss es die neuen 
+	 * Daten an die Clients senden.
+	 * @param network
+	 */
 	public abstract void sendUpdates(NetworkFacade network);
-	
+	/**
+	 * Überprüft, ob das Object mit einem anderen kollidiert und führt dann die jeweiligen
+	 * Korrekturen (z.B. beim Movement) oder Aktionen durch. 
+	 * @param object GameObject
+	 * @return gibt Boolean zurück ob Collision True/False
+	 */
 	public boolean checkCollisionWith(GameObject object) {
 		return	position.getX() < object.getPosition().getX() + 64 &&
 				position.getX() + 64 > object.getPosition().getX() &&

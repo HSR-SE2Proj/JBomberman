@@ -27,9 +27,14 @@ public abstract class Sprite {
 		this.size = size;
 		this.layer = layer;
 	}
-	
+	/**
+	 * Interpretiert die Action und führt die nötigen Aktualisierungsschritte durch.
+	 * @param action 
+	 */
 	public abstract void update(Action action);
-	
+	/**
+	 * Aktualisiert das Sprite. Wird hauptsächlich für Animationen benötigt
+	 */
 	public void tick() {
 		if(frameStep != 0) {
 			if(frameStep == cnt) {
@@ -42,7 +47,12 @@ public abstract class Sprite {
 			cnt++;
 		}
 	}
-	
+	/**
+	 * Zeichnet sich selbst auf den screen. Diese Methode wird vom 
+	 * GameCanvas aufgerufen und liefert seine Graphics mit auf dem 
+	 * gezeichnet werden kann.
+	 * @param g Graphics
+	 */
 	public void draw(Graphics g) {
 		g.drawImage(ImageManager.getInstance().get(imgName).getSubimage(frameNr*size.width, animState*size.height, size.width, size.height), position.getX(), position.getY(), null);
 	}

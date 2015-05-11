@@ -38,7 +38,10 @@ public class ServerController implements Observer {
 		
 		waitForPlayers();
 	}
-	
+	/**
+	 * Erstellt die nötigen Klassen und startet das Spiel
+	 * @param party Party mit allen Spielern
+	 */
 	public void startGame(Party party) {
 		game = new ServerGame(network, party);
 		game.addObserver(this);
@@ -56,6 +59,10 @@ public class ServerController implements Observer {
 		sendLobbyUpdate(start);
 	}
 	
+	/**
+	 * Entkoppelt die Spielrelevanten Klassen und geht in 
+	 * die waitForPlayers Methode zurück.\\
+	 */
 	public void finishGame() {
 		new TimeUtil().sleepFor(3000);
 		timer.run = false;
@@ -64,7 +71,11 @@ public class ServerController implements Observer {
 		party = new Party();
 		waitForPlayers();
 	}
-	
+	/**
+	 * Der Server befindet sich nach dem Starten in 
+	 * dieser Methode und wartet bis mehr als ein Spieler 
+	 * verbunden und bereit ist. Danach startet er das Spiel.
+	 */
 	public void waitForPlayers() {
 		boolean countStarted = false;
 		readyCount = 0;

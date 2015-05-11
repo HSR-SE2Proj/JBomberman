@@ -41,7 +41,10 @@ public class ClientController extends Observable implements Observer  {
 		this.party = new Party();
 	}
 	
-	//Achtung GUI-Thread
+	/**
+	 * Erstellt eine GameFrame, welches die ClientGame 
+	 * Klasse instanziert und somit das Spiel startet.
+	 */
 	public void startGame() {
  		ClientGame game = new ClientGame(network, party);
  		game.addObserver(this);
@@ -54,7 +57,10 @@ public class ClientController extends Observable implements Observer  {
 		setChanged();
 		notifyObservers("connChanged");
 	}
-	
+	/**
+	 * Informiert den LobbyFrame darüber, 
+	 * dass das Spiel beendet wurde.
+	 */
 	public void finishGame() {
 		timer.run = false;
 		gCanvas.dispose();
@@ -83,6 +89,11 @@ public class ClientController extends Observable implements Observer  {
 		}
 		return returnAction;
 	}
+	
+	/**
+	 * Verbindet den Client mit einem RabbitMQ Broker.
+	 * @param hostname FQDN des Servers
+	 */
 	
 	public void connectToServer(String hostname) {
 		this.server = hostname;
@@ -167,7 +178,9 @@ public class ClientController extends Observable implements Observer  {
 		Action connAction = new Action(ActionType.LOBBY_COMMUNICATION, prop);
 		network.sendMessage(ActionSerializer.serialize(connAction));
 	}
-
+	/**
+	 * Schliesst die Verbindung mit dem RabbitMQ Broker
+	 */
 	public void disconnect() {
 		Object[] prop = {"disconnect", playerId};
 		send(prop);
@@ -177,6 +190,10 @@ public class ClientController extends Observable implements Observer  {
 		notifyObservers("connChanged");
 	}
 	
+	/**
+	 * Setzt den Spieler auf bereit.
+	 * @param b Boolean
+	 */
 	public void setReady(boolean b) {
 		Object[] prop = {"updateState", playerId, b};
 		send(prop);

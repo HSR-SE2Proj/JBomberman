@@ -45,7 +45,11 @@ public class GameCanvas extends Canvas implements Observer {
 		this.addKeyListener(keyboard);
 	}
 	
-	//nur mit g2d???
+	/**
+	 * Kümmert sich um die BufferStrategy und delegiert das 
+	 * zeichnen der Sprites direkt an die Sprites selbst.
+	 * 
+	 */
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if(bs == null) {
