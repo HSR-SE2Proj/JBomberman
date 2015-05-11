@@ -13,14 +13,12 @@ public class GBomb extends GameObject {
 	
 	private static final int FUSE_TIME = 2000;
 	private long placed;
-	private int owner;
 	private int bombPower;
 
 	public GBomb(Position position, int id, int bombPower, int owner) {
 		super(position, id, GameObjectType.BOMB);
 		placed = System.currentTimeMillis();
 		this.bombPower = bombPower;
-		this.owner = owner;
 	}
 
 	@Override

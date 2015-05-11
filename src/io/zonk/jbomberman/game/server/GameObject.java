@@ -10,7 +10,6 @@ public abstract class GameObject {
 	
 	protected Position position;
 	protected int id;
-	private NetworkFacade network;
 	private GameObjectType type;
 	
 	public GameObject(Position position, int id, GameObjectType type) {

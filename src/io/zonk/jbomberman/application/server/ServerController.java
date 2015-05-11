@@ -7,14 +7,13 @@ import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.server.ServerGame;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.server.ServerNetwork;
+import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.plaf.SliderUI;
 
 public class ServerController implements Observer {
 
@@ -58,14 +57,7 @@ public class ServerController implements Observer {
 	}
 	
 	public void finishGame() {
-		Object monitoredObject = new Object();
-		synchronized (monitoredObject) {
-			try {
-				monitoredObject.notifyAll();
-				monitoredObject.wait(3000);
-			} catch (InterruptedException e) {
-			}
-		}
+		new TimeUtil().sleepFor(3000);
 		timer.run = false;
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);

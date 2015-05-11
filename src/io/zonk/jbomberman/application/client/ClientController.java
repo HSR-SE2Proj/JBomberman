@@ -7,6 +7,7 @@ import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
 import io.zonk.jbomberman.network.client.ClientNetwork;
+import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.view.ClientControllerState;
@@ -57,14 +58,7 @@ public class ClientController extends Observable implements Observer  {
 	public void finishGame() {
 		timer.run = false;
 		gCanvas.dispose();
-		Object monitoredObject = new Object();
-		synchronized (monitoredObject) {
-			try {
-				monitoredObject.notifyAll();
-				monitoredObject.wait(500);
-			} catch (InterruptedException e) {
-			}
-		}
+		new TimeUtil().sleepFor(500);
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
 		notifyObservers("connChanged");

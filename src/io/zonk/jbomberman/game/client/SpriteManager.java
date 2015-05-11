@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 
 public class SpriteManager {
@@ -45,8 +46,8 @@ public class SpriteManager {
 	
 	public Collection<Sprite> getAll() {
 		Collection<Sprite> col = new ArrayList<>();
-		for(int i : spriteLayer.keySet()) {
-			col.addAll(spriteLayer.get(i));
+		for(Entry<Integer, List<Sprite>> e : spriteLayer.entrySet()) {
+			col.addAll(e.getValue());
 		}
 		
 		
