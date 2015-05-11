@@ -79,6 +79,7 @@ public class ClientGame extends Observable
 					break;
 				case DESTROY:
 					manager.remove((int)action.getProperty(0));
+					break;
 				default:
 					dispatcher.run = false;
 					notifyMsg = "finishGame";
