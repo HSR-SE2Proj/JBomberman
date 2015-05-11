@@ -30,19 +30,19 @@ public class GBomb extends GameObject {
 			//add bomberman a bomb
 			//manager.getById(owner)G
 			
-			Position right = position.clone();
+			Position right = position.clonePos();
 			right.incrementX(64);
 			queue.put(new Action(ActionType.CREATE_EXPLOSION, new Object[]{right, IDGenerator.getId(), bombPower, Direction.RIGHT}));
 			
-			Position left = position.clone();
+			Position left = position.clonePos();
 			left.decrementX(64);
 			queue.put(new Action(ActionType.CREATE_EXPLOSION, new Object[]{left, IDGenerator.getId(), bombPower, Direction.LEFT}));
 			
-			Position down = position.clone();
+			Position down = position.clonePos();
 			down.incrementY(64);
 			queue.put(new Action(ActionType.CREATE_EXPLOSION, new Object[]{down, IDGenerator.getId(), bombPower, Direction.DOWN}));
 			
-			Position up = position.clone();
+			Position up = position.clonePos();
 			up.decrementY(64);
 			queue.put(new Action(ActionType.CREATE_EXPLOSION, new Object[]{up, IDGenerator.getId(), bombPower, Direction.UP}));
 			

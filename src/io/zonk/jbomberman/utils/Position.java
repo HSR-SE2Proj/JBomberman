@@ -2,7 +2,7 @@ package io.zonk.jbomberman.utils;
 
 import java.io.Serializable;
 
-public class Position implements Serializable,Cloneable {
+public class Position implements Serializable {
 	private static final long serialVersionUID = -6439880102819075178L;
 	private int x, y;
 
@@ -46,8 +46,8 @@ public class Position implements Serializable,Cloneable {
 	public void decrementX(int delta) {
 		x-=delta;
 	}
-	
-	public Position clone() {
-		return new Position(x, y);
+
+	public Position clonePos() {
+		return new Position(x,y);
 	}
 }

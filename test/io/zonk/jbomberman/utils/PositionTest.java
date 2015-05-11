@@ -69,6 +69,6 @@ public class PositionTest {
 	
 	@Test
 	public void testClone() {
-		assert(pos.equals(pos.clone()));
+		assert(pos.equals(pos.clonePos()));
 	}
 }

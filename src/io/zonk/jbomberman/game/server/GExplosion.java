@@ -25,7 +25,7 @@ public class GExplosion extends GameObject {
 	public void tick(ActionQueue queue, GameObjectManager manager) {
 		
 		if(power > 0 && direction != Direction.NO_DIRECTION) {
-			Position pos = position.clone();
+			Position pos = position.clonePos();
 			switch(direction) {
 			case DOWN:
 				pos.incrementY(64);

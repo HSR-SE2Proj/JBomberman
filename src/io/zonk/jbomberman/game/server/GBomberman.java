@@ -98,7 +98,7 @@ public class GBomberman extends GameObject {
 		 * UPDATE POSITION
 		 */
 		if(w) {
-			Position oldPosition = position.clone();
+			Position oldPosition = position.clonePos();
 			position.decrementY(speed);
 			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
@@ -111,7 +111,7 @@ public class GBomberman extends GameObject {
 			
 		}
 		if(a) {
-			Position oldPosition = position.clone();
+			Position oldPosition = position.clonePos();
 			position.decrementX(speed);
 			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
@@ -124,7 +124,7 @@ public class GBomberman extends GameObject {
 			
 		}
 		if(s) {
-			Position oldPosition = position.clone();
+			Position oldPosition = position.clonePos();
 			position.incrementY(speed);
 			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
@@ -137,7 +137,7 @@ public class GBomberman extends GameObject {
 			
 		}
 		if(d) {
-			Position oldPosition = position.clone();
+			Position oldPosition = position.clonePos();
 			position.incrementX(speed);
 			for(GameObject object : manager.getByType(GameObjectType.SOLID_BLOCK, GameObjectType.DESTROYBALE_BLOCK)) {
 				if(checkCollisionWith(object)) {
