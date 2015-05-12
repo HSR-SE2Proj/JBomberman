@@ -29,7 +29,7 @@ public class ClientGame extends Observable
 		
 		queue = new ActionQueue();
 		dispatcher = new ActionDispatcher(network, queue);
-		dispatcher.start();
+		startDispatcher();
 		
 		//Timer timer = new Timer(1000/30, this);
 		//timer.start();
@@ -38,6 +38,10 @@ public class ClientGame extends Observable
 			for(int y = 0; y < 13; ++y) {
 				background.add(new SFloor(new Position(x*64, y*64), 0));
 			}
+	}
+	
+	public void startDispatcher() {
+		dispatcher.start();
 	}
 
 	@Override
