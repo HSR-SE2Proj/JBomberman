@@ -42,6 +42,8 @@ public class ImageManager {
 			imageMap.put("IMG_BMAN_PROFBLUE", ImageIO.read(getClass().getResource(link + "BmanProfileBlue.png")));
 			imageMap.put("IMG_BMAN_PROFWHITE", ImageIO.read(getClass().getResource(link + "BmanProfileWhite.png")));
 			imageMap.put("IMG_BMAN_PROFBLACK", ImageIO.read(getClass().getResource(link + "BmanProfileBlack.png")));
+			//Instruction Pic
+			imageMap.put("IMG_INSTRUCTIONS",ImageIO.read(getClass().getResource(link + "Instructions.png")));
 		} catch(IOException e) {
 			System.out.println("Error: Could not load images");
 			e.printStackTrace();

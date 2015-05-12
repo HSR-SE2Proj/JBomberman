@@ -58,11 +58,14 @@ public class LobbyPanel extends JPanel implements Observer {
 			new ImageIcon(ImageManager.getInstance().get("IMG_BMAN_PROFRED")),
 			new ImageIcon(ImageManager.getInstance().get("IMG_BMAN_PROFWHITE"))
 	};
+	
+	private ImageIcon instructions = new ImageIcon(ImageManager.getInstance().get("IMG_INSTRUCTIONS"));
 
 	private JLabel[] lblPlName = {lblPl1Name, lblPl2Name, lblPl3Name, lblPl4Name};
 	private JLabel[] lblPlStat = {lblPl1Stat, lblPl2Stat, lblPl3Stat, lblPl4Stat};
 	private JLabel[] lblPlImg = {lblPl1Img, lblPl2Img, lblPl3Img, lblPl4Img};
 	private final JLabel lblCountdown = new JLabel("");
+	private final JLabel lblInstructions = new JLabel("");
 	
 	public LobbyPanel(ClientController cc){
 		this.cc = cc;
@@ -73,9 +76,9 @@ public class LobbyPanel extends JPanel implements Observer {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblConn = new JLabel("Connected to:");
@@ -130,7 +133,7 @@ public class LobbyPanel extends JPanel implements Observer {
 		vSepDim.height = 340;
 		vSep.setPreferredSize(vSepDim);
 		GridBagConstraints gbc_vSep = new GridBagConstraints();
-		gbc_vSep.gridheight = 14;
+		gbc_vSep.gridheight = 17;
 		gbc_vSep.insets = new Insets(0, 0, 0, 20);
 		gbc_vSep.gridx = 3;
 		gbc_vSep.gridy = 3;
@@ -257,20 +260,34 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl3Stat.gridy = 11;
 		add(lblPl3Stat, gbc_lblPl3Stat);
 		
+		GridBagConstraints gbc_lblInstructions = new GridBagConstraints();
+		gbc_lblInstructions.gridwidth = 2;
+		gbc_lblInstructions.gridheight = 9;
+		gbc_lblInstructions.insets = new Insets(0, 0, 5, 5);
+		gbc_lblInstructions.gridx = 1;
+		gbc_lblInstructions.gridy = 10;
+		lblInstructions.setVerticalAlignment(SwingConstants.TOP);
+		lblInstructions.setHorizontalAlignment(SwingConstants.LEFT);
+		lblInstructions.setIcon(instructions);
+		add(lblInstructions, gbc_lblInstructions);
+		gbc_lblInstructions.anchor = GridBagConstraints.WEST;
+		
+		
+		
 		Component verticalStrut_3 = Box.createVerticalStrut(64);
 		GridBagConstraints gbc_verticalStrut_3 = new GridBagConstraints();
-		gbc_verticalStrut_3.gridheight = 3;
+		gbc_verticalStrut_3.gridheight = 4;
 		gbc_verticalStrut_3.insets = new Insets(0, 0, 5, 5);
 		gbc_verticalStrut_3.gridx = 4;
-		gbc_verticalStrut_3.gridy = 13;
+		gbc_verticalStrut_3.gridy = 15;
 		add(verticalStrut_3, gbc_verticalStrut_3);
 		
 		GridBagConstraints gbc_lblPl4Img = new GridBagConstraints();
 		gbc_lblPl4Img.anchor = GridBagConstraints.NORTH;
 		gbc_lblPl4Img.insets = new Insets(2, 0, 5, 5);
-		gbc_lblPl4Img.gridheight = 3;
+		gbc_lblPl4Img.gridheight = 4;
 		gbc_lblPl4Img.gridx = 8;
-		gbc_lblPl4Img.gridy = 13;
+		gbc_lblPl4Img.gridy = 15;
 		add(lblPl4Img, gbc_lblPl4Img);
 		
 		lblPl4Name.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -278,16 +295,15 @@ public class LobbyPanel extends JPanel implements Observer {
 		gbc_lblPl4Name.anchor = GridBagConstraints.WEST;
 		gbc_lblPl4Name.insets = new Insets(2, 0, 5, 0);
 		gbc_lblPl4Name.gridx = 9;
-		gbc_lblPl4Name.gridy = 13;
+		gbc_lblPl4Name.gridy = 15;
 		add(lblPl4Name, gbc_lblPl4Name);
 		
 		GridBagConstraints gbc_lblPl4Stat = new GridBagConstraints();
 		gbc_lblPl4Stat.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblPl4Stat.insets = new Insets(0, 10, 5, 0);
 		gbc_lblPl4Stat.gridx = 9;
-		gbc_lblPl4Stat.gridy = 14;
+		gbc_lblPl4Stat.gridy = 17;
 		add(lblPl4Stat, gbc_lblPl4Stat);
-
 
 		btnDisconnect.addActionListener(new ActionListener() {
 			
