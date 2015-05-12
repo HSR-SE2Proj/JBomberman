@@ -153,12 +153,21 @@ public class GBomberman extends GameObject {
 		}
 		if(enter) {
 			if(bombs > 0 && canPlace) {
-				Position pos = new Position((position.getX()+32)/64*64, (position.getY()+32)/64*64);
-				Action action = new Action(ActionType.CREATE_BOMB, new Object[]{pos, IDGenerator.getId(), bombPower, id});
-				queue.put(action);
-				bombs--;
-				canPlace = false;
-				System.out.println("placed");
+				boolean collision = false;
+				for(GameObject object: manager.getByType(GameObjectType.BOMB)) {
+					if(checkCollisionWith(object)) {
+						collision = true;
+						break;
+					}
+				}
+				if(!collision) {
+					Position pos = new Position((position.getX()+32)/64*64, (position.getY()+32)/64*64);
+					Action action = new Action(ActionType.CREATE_BOMB, new Object[]{pos, IDGenerator.getId(), bombPower, id});
+					queue.put(action);
+					bombs--;
+					canPlace = false;
+					System.out.println("placed");
+				}
 			}
 		}
 		

@@ -1,7 +1,5 @@
 package io.zonk.jbomberman.game.server;
 
-import java.util.Random;
-
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.GameObjectType;
