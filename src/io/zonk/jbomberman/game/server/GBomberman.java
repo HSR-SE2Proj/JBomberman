@@ -24,6 +24,8 @@ public class GBomberman extends GameObject {
 	private int bombCooldown = 30*2;
 	private int speedCooldown = 0;
 	
+	private boolean canPlace = true;
+	
 	public GBomberman(Position position, int id) {
 		super(position, id, GameObjectType.BOMBERMAN);
 	}
@@ -150,11 +152,13 @@ public class GBomberman extends GameObject {
 			
 		}
 		if(enter) {
-			if(bombs > 0) {
+			if(bombs > 0 && canPlace) {
 				Position pos = new Position((position.getX()+32)/64*64, (position.getY()+32)/64*64);
 				Action action = new Action(ActionType.CREATE_BOMB, new Object[]{pos, IDGenerator.getId(), bombPower, id});
 				queue.put(action);
 				bombs--;
+				canPlace = false;
+				System.out.println("placed");
 			}
 		}
 		
@@ -201,8 +205,11 @@ public class GBomberman extends GameObject {
 				s = pressed;
 			if(key == KeyEvent.VK_D)
 				d = pressed;
-			if(key == KeyEvent.VK_ENTER)
+			if(key == KeyEvent.VK_ENTER) {
 				enter = pressed;
+				if(pressed == false)
+					canPlace = true;
+			}	
 			break;
 		default:
 			break;
