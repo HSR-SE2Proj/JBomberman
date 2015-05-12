@@ -151,7 +151,7 @@ public class GBomberman extends GameObject {
 		}
 		if(enter) {
 			if(bombs > 0) {
-				Position pos = new Position(position.getX()/64*64, position.getY()/64*64);
+				Position pos = new Position((position.getX()+32)/64*64, (position.getY()+32)/64*64);
 				Action action = new Action(ActionType.CREATE_BOMB, new Object[]{pos, IDGenerator.getId(), bombPower, id});
 				queue.put(action);
 				bombs--;
