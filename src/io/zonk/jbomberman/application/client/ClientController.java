@@ -221,6 +221,6 @@ public class ClientController extends Observable implements Observer  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(arg != null && ((String)arg).equals("finishGame")) finishGame();
+		if(arg != null && ((String)arg).equals("gameFinished")) finishGame();
 	}
 }

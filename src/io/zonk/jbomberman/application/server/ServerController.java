@@ -178,6 +178,6 @@ public class ServerController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(((String)arg).equals("finishGame")) finishGame();
+		if(((String)arg).equals("exitGame")) finishGame();
 	}
 }

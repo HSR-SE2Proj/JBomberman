@@ -50,7 +50,9 @@ public class ServerGame extends Observable implements GameLoop {
 
 			case PLAYER_INPUT:
 				int id = (int) action.getProperty(0);
-				party.get(id).getBomberman().update(action);
+				if(party.get(id) != null ) {
+					party.get(id).getBomberman().update(action);
+				}
 				break;
 
 			case CREATE_BOMB:
@@ -131,7 +133,7 @@ public class ServerGame extends Observable implements GameLoop {
 			dispatcher.run = false;
 			initmap = false;
 			setChanged();
-			notifyObservers("finishGame");
+			notifyObservers("exitGame");
 		}
 
 	}

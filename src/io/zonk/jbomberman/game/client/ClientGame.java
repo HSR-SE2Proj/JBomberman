@@ -84,9 +84,14 @@ public class ClientGame extends Observable
 				case DESTROY:
 					manager.remove((int)action.getProperty(0));
 					break;
+				case LOBBY_COMMUNICATION:
+					String s = ((String)action.getProperty(0));
+					if(s != null && s.equals("finishGame")) {
+						dispatcher.run = false;
+						notifyMsg = "gameFinished";
+					}
+					break;
 				default:
-					dispatcher.run = false;
-					notifyMsg = "finishGame";
 					break;
 				}
 			}
