@@ -25,7 +25,7 @@ public class ClientController extends Observable implements Observer  {
 	
 	private static final int CONNECT_TIMEOUT = 5000;
 	private int countdown = 0;
-	
+	private int round = 0;
 	HashMap<Integer, Boolean> states;
 	
 	// Player this instance is associated  with
@@ -63,14 +63,19 @@ public class ClientController extends Observable implements Observer  {
 	 */
 	public void finishGame() {
 		timer.run = false;
-		gCanvas.dispose();
-		new TimeUtil().sleepFor(500);
+		gCanvas.dispose();;
+		new TimeUtil().sleepFor(3000);
+		round++;
+		if (round > 3) {
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
 		notifyObservers("connChanged");
 		party = new Party();
 		Object[] prop = {"finished"};
 		send(prop);
+		} else {
+			startGame();
+		}
 	}
 	
 	private Action receiveLobby(int rand) {

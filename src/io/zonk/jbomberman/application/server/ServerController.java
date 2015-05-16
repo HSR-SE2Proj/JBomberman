@@ -26,7 +26,7 @@ public class ServerController implements Observer {
 	private NetworkFacade network;
 	private Party party;
 	private Timer timer;
-	
+	private int round = 0;
 	public static void main(String[] args) {
 		new ServerController();
 	}
@@ -64,12 +64,17 @@ public class ServerController implements Observer {
 	 * die waitForPlayers Methode zurück.\\
 	 */
 	public void finishGame() {
-		new TimeUtil().sleepFor(3000);
 		timer.run = false;
+		new TimeUtil().sleepFor(3000);
+		round++;
+		if(round > 3) {
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);
 		party = new Party();
 		waitForPlayers();
+		} else {
+			startGame(party);
+		}
 	}
 	/**
 	 * Der Server befindet sich nach dem Starten in 
