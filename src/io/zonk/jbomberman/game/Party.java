@@ -18,6 +18,15 @@ public class Party {
 		return playerList.get(id);
 	}
 	
+	public Player getWinner() {
+		for (Integer player : getPlayers().keySet()){
+			if(get(player).getBomberman().getState() != BombermanState.DEAD) {
+				return get(player);
+			}
+		}
+		return null;
+	}
+	
 	public HashMap<Integer, Player> getPlayers() {
 		return playerList;
 	}

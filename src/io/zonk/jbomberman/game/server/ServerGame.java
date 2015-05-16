@@ -26,7 +26,6 @@ public class ServerGame extends Observable implements GameLoop {
 	private Party party;
 	private boolean initmap;
 	private ActionDispatcher dispatcher;
-
 	public ServerGame(NetworkFacade network, Party party) {
 		this.network = network;
 		this.party = party;
@@ -131,7 +130,8 @@ public class ServerGame extends Observable implements GameLoop {
 			dispatcher.run = false;
 			initmap = false;
 			setChanged();
-			notifyObservers("finishGame");
+			//notifyObservers("finishGame");
+			notifyObservers("finishRound");
 		}
 
 	}

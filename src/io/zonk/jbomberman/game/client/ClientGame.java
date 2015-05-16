@@ -21,6 +21,7 @@ public class ClientGame extends Observable
 	private SpriteManager manager;
 	private ActionQueue queue;
 	private ActionDispatcher dispatcher;
+	private int round = 0;
 	
 	private List<Sprite> background = new ArrayList<>();
 	
@@ -86,7 +87,8 @@ public class ClientGame extends Observable
 					break;
 				default:
 					dispatcher.run = false;
-					notifyMsg = "finishGame";
+					//notifyMsg = "finishGame";
+					notifyMsg = "finishRound";
 					break;
 				}
 			}

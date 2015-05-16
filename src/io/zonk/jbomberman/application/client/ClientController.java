@@ -7,6 +7,7 @@ import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
 import io.zonk.jbomberman.network.client.ClientNetwork;
+import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.view.ClientControllerState;
@@ -61,19 +62,24 @@ public class ClientController extends Observable implements Observer  {
 	 * dass das Spiel beendet wurde.
 	 */
 	public void finishGame() {
-		timer.run = false;
 		gCanvas.dispose();
-		//new TimeUtil().sleepFor(500);
-		round++;
-		if (round > 3) {
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
 		notifyObservers("connChanged");
 		party = new Party();
 		Object[] prop = {"finished"};
 		send(prop);
+	}
+	
+	public void finishRound() {
+		timer.run =false;
+		new TimeUtil().sleepFor(500);
+		if(round > 3) {
+			finishGame();
 		} else {
-			startGame();
+		++round;
+		gCanvas.dispose();
+		startGame();
 		}
 	}
 	
@@ -225,6 +231,9 @@ public class ClientController extends Observable implements Observer  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(arg != null && ((String)arg).equals("finishGame")) finishGame();
+		//if(arg != null && ((String)arg).equals("finishGame")) finishGame();
+		if(arg != null && ((String)arg).equals("finishRound")) finishRound();
 	}
+
+	
 }
