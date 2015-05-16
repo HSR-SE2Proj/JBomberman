@@ -36,6 +36,8 @@ public class CollisionTest {
 		pos1.setY(937);
 		assertEquals(true,gman.checkCollisionWith(sblock));
 		//Same behaviour as SolidBlock as long it is not destroyed
+		pos2.setX(64);
+		pos2.setY(64);
 		assertEquals(false,gman.checkCollisionWith(gdestblock));
 		pos1.setX(63);
 		pos1.setY(63);
