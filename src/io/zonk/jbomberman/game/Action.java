@@ -2,7 +2,7 @@ package io.zonk.jbomberman.game;
 
 import java.io.Serializable;
 
-public class Action implements Serializable {
+public class Action implements Serializable,Cloneable {
 	private static final long serialVersionUID = -7165055744828125991L;
 	
 	private ActionType type;
@@ -10,7 +10,7 @@ public class Action implements Serializable {
 	
 	public Action(ActionType type, Object[] properties) {
 		this.type = type;
-		this.properties = properties;
+		this.properties = properties.clone();
 	}
 	
 	public ActionType getActionType() {
