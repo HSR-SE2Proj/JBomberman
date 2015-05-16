@@ -13,7 +13,7 @@ public class StartFrame extends JFrame implements Observer{
 	private static final long serialVersionUID = -8317409060308366477L;
 	private ConnectionPanel cp;
 	private LobbyPanel lp;
-	
+	private ClientController cc;
 	public static void main(String[] args) {
 		new StartFrame(new ClientController());
 	}
@@ -53,7 +53,8 @@ public class StartFrame extends JFrame implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		String s = (String)arg1;
 		if(s != null && s.equals("connChanged")){
-			ClientController cc = (ClientController) arg0;
+			if (arg0 instanceof ClientController)
+			cc = (ClientController) arg0;
 			switch (cc.getConnState()) {
 			case CONNECT:
 				switchPanel(lp, cp);
