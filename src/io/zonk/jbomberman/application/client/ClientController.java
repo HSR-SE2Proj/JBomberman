@@ -6,6 +6,7 @@ import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
+import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
@@ -31,7 +32,7 @@ public class ClientController extends Observable implements Observer  {
 	// Player this instance is associated  with
 	int playerId = 0;
 	
-	private ClientNetwork network;
+	private NetworkFacade network;
 	private Party party;
 	private Timer timer;
 	private GameCanvas gCanvas;
@@ -155,6 +156,12 @@ public class ClientController extends Observable implements Observer  {
 					if(p[0] != null && p[1] != null) party.add(new Player(p[0], Integer.parseInt(p[1])));
 				}
 				startGame();
+				break;
+	
+			case "aliveCheck":
+				Object[] prop = {"alive", playerId};
+				send(prop);
+				send(prop);
 				break;
 	
 			default:
