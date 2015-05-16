@@ -21,7 +21,7 @@ import java.util.Random;
 public class ClientController extends Observable implements Observer  {
 	private String server;
 	private Thread t;
-	private ClientControllerState controllerState = ClientControllerState.CONNECT;
+	private ClientControllerState controllerState = ClientControllerState.DISCONNECT;
 	
 	private static final int CONNECT_TIMEOUT = 5000;
 	private int countdown = 0;
@@ -111,7 +111,7 @@ public class ClientController extends Observable implements Observer  {
 					states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
 					playerId = (Integer)returnAction.getProperty(2);
 					
-					controllerState = ClientControllerState.LOBBY;
+					controllerState = ClientControllerState.CONNECTED;
 					setChanged();
 					notifyObservers("connChanged");
 
@@ -185,7 +185,7 @@ public class ClientController extends Observable implements Observer  {
 		Object[] prop = {"disconnect", playerId};
 		send(prop);
 		network.close();
-		controllerState = ClientControllerState.CONNECT;
+		controllerState = ClientControllerState.DISCONNECT;
 		setChanged();
 		notifyObservers("connChanged");
 	}

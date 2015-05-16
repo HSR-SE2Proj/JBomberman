@@ -27,7 +27,7 @@ public class StartFrame extends JFrame implements Observer{
 		addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		        if(cc.getConnState() == ClientControllerState.LOBBY) cc.disconnect();
+		        if(cc.getConnState() == ClientControllerState.CONNECTED) cc.disconnect();
 		        System.exit(0);
 		    }
 		});
@@ -56,11 +56,11 @@ public class StartFrame extends JFrame implements Observer{
 			if (arg0 instanceof ClientController)
 			cc = (ClientController) arg0;
 			switch (cc.getConnState()) {
-			case CONNECT:
+			case DISCONNECT:
 				switchPanel(lp, cp);
 				getRootPane().setDefaultButton(cp.getDefaultButton());
 				break;
-			case LOBBY:
+			case CONNECTED:
 				lp = new LobbyPanel(cc);
 				switchPanel(cp, lp);
 				getRootPane().setDefaultButton(lp.getDefaultButton());
