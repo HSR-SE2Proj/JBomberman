@@ -7,7 +7,6 @@ import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
 import io.zonk.jbomberman.network.client.ClientNetwork;
-import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.view.ClientControllerState;
@@ -63,8 +62,8 @@ public class ClientController extends Observable implements Observer  {
 	 */
 	public void finishGame() {
 		timer.run = false;
-		gCanvas.dispose();;
-		new TimeUtil().sleepFor(3000);
+		gCanvas.dispose();
+		//new TimeUtil().sleepFor(500);
 		round++;
 		if (round > 3) {
  		controllerState = ClientControllerState.GAME_FINISHED;
