@@ -69,11 +69,6 @@ public class ServerGame extends Observable implements GameLoop {
 				network.sendMessage(ActionSerializer.serialize(action));
 				break;
 
-			case DESTROY_BOMB:
-				manager.remove((int) action.getProperty(0));
-				network.sendMessage(ActionSerializer.serialize(action));
-				break;
-
 			case CREATE_EXPLOSION:
 				GExplosion explosion = new GExplosion(
 						(Position) action.getProperty(0),

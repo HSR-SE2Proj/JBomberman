@@ -72,9 +72,6 @@ public class ClientGame extends Observable
 				case CREATE_BOMB:
 					manager.add(new SBomb((Position)action.getProperty(0), (int)action.getProperty(1)));
 					break;
-				case DESTROY_BOMB:
-					manager.remove((int)action.getProperty(0));
-					break;
 				case CREATE_EXPLOSION:
 					manager.add(new SExplosion((Position)action.getProperty(0), (int)action.getProperty(1)));
 					break;

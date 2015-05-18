@@ -24,7 +24,7 @@ public class GBomb extends GameObject {
 	@Override
 	public void tick(ActionQueue queue, GameObjectManager manager) {
 		if(System.currentTimeMillis() - placed >= FUSE_TIME) {
-			queue.put(new Action(ActionType.DESTROY_BOMB, new Object[]{id}));
+			queue.put(new Action(ActionType.DESTROY, new Object[]{id}));
 			queue.put(new Action(ActionType.CREATE_EXPLOSION, new Object[]{position, IDGenerator.getId(), 0, Direction.NO_DIRECTION}));
 			
 			//add bomberman a bomb
