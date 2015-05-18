@@ -196,7 +196,7 @@ public class GBomberman extends GameObject {
 		}
 	}
 
-	@Override
+	
 	public void update(Action action) {
 		
 		switch(action.getActionType()) {
@@ -226,7 +226,7 @@ public class GBomberman extends GameObject {
 		
 	}
 
-	@Override
+	
 	public void sendUpdates(NetworkFacade network) {
 		if(updatePosition) {
 			Action action = new Action(ActionType.MOVEMENT, new Object[]{id, position, state});
@@ -237,10 +237,7 @@ public class GBomberman extends GameObject {
 	}
 
 	@Override
-	public void tick(ActionQueue queue, GameObjectManager manager) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void tick(ActionQueue queue, GameObjectManager manager) {}
 	
 	public BombermanState getState() {
 		return state;
