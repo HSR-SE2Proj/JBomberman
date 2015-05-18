@@ -1,6 +1,5 @@
 package io.zonk.jbomberman.game.client;
 
-import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.utils.Position;
 
@@ -28,15 +27,6 @@ public class SPowerUp extends Sprite {
 	}
 
 	@Override
-	public void update(Action action) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void tick() {}
 
 }

@@ -49,9 +49,6 @@ public class SpriteManager {
 		for(Entry<Integer, List<Sprite>> e : spriteLayer.entrySet()) {
 			col.addAll(e.getValue());
 		}
-		
-		
-		
 		return col;
 	}
 }

@@ -1,11 +1,7 @@
 package io.zonk.jbomberman.game.client;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-
-import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.utils.ImageManager;
 import io.zonk.jbomberman.utils.Position;
 
@@ -27,11 +23,7 @@ public abstract class Sprite {
 		this.size = size;
 		this.layer = layer;
 	}
-	/**
-	 * Interpretiert die Action und führt die nötigen Aktualisierungsschritte durch.
-	 * @param action 
-	 */
-	public abstract void update(Action action);
+	
 	/**
 	 * Aktualisiert das Sprite. Wird hauptsächlich für Animationen benötigt
 	 */
