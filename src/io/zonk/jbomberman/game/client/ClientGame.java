@@ -17,12 +17,14 @@ import java.util.Observable;
 
 public class ClientGame extends Observable 
 	implements GameLoop {
+	private static final int TIMER_START = 180;
 	
 	private SpriteManager manager;
 	private ActionQueue queue;
 	private ActionDispatcher dispatcher;
 	
 	private List<Sprite> background = new ArrayList<>();
+	private int timer = TIMER_START;
 	
 	public ClientGame(NetworkFacade network, Party party) {		
 		manager = new SpriteManager();
@@ -84,6 +86,10 @@ public class ClientGame extends Observable
 				case DESTROY:
 					manager.remove((int)action.getProperty(0));
 					break;
+				case UPDATE_TIMER:
+					timer = ((Integer)action.getProperty(0));
+					notifyMsg = "updateTimer";
+					break;
 				case LOBBY_COMMUNICATION:
 					String s = ((String)action.getProperty(0));
 					if(s != null && s.equals("finishGame")) {
@@ -129,5 +135,9 @@ public class ClientGame extends Observable
 		for(Sprite sprite : manager.getAll()) {
 			sprite.draw(g);
 		}
-	}	
+	}
+	
+	public int getTimer() {
+		return timer;
+	}
 }

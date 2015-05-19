@@ -1,8 +1,10 @@
 package io.zonk.jbomberman.game;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Party {
+public class Party implements Serializable{
+	private static final long serialVersionUID = 1417598965327204906L;
 	private HashMap<Integer, Player> playerList = new HashMap<>();
 	
 	public void add(Player player) {

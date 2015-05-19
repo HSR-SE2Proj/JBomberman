@@ -22,9 +22,11 @@ public class ClientController extends Observable implements Observer  {
 	private String server;
 	private Thread t;
 	private ClientControllerState controllerState = ClientControllerState.DISCONNECT;
-	
+
+	public static final int CLIENT_LOOPTIMER = 1000/60;
 	private static final int CONNECT_TIMEOUT = 5000;
 	private int countdown = 0;
+	private int round = 1;
 	HashMap<Integer, Boolean> states;
 	
 	// Player this instance is associated  with
@@ -44,12 +46,12 @@ public class ClientController extends Observable implements Observer  {
 	 * Erstellt eine GameFrame, welches die ClientGame 
 	 * Klasse instanziert und somit das Spiel startet.
 	 */
-	public void startGame() {
+	public void startGame(Party party) {		
  		ClientGame game = new ClientGame(network, party);
  		game.addObserver(this);
- 		timer = new Timer(1000/60, game);
+ 		timer = new Timer(CLIENT_LOOPTIMER, game);
  		Keyboard keyboard = new Keyboard(playerId, network);
- 		gCanvas = new GameCanvas(game, keyboard);
+ 		gCanvas = new GameCanvas(game, keyboard, party, round);
  		timer.start();
  		
  		controllerState = ClientControllerState.GAME_STARTED;
@@ -61,6 +63,7 @@ public class ClientController extends Observable implements Observer  {
 	 * dass das Spiel beendet wurde.
 	 */
 	public void finishGame() {
+		timer.run = false;
 		gCanvas.dispose();
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
@@ -71,11 +74,19 @@ public class ClientController extends Observable implements Observer  {
 	}
 	
 	public void finishRound() {
-		timer.run =false;
 		gCanvas.render();
-		new TimeUtil().sleepFor(3000);
+		timer.run = false;
+		new TimeUtil().sleepFor(2000);
 		gCanvas.dispose();
-		startGame();
+
+		Action returnAction = ActionSerializer.deserialize(network.receiveMessage());
+		while(returnAction != null && returnAction.getActionType() != ActionType.LOBBY_COMMUNICATION) {
+			returnAction = ActionSerializer.deserialize(network.receiveMessage());
+		}
+		if(returnAction != null && ((String)returnAction.getProperty(0)).equals("startGame")) {
+			round = (Integer)returnAction.getProperty(2);
+			startGame((Party) returnAction.getProperty(1));
+		}
 	}
 	
 	private Action receiveLobby(int rand) {
@@ -155,11 +166,7 @@ public class ClientController extends Observable implements Observer  {
 				break;
 	
 			case "startGame":
-				String[][] sParty = (String[][])returnAction.getProperty(1);
-				for(String[] p : sParty) {
-					if(p[0] != null && p[1] != null) party.add(new Player(p[0], Integer.parseInt(p[1])));
-				}
-				startGame();
+				startGame((Party)returnAction.getProperty(1));
 				break;
 	
 			case "aliveCheck":

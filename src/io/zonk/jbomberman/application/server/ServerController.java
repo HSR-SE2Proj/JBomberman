@@ -18,7 +18,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class ServerController implements Observer {
-
+	private static final int SERVER_LOOPTIMER = 1000/30;
 	private static final int READY_THRESHOLD = 2;
 	private static final int COUNTDOWN_TIME = 10;
 	private static final int HEARTBEAT_TIMEOUT = 100;
@@ -46,20 +46,13 @@ public class ServerController implements Observer {
 	 * @param party Party mit allen Spielern
 	 */
 	public void startGame(Party party) {
+		Object[] start = {"startGame", party, round};
+		sendLobbyUpdate(start);
 		game = new ServerGame(network, party);
 		game.addObserver(this);
 
-		timer = new Timer(1000/30, game);
+		timer = new Timer(SERVER_LOOPTIMER, game);
 		timer.start();
-		String[][] sParty = new String[4][2];
-		int i = 0;
-		for(Player p : party.getPlayers().values()) {
-			sParty[i][0] = p.getName();
-			sParty[i][1] = p.getId() + "";
-			i++;
-		}
-		Object[] start = {"startGame", sParty};
-		sendLobbyUpdate(start);
 	}
 
 	/**
@@ -67,7 +60,6 @@ public class ServerController implements Observer {
 	 * die waitForPlayers Methode zurück.\\
 	 */
 	public void finishGame() {
-		new TimeUtil().sleepFor(3000);
 		timer.run = false;
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);
@@ -79,14 +71,17 @@ public class ServerController implements Observer {
 	public void finishRound() {
 		displayBanner();
 		if (round > 2) {
+			new TimeUtil().sleepFor(3000);
 			finishGame();
 		} else {
-		Object[] finish = {"finishRound"};
-		sendLobbyUpdate(finish);
-		new TimeUtil().sleepFor(3000);
-		timer.run = false;
-		++round;
-		startGame(party);
+			Object[] finish = {"finishRound"};
+			sendLobbyUpdate(finish);
+			new TimeUtil().sleepFor(2000);
+			timer.run = false;
+			++round;
+			Object[] start = {};
+			sendLobbyUpdate(start);
+			startGame(party);
 		}
 	}
 

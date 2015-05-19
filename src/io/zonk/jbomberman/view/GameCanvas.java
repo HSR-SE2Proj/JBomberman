@@ -1,5 +1,6 @@
 package io.zonk.jbomberman.view;
 
+import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
 
@@ -14,6 +15,8 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 
+import java.awt.BorderLayout;
+
 
 public class GameCanvas extends Canvas implements Observer {
 	private static final long serialVersionUID = 2466275114783318368L;
@@ -26,16 +29,21 @@ public class GameCanvas extends Canvas implements Observer {
 	public int[] pixels;
 	
 	private JFrame frame;
+	private ScorePanel sp;
 	
-	public GameCanvas(ClientGame game, Keyboard keyboard) {
+	public GameCanvas(ClientGame game, Keyboard keyboard, Party party, int round) {
 		this.game = game;
 		//this.keyboard = keyboard;
 		game.addObserver(this);
 		size = new Dimension(832, 832);
 		setPreferredSize(size);
 		
+		sp = new ScorePanel(party, round);
+		
 		frame = new JFrame();
-		frame.add(this);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.getContentPane().add(this, BorderLayout.CENTER);
+		frame.getContentPane().add(sp, BorderLayout.NORTH);
 		frame.setVisible(true);
 		frame.pack();
 		
@@ -78,8 +86,11 @@ public class GameCanvas extends Canvas implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		render();
-		
+		if(((String)arg).equals("updateTimer")) {
+			sp.updateTimer(game.getTimer());
+		} else {
+			render();
+		}
 	}
 	
 	public void dispose() {

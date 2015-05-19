@@ -19,6 +19,7 @@ import java.util.Observable;
 import java.util.Random;
 
 public class ServerGame extends Observable implements GameLoop {
+	private static final int TIMER_START = 180;
 
 	private NetworkFacade network;
 	private ActionQueue queue;
@@ -26,6 +27,7 @@ public class ServerGame extends Observable implements GameLoop {
 	private Party party;
 	private boolean initmap;
 	private ActionDispatcher dispatcher;
+	private long initTime = 0;
 	public ServerGame(NetworkFacade network, Party party) {
 		this.network = network;
 		this.party = party;
@@ -35,12 +37,21 @@ public class ServerGame extends Observable implements GameLoop {
 		queue = new ActionQueue();
 		dispatcher = new ActionDispatcher(network, queue);
 		dispatcher.start();
+		
+		initTime = System.currentTimeMillis();
 	}
 
 	@Override
 	public void loop() {
-		if (!initmap)
+		int timer = (int) ((System.currentTimeMillis() - initTime) / 1000);
+		Object[] prop = {TIMER_START - timer};
+		Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
+		network.sendMessage(ActionSerializer.serialize(timerAction));
+		
+		if (!initmap) {
 			initMap();
+		}
+		
 
 		// handle all available Actions
 		while (!queue.isEmpty()) {
@@ -124,6 +135,7 @@ public class ServerGame extends Observable implements GameLoop {
 		}
 		
 		if(aliveCount < 2) {
+			party.getWinner().addScore();
 			dispatcher.run = false;
 			initmap = false;
 			setChanged();
