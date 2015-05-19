@@ -36,9 +36,13 @@ public class ServerGame extends Observable implements GameLoop {
 
 		queue = new ActionQueue();
 		dispatcher = new ActionDispatcher(network, queue);
-		dispatcher.start();
+		startDispatcher();
 		
 		initTime = System.currentTimeMillis();
+	}
+
+	public void startDispatcher() {
+		dispatcher.start();
 	}
 
 	@Override
