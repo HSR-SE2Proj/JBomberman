@@ -2,7 +2,6 @@ package io.zonk.jbomberman.application.server;
 
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionType;
-import io.zonk.jbomberman.game.BombermanState;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.server.ServerGame;
@@ -14,7 +13,6 @@ import io.zonk.jbomberman.utils.ActionSerializer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -30,7 +28,7 @@ public class ServerController implements Observer {
 	private NetworkFacade network;
 	private Party party;
 	private Timer timer;
-	private int round = 0;
+	private int round = 1;
 	public static void main(String[] args) {
 		new ServerController();
 	}
@@ -68,6 +66,8 @@ public class ServerController implements Observer {
 	 * die waitForPlayers Methode zurück.\\
 	 */
 	public void finishGame() {
+		new TimeUtil().sleepFor(3000);
+		timer.run = false;
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);
 		party = new Party();
@@ -76,15 +76,14 @@ public class ServerController implements Observer {
 	
 	
 	public void finishRound() {
+		if (round > 2) {
+			finishGame();
+		} else {
 		Object[] finish = {"finishRound"};
 		sendLobbyUpdate(finish);
 		new TimeUtil().sleepFor(3000);
 		timer.run = false;
-		if (round > 3) {
-			finishGame();
-		} else {
 		++round;
-		
 		startGame(party);
 		}
 	}
@@ -220,9 +219,7 @@ public class ServerController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(((String)arg).equals("finishRound")) finishRound();
-		//if(((String)arg).equals("finishGame")) finishGame();
-		//if(((String)arg).equals("exitGame")) finishGame();
+		if(((String)arg).equals("exitRound")) finishRound();
 	}
 
 	

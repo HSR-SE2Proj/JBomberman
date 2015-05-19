@@ -25,7 +25,6 @@ public class ClientController extends Observable implements Observer  {
 	
 	private static final int CONNECT_TIMEOUT = 5000;
 	private int countdown = 0;
-	private int round = 0;
 	HashMap<Integer, Boolean> states;
 	
 	// Player this instance is associated  with
@@ -232,8 +231,7 @@ public class ClientController extends Observable implements Observer  {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		//if(arg != null && ((String)arg).equals("finishGame")) finishGame();
-		if(arg != null && ((String)arg).equals("finishRound")) finishRound();
+		if(arg != null && ((String)arg).equals("roundFinished")) finishRound();
 		if(arg != null && ((String)arg).equals("gameFinished")) finishGame();
 	}
 

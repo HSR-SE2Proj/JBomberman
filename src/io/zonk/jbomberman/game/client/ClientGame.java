@@ -21,7 +21,6 @@ public class ClientGame extends Observable
 	private SpriteManager manager;
 	private ActionQueue queue;
 	private ActionDispatcher dispatcher;
-	private int round = 0;
 	
 	private List<Sprite> background = new ArrayList<>();
 	
@@ -83,19 +82,17 @@ public class ClientGame extends Observable
 					manager.remove((int)action.getProperty(0));
 					break;
 				case LOBBY_COMMUNICATION:
-					/*String s = ((String)action.getProperty(0));
+					String s = ((String)action.getProperty(0));
 					if(s != null && s.equals("finishGame")) {
 						dispatcher.run = false;
 						notifyMsg = "gameFinished";
-					}*/
-					dispatcher.run = false;
-					//notifyMsg = "finishGame";
-					notifyMsg = "finishRound";
+					}
+					if(s != null && s.equals("finishRound")) {
+						dispatcher.run = false;
+						notifyMsg = "roundFinished";
+					}
 					break;
 				default:
-					/*dispatcher.run = false;
-					//notifyMsg = "finishGame";
-					notifyMsg = "finishRound";*/
 					break;
 				}
 			}

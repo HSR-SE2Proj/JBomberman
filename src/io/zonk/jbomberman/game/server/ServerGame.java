@@ -127,9 +127,7 @@ public class ServerGame extends Observable implements GameLoop {
 			dispatcher.run = false;
 			initmap = false;
 			setChanged();
-			//notifyObservers("finishGame");
-			notifyObservers("finishRound");
-			//notifyObservers("exitGame");
+			notifyObservers("exitRound");
 		}
 
 	}
