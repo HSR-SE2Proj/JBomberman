@@ -47,7 +47,7 @@ public class ImageManager {
 		} catch(IOException e) {
 			System.out.println("Error: Could not load images");
 			e.printStackTrace();
-			assert true;
+			assert false;
 		}
 	}
 	

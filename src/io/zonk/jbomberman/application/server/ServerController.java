@@ -12,15 +12,18 @@ import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 public class ServerController implements Observer {
 
 	private static final int READY_THRESHOLD = 2;
 	private static final int COUNTDOWN_TIME = 10;
+	private static final int HEARTBEAT_TIMEOUT = 100;
 	private int countdown = 10;
 	private int readyCount = 0;
 	
@@ -60,7 +63,7 @@ public class ServerController implements Observer {
 		Object[] start = {"startGame", sParty};
 		sendLobbyUpdate(start);
 	}
-	
+
 	/**
 	 * Entkoppelt die Spielrelevanten Klassen und geht in 
 	 * die waitForPlayers Methode zurück.\\
@@ -170,6 +173,7 @@ public class ServerController implements Observer {
 				} catch (InterruptedException e) {
 				}
 			}
+			checkPlayersAlive();
 			startGame(party);
 		}).start();
 	}
@@ -190,11 +194,36 @@ public class ServerController implements Observer {
 		}
 		return 0;
 	}
+	
+	private void checkPlayersAlive() {
+		Object[] prop = {"aliveCheck"};
+		sendLobbyUpdate(prop);
+		
+		ArrayList<Integer> pids = new ArrayList<>();
+		for(int pid : party.getPlayers().keySet()) {
+			pids.add(pid);
+		}
+		
+		//Size * 2 because of redundancy
+		for(int i = 0; i < party.getPlayers().size() * 2; i++) {
+			Action heartbeat = ActionSerializer.deserialize(network.receiveMessage(HEARTBEAT_TIMEOUT));
+			if(heartbeat != null && heartbeat.getActionType().equals(ActionType.LOBBY_COMMUNICATION) && heartbeat.getProperty(0).equals("alive")) {
+				pids.remove((Integer)heartbeat.getProperty(1));
+			}
+		}
+		
+		if(!pids.isEmpty()) {
+			for(int pid : pids) {
+				party.remove(party.get(pid));
+			}
+		}
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if(((String)arg).equals("finishRound")) finishRound();
 		//if(((String)arg).equals("finishGame")) finishGame();
+		//if(((String)arg).equals("exitGame")) finishGame();
 	}
 
 	

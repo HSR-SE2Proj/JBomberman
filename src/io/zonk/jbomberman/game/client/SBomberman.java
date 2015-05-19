@@ -1,10 +1,8 @@
 package io.zonk.jbomberman.game.client;
 
-import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.BombermanState;
 import io.zonk.jbomberman.utils.ImageManager;
 import io.zonk.jbomberman.utils.Position;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 
@@ -33,12 +31,6 @@ public class SBomberman extends Sprite {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(ImageManager.getInstance().get(imgName).getSubimage(frameNr*size.width, animState*size.height, size.width, size.height), position.getX(), position.getY()-64, null);
-	}
-
-	@Override
-	public void update(Action action) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

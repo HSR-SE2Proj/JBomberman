@@ -1,9 +1,7 @@
 package io.zonk.jbomberman.game.server;
 
-import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.GameObjectType;
-import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.utils.Position;
 
 public abstract class GameObject {
@@ -24,17 +22,6 @@ public abstract class GameObject {
 	 * @param manager
 	 */
 	public abstract void tick(ActionQueue queue, GameObjectManager manager);
-	/**
-	 * Interpretiert die Action und aktualisiert sich selbst.
-	 * @param action
-	 */
-	public abstract void update(Action action);
-	/**
-	 * Falls das Object neue Werte besitzt muss es die neuen 
-	 * Daten an die Clients senden.
-	 * @param network
-	 */
-	public abstract void sendUpdates(NetworkFacade network);
 	/**
 	 * Überprüft, ob das Object mit einem anderen kollidiert und führt dann die jeweiligen
 	 * Korrekturen (z.B. beim Movement) oder Aktionen durch. 

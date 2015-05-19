@@ -1,7 +1,9 @@
 package io.zonk.jbomberman.network.server;
 
 import io.zonk.jbomberman.network.NetworkFacade;
+
 import java.io.IOException;
+
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.ConsumerCancelledException;
@@ -12,6 +14,9 @@ public class ServerNetwork implements NetworkFacade {
 	private Connection connection;
 	private ServerSender sender;
 	private ServerReceiver receiver;
+	
+	private Thread currThread;
+	private byte[] recMsg;
 
 	@Override
 	public void connect(String hostname) {
@@ -60,6 +65,37 @@ public class ServerNetwork implements NetworkFacade {
 			return receiver.receive();
 		} catch (ShutdownSignalException | ConsumerCancelledException
 				| InterruptedException e) {
+			System.err.println("Error: Could not receive message");
+			e.printStackTrace();
+			assert false;
+			return null;
+		}
+	}
+
+	public byte[] receiveMessage(int timeout) {
+		try {
+			recMsg = null;
+
+			currThread = Thread.currentThread();
+			new Thread(() -> {
+				Object monitoredObject = new Object();
+				synchronized (monitoredObject) {
+					try {
+						monitoredObject.notifyAll();
+						monitoredObject.wait(timeout);
+						if (recMsg == null) currThread.interrupt();
+					} catch (InterruptedException e) {
+					}
+				}
+			}).start();
+			
+			try {
+				recMsg = receiver.receive();
+			} catch (InterruptedException e) {
+			}
+
+			return (recMsg != null) ? recMsg.clone(): null;
+		} catch (ShutdownSignalException | ConsumerCancelledException e) {
 			System.err.println("Error: Could not receive message");
 			e.printStackTrace();
 			assert false;

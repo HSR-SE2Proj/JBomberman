@@ -6,6 +6,7 @@ import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
+import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
@@ -21,7 +22,7 @@ import java.util.Random;
 public class ClientController extends Observable implements Observer  {
 	private String server;
 	private Thread t;
-	private ClientControllerState controllerState = ClientControllerState.CONNECT;
+	private ClientControllerState controllerState = ClientControllerState.DISCONNECT;
 	
 	private static final int CONNECT_TIMEOUT = 5000;
 	private int countdown = 0;
@@ -31,7 +32,7 @@ public class ClientController extends Observable implements Observer  {
 	// Player this instance is associated  with
 	int playerId = 0;
 	
-	private ClientNetwork network;
+	private NetworkFacade network;
 	private Party party;
 	private Timer timer;
 	private GameCanvas gCanvas;
@@ -116,7 +117,7 @@ public class ClientController extends Observable implements Observer  {
 					states = (HashMap<Integer, Boolean>)returnAction.getProperty(1);
 					playerId = (Integer)returnAction.getProperty(2);
 					
-					controllerState = ClientControllerState.LOBBY;
+					controllerState = ClientControllerState.CONNECTED;
 					setChanged();
 					notifyObservers("connChanged");
 
@@ -162,6 +163,12 @@ public class ClientController extends Observable implements Observer  {
 				startGame();
 				break;
 	
+			case "aliveCheck":
+				Object[] prop = {"alive", playerId};
+				send(prop);
+				send(prop);
+				break;
+	
 			default:
 				break;
 			}
@@ -190,7 +197,7 @@ public class ClientController extends Observable implements Observer  {
 		Object[] prop = {"disconnect", playerId};
 		send(prop);
 		network.close();
-		controllerState = ClientControllerState.CONNECT;
+		controllerState = ClientControllerState.DISCONNECT;
 		setChanged();
 		notifyObservers("connChanged");
 	}
@@ -228,6 +235,7 @@ public class ClientController extends Observable implements Observer  {
 	public void update(Observable o, Object arg) {
 		//if(arg != null && ((String)arg).equals("finishGame")) finishGame();
 		if(arg != null && ((String)arg).equals("finishRound")) finishRound();
+		if(arg != null && ((String)arg).equals("gameFinished")) finishGame();
 	}
 
 	
