@@ -1,4 +1,4 @@
-package io.zonk.jbomberman.view;
+package io.zonk.jbomberman.application.client;
 
 public enum ClientControllerState {
 	DISCONNECT,

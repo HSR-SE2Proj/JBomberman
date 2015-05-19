@@ -11,7 +11,6 @@ import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
-import io.zonk.jbomberman.view.ClientControllerState;
 import io.zonk.jbomberman.view.GameCanvas;
 
 import java.util.HashMap;
