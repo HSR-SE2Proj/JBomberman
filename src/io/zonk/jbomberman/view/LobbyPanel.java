@@ -31,6 +31,7 @@ import java.util.Observer;
 import javax.swing.Box;
 
 public class LobbyPanel extends JPanel implements Observer {
+	private static final long serialVersionUID = -9061087680992564617L;
 	private ClientController cc;
 	HashMap<Integer, Boolean> states = new HashMap<>();
 	private String server = "";

@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 
 public class ConnectionPanel extends JPanel{
+	private static final long serialVersionUID = -8874884232770605989L;
 	private JTextField serverAddress;
 	private JButton btnConnect;
 
