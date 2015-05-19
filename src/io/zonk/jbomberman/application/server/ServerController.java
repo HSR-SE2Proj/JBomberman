@@ -74,6 +74,8 @@ public class ServerController implements Observer {
 	
 	
 	public void finishRound() {
+		Object[] finish = {"finishRound"};
+		sendLobbyUpdate(finish);
 		new TimeUtil().sleepFor(3000);
 		timer.run = false;
 		if (round > 3) {
