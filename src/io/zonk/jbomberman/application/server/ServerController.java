@@ -10,6 +10,7 @@ import io.zonk.jbomberman.network.server.ServerNetwork;
 import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
+import io.zonk.jbomberman.utils.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,6 +77,7 @@ public class ServerController implements Observer {
 	
 	
 	public void finishRound() {
+		displayBanner();
 		if (round > 2) {
 			finishGame();
 		} else {
@@ -86,6 +88,12 @@ public class ServerController implements Observer {
 		++round;
 		startGame(party);
 		}
+	}
+
+	public void displayBanner() {
+		Action action = new Action(ActionType.CREATE_BANNER,
+				new Object[] {new Position(256,320),party.getWinner().getId()});
+		network.sendMessage(ActionSerializer.serialize(action));
 	}
 	/**
 	 * Der Server befindet sich nach dem Starten in 

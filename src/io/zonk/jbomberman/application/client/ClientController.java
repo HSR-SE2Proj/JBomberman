@@ -72,7 +72,8 @@ public class ClientController extends Observable implements Observer  {
 	
 	public void finishRound() {
 		timer.run =false;
-		new TimeUtil().sleepFor(500);
+		gCanvas.render();
+		new TimeUtil().sleepFor(3000);
 		gCanvas.dispose();
 		startGame();
 	}

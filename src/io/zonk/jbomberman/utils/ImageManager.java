@@ -43,6 +43,11 @@ public class ImageManager {
 			imageMap.put("IMG_BMAN_PROFBLACK", ImageIO.read(getClass().getResource(link + "BmanProfileBlack.png")));
 			//Instruction Pic
 			imageMap.put("IMG_INSTRUCTIONS",ImageIO.read(getClass().getResource(link + "Instructions.png")));
+			//Winner Banner for each Bomberman (1-4)
+			imageMap.put("IMG_BANNER_BMAN_BLACK",ImageIO.read(getClass().getResource(link + "Banner_Player1.png")));
+			imageMap.put("IMG_BANNER_BMAN_BLUE",ImageIO.read(getClass().getResource(link + "Banner_Player2.png")));
+			imageMap.put("IMG_BANNER_BMAN_RED",ImageIO.read(getClass().getResource(link + "Banner_Player3.png")));
+			imageMap.put("IMG_BANNER_BMAN_WHITE",ImageIO.read(getClass().getResource(link + "Banner_Player4.png")));
 		} catch(IOException e) {
 			System.out.println("Error: Could not load images");
 			e.printStackTrace();

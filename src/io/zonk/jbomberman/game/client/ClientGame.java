@@ -78,6 +78,9 @@ public class ClientGame extends Observable
 				case CREATE_POWERUP:
 					manager.add(new SPowerUp((Position)action.getProperty(0), (int)action.getProperty(1), (PowerUpType)action.getProperty(2)));
 					break;
+				case CREATE_BANNER:
+					manager.add(new SBanner((Position) action.getProperty(0), (int)action.getProperty(1)));
+					break;
 				case DESTROY:
 					manager.remove((int)action.getProperty(0));
 					break;
