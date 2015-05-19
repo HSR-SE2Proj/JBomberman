@@ -1,6 +1,5 @@
 package io.zonk.jbomberman.game;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Party {
@@ -19,9 +18,9 @@ public class Party {
 	}
 	
 	public Player getWinner() {
-		for (Integer player : getPlayers().keySet()){
-			if(get(player).getBomberman().getState() != BombermanState.DEAD) {
-				return get(player);
+		for (Player player : getPlayers().values()){
+			if(player.getBomberman().getState() != BombermanState.DEAD) {
+				return player;
 			}
 		}
 		return null;
