@@ -3,7 +3,6 @@ package io.zonk.jbomberman.application.client;
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.Party;
-import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
 import io.zonk.jbomberman.network.NetworkFacade;
@@ -33,13 +32,11 @@ public class ClientController extends Observable implements Observer  {
 	int playerId = 0;
 	
 	private NetworkFacade network;
-	private Party party;
 	private Timer timer;
 	private GameCanvas gCanvas;
 	
 	public ClientController() {
 		this.network = new ClientNetwork();
-		this.party = new Party();
 	}
 	
 	/**
@@ -68,7 +65,6 @@ public class ClientController extends Observable implements Observer  {
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
 		notifyObservers("connChanged");
-		party = new Party();
 		Object[] prop = {"finished"};
 		send(prop);
 	}
