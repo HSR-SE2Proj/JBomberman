@@ -69,11 +69,13 @@ public class ServerController implements Observer {
 	
 	
 	public void finishRound() {
-		displayBanner();
+		
 		if (round > 2) {
+			displayBanner(party.getOverallWinner().getId() + 10);
 			new TimeUtil().sleepFor(3000);
 			finishGame();
 		} else {
+			displayBanner(party.getWinner().getId());
 			Object[] finish = {"finishRound"};
 			sendLobbyUpdate(finish);
 			new TimeUtil().sleepFor(2000);
@@ -85,9 +87,9 @@ public class ServerController implements Observer {
 		}
 	}
 
-	public void displayBanner() {
+	public void displayBanner(int id) {
 		Action action = new Action(ActionType.CREATE_BANNER,
-				new Object[] {new Position(256,320),party.getWinner().getId()});
+				new Object[] {new Position(256,320),id});
 		network.sendMessage(ActionSerializer.serialize(action));
 	}
 	/**

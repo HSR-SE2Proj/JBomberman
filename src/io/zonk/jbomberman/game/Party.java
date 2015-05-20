@@ -28,6 +28,18 @@ public class Party implements Serializable{
 		return null;
 	}
 	
+	public Player getOverallWinner() {
+		int tempscore = 0;
+		Player temp = new Player("Temp",5);
+		for(Player player : getPlayers().values()) {
+			if (player.getScore() > tempscore) {
+				tempscore = player.getScore();
+				temp = player;
+			}
+		}
+		return temp;
+	}
+	
 	public HashMap<Integer, Player> getPlayers() {
 		return playerList;
 	}
