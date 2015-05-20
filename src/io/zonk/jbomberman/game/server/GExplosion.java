@@ -12,7 +12,7 @@ public class GExplosion extends GameObject {
 	private int power;
 	public enum Direction {LEFT, RIGHT, UP, DOWN, NO_DIRECTION};
 	private Direction direction;
-	private int timeToDie = 30 * 2;
+	private int timeToDie = 30 * 1;
 
 	public GExplosion(Position position, int id, int power, Direction direction) {
 		super(position, id, GameObjectType.EXPLOSION);

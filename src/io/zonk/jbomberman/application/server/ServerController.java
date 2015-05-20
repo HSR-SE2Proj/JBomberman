@@ -72,7 +72,7 @@ public class ServerController implements Observer {
 		
 		if (round > 2) {
 			displayBanner(party.getOverallWinner().getId() + 10);
-			new TimeUtil().sleepFor(3000);
+			new TimeUtil().sleepFor(4000);
 			finishGame();
 		} else {
 			displayBanner(party.getWinner().getId());

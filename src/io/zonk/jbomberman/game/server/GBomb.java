@@ -10,7 +10,7 @@ import io.zonk.jbomberman.utils.Position;
 
 public class GBomb extends GameObject {
 	
-	private static final int FUSE_TIME = 2000;
+	private static final int FUSE_TIME = 3000;
 	private long placed;
 	private int bombPower;
 
