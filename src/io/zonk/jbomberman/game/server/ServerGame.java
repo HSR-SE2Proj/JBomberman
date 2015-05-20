@@ -49,8 +49,10 @@ public class ServerGame extends Observable implements GameLoop {
 	public void loop() {
 		int timer = (int) ((System.currentTimeMillis() - initTime) / 1000);
 		Object[] prop = {TIMER_START - timer};
+		if (timer <= 180) {
 		Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
 		network.sendMessage(ActionSerializer.serialize(timerAction));
+		}
 		
 		if (!initmap) {
 			initMap();
@@ -135,7 +137,11 @@ public class ServerGame extends Observable implements GameLoop {
 
 				b.sendUpdates(network);
 				aliveCount++;
+				if(timer == 180) {
+					player.getBomberman().setFullPowerups();
+				}
 			}
+			
 		}
 		
 		if(aliveCount < 2) {

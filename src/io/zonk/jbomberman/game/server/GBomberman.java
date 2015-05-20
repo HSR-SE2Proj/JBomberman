@@ -246,5 +246,13 @@ public class GBomberman extends GameObject {
 	public void addBomb() {
 		bombs++;
 	}
+	
+	public void setFullPowerups() {
+		bombPower = 3;
+		maxBombs = 4;
+		speed = 8;
+		position.incrementX(position.getX()%8);
+		position.incrementY(position.getY()%8);
+	}
 
 }
