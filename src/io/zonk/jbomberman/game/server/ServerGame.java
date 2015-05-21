@@ -145,7 +145,10 @@ public class ServerGame extends Observable implements GameLoop {
 		}
 		
 		if(aliveCount < 2) {
-			party.getWinner().addScore();
+			Player winner = party.getWinner();
+			if(winner.getId() != 0) {
+				winner.addScore();
+			}
 			dispatcher.run = false;
 			initmap = false;
 			setChanged();

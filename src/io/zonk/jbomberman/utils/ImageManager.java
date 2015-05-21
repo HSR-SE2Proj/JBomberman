@@ -48,6 +48,8 @@ public class ImageManager {
 			imageMap.put("IMG_BANNER_BMAN_BLUE",ImageIO.read(getClass().getResource(link + "Banner_Player2.png")));
 			imageMap.put("IMG_BANNER_BMAN_RED",ImageIO.read(getClass().getResource(link + "Banner_Player3.png")));
 			imageMap.put("IMG_BANNER_BMAN_WHITE",ImageIO.read(getClass().getResource(link + "Banner_Player4.png")));
+
+			imageMap.put("IMG_BANNER_NO_WINNER",ImageIO.read(getClass().getResource(link + "NoWinner.png")));
 			//Overall Winner Banners
 			imageMap.put("IMG_BANNEROVERALL_BMAN_BLACK",ImageIO.read(getClass().getResource(link + "Overall_Player1.png")));
 			imageMap.put("IMG_BANNEROVERALL_BMAN_BLUE",ImageIO.read(getClass().getResource(link + "Overall_Player2.png")));

@@ -20,12 +20,13 @@ public class Party implements Serializable{
 	}
 	
 	public Player getWinner() {
+		Player winner = new Player("Player0", 0);
 		for (Player player : getPlayers().values()){
 			if(player.getBomberman().getState() != BombermanState.DEAD) {
-				return player;
+				winner = player;
 			}
 		}
-		return null;
+		return winner;
 	}
 	
 	public Player getOverallWinner() {
