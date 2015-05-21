@@ -108,12 +108,12 @@ public class ServerController implements Observer {
 				switch ((String)receivedAction.getProperty(0)) {
 				case "connect":
 					int pid = getNextId(playerStates);
-					playerStates.put(pid, false);
 					if(pid == 0) {
 						Object[] prop = {"serverFull"};
 						sendLobbyUpdate(prop);
 						break;
 					}
+					playerStates.put(pid, false);
 
 					Object[] prop = {"lobbyList", playerStates, pid, (Integer)receivedAction.getProperty(1)};
 					sendLobbyUpdate(prop);
