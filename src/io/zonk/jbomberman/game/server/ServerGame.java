@@ -27,7 +27,6 @@ public class ServerGame extends Observable implements GameLoop {
 	private Party party;
 	private boolean initmap;
 	private ActionDispatcher dispatcher;
-	private long initTime = 0;
 	
 	public int timer = 0;
 	
@@ -40,8 +39,6 @@ public class ServerGame extends Observable implements GameLoop {
 		queue = new ActionQueue();
 		dispatcher = new ActionDispatcher(network, queue);
 		startDispatcher();
-		
-		initTime = System.currentTimeMillis();
 
 		new Thread(() -> {
 			Object monitoredObject = new Object();
