@@ -10,6 +10,7 @@ import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.RandomUtil;
 import io.zonk.jbomberman.utils.TimeUtil;
+import io.zonk.jbomberman.utils.Timer;
 import io.zonk.jbomberman.view.GameCanvas;
 
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class ClientController extends Observable implements Observer  {
 	int playerId = 0;
 	
 	private NetworkFacade network;
-	private Thread timer;
+	private Timer timer;
 	private GameCanvas gCanvas;
 	
 	public ClientController() {
@@ -45,7 +46,8 @@ public class ClientController extends Observable implements Observer  {
  		ClientGame game = new ClientGame(network, party);
  		game.addObserver(this);
  		
- 		timer = TimeUtil.startTimer(CLIENT_LOOPTIMER, game);
+ 		timer = new Timer(CLIENT_LOOPTIMER, game);
+ 		timer.start();
  		
  		Keyboard keyboard = new Keyboard(playerId, network);
  		gCanvas = new GameCanvas(game, keyboard, party, round);
@@ -59,7 +61,7 @@ public class ClientController extends Observable implements Observer  {
 	 * dass das Spiel beendet wurde.
 	 */
 	public void finishGame() {
-		timer.interrupt();
+		timer.run = false;
 		gCanvas.dispose();
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
@@ -70,7 +72,7 @@ public class ClientController extends Observable implements Observer  {
 	
 	public void finishRound() {
 		gCanvas.render();
-		timer.interrupt();
+		timer.run = false;
 		new TimeUtil().sleepFor(2000);
 		gCanvas.dispose();
 

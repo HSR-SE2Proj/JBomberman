@@ -17,7 +17,6 @@ import io.zonk.jbomberman.utils.Position;
 import io.zonk.jbomberman.utils.RandomUtil;
 
 import java.util.Observable;
-import java.util.Random;
 
 public class ServerGame extends Observable implements GameLoop {
 	private static final int TIMER_START = 180;
@@ -41,22 +40,6 @@ public class ServerGame extends Observable implements GameLoop {
 		dispatcher = new ActionDispatcher(network, queue);
 		startDispatcher();
 
-		new Thread(() -> {
-			Object monitoredObject = new Object();
-			synchronized (monitoredObject) {
-				try {
-					while(timer < 180) {
-						monitoredObject.notifyAll();
-						monitoredObject.wait(1000);
-						timer++;
-						Object[] prop = {TIMER_START - timer};
-						Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
-						network.sendMessage(ActionSerializer.serialize(timerAction));
-					}
-				} catch (InterruptedException e) {
-				}
-			}
-		}).start();
 	}
 
 	public void startDispatcher() {
@@ -67,6 +50,23 @@ public class ServerGame extends Observable implements GameLoop {
 	public void loop() {
 		if (!initmap) {
 			initMap();
+
+			new Thread(() -> {
+				Object monitoredObject = new Object();
+				synchronized (monitoredObject) {
+					try {
+						while(getInitMap() && timer < TIMER_START) {
+							monitoredObject.notifyAll();
+							monitoredObject.wait(1000);
+							timer++;
+							Object[] prop = {TIMER_START - timer};
+							Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
+							network.sendMessage(ActionSerializer.serialize(timerAction));
+						}
+					} catch (InterruptedException e) {
+					}
+				}
+			}).start();
 		}
 		
 
@@ -229,5 +229,9 @@ public class ServerGame extends Observable implements GameLoop {
 				}
 			}
 		initmap = true;
+	}
+	
+	public boolean getInitMap() {
+		return initmap;
 	}
 }
