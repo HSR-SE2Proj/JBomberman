@@ -1,6 +1,7 @@
 package io.zonk.jbomberman.game.server;
 
 import java.util.Random;
+
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
@@ -8,10 +9,9 @@ import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
+import io.zonk.jbomberman.utils.RandomUtil;
 
 public class GDestroyableBlock extends GameObject {
-	
-	private Random rnd = new Random();
 
 	public GDestroyableBlock(Position position, int id) {
 		super(position, id, GameObjectType.DESTROYBALE_BLOCK);
@@ -25,14 +25,13 @@ public class GDestroyableBlock extends GameObject {
 				
 				queue.put(new Action(ActionType.DESTROY, new Object[]{id}));
 				
-				if(rnd.nextInt(100) > 70) {
+				if(RandomUtil.probability(30)) {
 					
 					PowerUpType type;
 					
-					int rint = rnd.nextInt(120);
-					if(rint > 80)
+					if(RandomUtil.probability(30))
 						type = PowerUpType.BOMB;
-					else if(rint > 40)
+					else if(RandomUtil.probability(50))
 						type = PowerUpType.POWER;
 					else
 						type = PowerUpType.SPEED;

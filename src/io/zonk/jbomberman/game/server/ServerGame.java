@@ -14,6 +14,7 @@ import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
+import io.zonk.jbomberman.utils.RandomUtil;
 
 import java.util.Observable;
 import java.util.Random;
@@ -184,13 +185,13 @@ public class ServerGame extends Observable implements GameLoop {
 					network.sendMessage(ActionSerializer.serialize(action));
 					break;
 				case ' ':
-					if (rnd.nextInt(100) > 70)
-						break;
-					id = IDGenerator.getId();
-					manager.add(new GDestroyableBlock(position, id));
-					action = new Action(ActionType.CREATE_DESTROYABLEBLOCK,
-							new Object[] { position, id });
-					network.sendMessage(ActionSerializer.serialize(action));
+					if (RandomUtil.probability(70)) {
+						id = IDGenerator.getId();
+						manager.add(new GDestroyableBlock(position, id));
+						action = new Action(ActionType.CREATE_DESTROYABLEBLOCK,
+								new Object[] { position, id });
+						network.sendMessage(ActionSerializer.serialize(action));
+					}
 					break;
 				case '1':
 					if (party.get(1) != null) {
