@@ -8,7 +8,7 @@ public class Player implements Serializable{
 	private static final long serialVersionUID = 5032439795920907379L;
 	private String name;
 	private int id;
-	private transient GBomberman bman;
+	//private transient GBomberman bman;
 	private int score;
 	
 	public Player(String name, int id) {
@@ -34,13 +34,13 @@ public class Player implements Serializable{
 		this.id = id;
 	}
 	
-	public GBomberman getBomberman() {
-		return bman;
-	}
+//	public GBomberman getBomberman() {
+//		return bman;
+//	}
 	
-	public void setBomberman(GBomberman bman) {
-		this.bman = bman;
-	}
+//	public void setBomberman(GBomberman bman) {
+//		this.bman = bman;
+//	}
 	
 	public void addScore() {
 		this.score++;

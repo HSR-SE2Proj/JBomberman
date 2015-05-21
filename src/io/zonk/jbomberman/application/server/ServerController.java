@@ -75,7 +75,7 @@ public class ServerController implements Observer {
 			new TimeUtil().sleepFor(4000);
 			finishGame();
 		} else {
-			displayBanner(party.getWinner().getId());
+			displayBanner(game.getWinner().getId()); //displayBanner(party.getWinner().getId());
 			Object[] finish = {"finishRound"};
 			sendLobbyUpdate(finish);
 			new TimeUtil().sleepFor(2000);

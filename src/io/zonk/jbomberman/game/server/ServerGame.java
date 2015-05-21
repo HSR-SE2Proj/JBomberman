@@ -78,7 +78,8 @@ public class ServerGame extends Observable implements GameLoop {
 			case PLAYER_INPUT:
 				int id = (int) action.getProperty(0);
 				if(party.get(id) != null ) {
-					party.get(id).getBomberman().update(action);
+					//party.get(id).getBomberman().update(action);
+					((GBomberman)manager.getById(id)).update(action);
 				}
 				break;
 
@@ -137,26 +138,42 @@ public class ServerGame extends Observable implements GameLoop {
 			object.tick(queue, manager);
 		}
 
+//		int aliveCount = 0;
+//		for (Player player : party.getPlayers().values()) {
+//			if (player == null)
+//				continue;
+//			GBomberman b = player.getBomberman();
+//			
+//			if(b.getState() != BombermanState.DEAD) {
+//				b.tick(manager, queue);
+//
+//				b.sendUpdates(network);
+//				aliveCount++;
+//				if(timer == 180) {
+//					player.getBomberman().setFullPowerups();
+//				}
+//			}
+//			
+//		}
+		
+		
 		int aliveCount = 0;
-		for (Player player : party.getPlayers().values()) {
-			if (player == null)
-				continue;
-			GBomberman b = player.getBomberman();
-			
+		for(GameObject object : manager.getByType(GameObjectType.BOMBERMAN)) {
+			GBomberman b = (GBomberman) object;
 			if(b.getState() != BombermanState.DEAD) {
 				b.tick(manager, queue);
-
+	
 				b.sendUpdates(network);
 				aliveCount++;
 				if(timer == 180) {
-					player.getBomberman().setFullPowerups();
+					b.setFullPowerups();
 				}
 			}
-			
 		}
 		
 		if(aliveCount < 2) {
-			Player winner = party.getWinner();
+			//Player winner = party.getWinner();
+			Player winner = getWinner();
 			if(winner.getId() != 0) {
 				winner.addScore();
 			}
@@ -194,7 +211,8 @@ public class ServerGame extends Observable implements GameLoop {
 					break;
 				case '1':
 					if (party.get(1) != null) {
-						party.get(1).setBomberman(new GBomberman(position, 1));
+						//party.get(1).setBomberman(new GBomberman(position, 1));
+						manager.add(new GBomberman(position, 1));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 1 });
 						network.sendMessage(ActionSerializer.serialize(action));
@@ -202,7 +220,8 @@ public class ServerGame extends Observable implements GameLoop {
 					break;
 				case '2':
 					if (party.get(2) != null) {
-						party.get(2).setBomberman(new GBomberman(position, 2));
+						//party.get(2).setBomberman(new GBomberman(position, 2));
+						manager.add(new GBomberman(position, 2));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 2 });
 						network.sendMessage(ActionSerializer.serialize(action));
@@ -210,7 +229,8 @@ public class ServerGame extends Observable implements GameLoop {
 					break;
 				case '3':
 					if (party.get(3) != null) {
-						party.get(3).setBomberman(new GBomberman(position, 3));
+						//party.get(3).setBomberman(new GBomberman(position, 3));
+						manager.add(new GBomberman(position, 3));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 3 });
 						network.sendMessage(ActionSerializer.serialize(action));
@@ -218,7 +238,8 @@ public class ServerGame extends Observable implements GameLoop {
 					break;
 				case '4':
 					if (party.get(4) != null) {
-						party.get(4).setBomberman(new GBomberman(position, 4));
+						//party.get(4).setBomberman(new GBomberman(position, 4));
+						manager.add(new GBomberman(position, 4));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 4 });
 						network.sendMessage(ActionSerializer.serialize(action));
@@ -231,7 +252,18 @@ public class ServerGame extends Observable implements GameLoop {
 		initmap = true;
 	}
 	
+
 	public boolean getInitMap() {
 		return initmap;
+	}
+	public Player getWinner() {
+		Player winner = new Player("Player0", 0);
+		for(GameObject object : manager.getByType(GameObjectType.BOMBERMAN)) {
+			GBomberman b = (GBomberman) object;
+			if(b.getState() != BombermanState.DEAD) {
+				winner = party.get(b.getId());
+			}
+		}
+		return winner;
 	}
 }

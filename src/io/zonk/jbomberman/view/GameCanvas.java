@@ -51,6 +51,9 @@ public class GameCanvas extends Canvas implements Observer {
 		
 		this.addKeyListener(keyboard);
 		
+		setPreferredSize(new Dimension(600, 600));
+	
+		
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				@Override
