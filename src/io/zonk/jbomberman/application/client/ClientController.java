@@ -7,20 +7,17 @@ import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
-import io.zonk.jbomberman.time.TimeUtil;
-import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.RandomUtil;
+import io.zonk.jbomberman.utils.TimeUtil;
 import io.zonk.jbomberman.view.GameCanvas;
 
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 public class ClientController extends Observable implements Observer  {
 	private String server;
-	private Thread t;
 	private ClientControllerState controllerState = ClientControllerState.DISCONNECT;
 
 	public static final int CLIENT_LOOPTIMER = 1000/60;
@@ -33,7 +30,7 @@ public class ClientController extends Observable implements Observer  {
 	int playerId = 0;
 	
 	private NetworkFacade network;
-	private Timer timer;
+	private Thread timer;
 	private GameCanvas gCanvas;
 	
 	public ClientController() {
@@ -47,10 +44,11 @@ public class ClientController extends Observable implements Observer  {
 	public void startGame(Party party) {		
  		ClientGame game = new ClientGame(network, party);
  		game.addObserver(this);
- 		timer = new Timer(CLIENT_LOOPTIMER, game);
+ 		
+ 		timer = TimeUtil.startTimer(CLIENT_LOOPTIMER, game);
+ 		
  		Keyboard keyboard = new Keyboard(playerId, network);
  		gCanvas = new GameCanvas(game, keyboard, party, round);
- 		timer.start();
  		
  		controllerState = ClientControllerState.GAME_STARTED;
 		setChanged();
@@ -61,7 +59,7 @@ public class ClientController extends Observable implements Observer  {
 	 * dass das Spiel beendet wurde.
 	 */
 	public void finishGame() {
-		timer.run = false;
+		timer.interrupt();
 		gCanvas.dispose();
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
@@ -72,7 +70,7 @@ public class ClientController extends Observable implements Observer  {
 	
 	public void finishRound() {
 		gCanvas.render();
-		timer.run = false;
+		timer.interrupt();
 		new TimeUtil().sleepFor(2000);
 		gCanvas.dispose();
 
@@ -186,10 +184,9 @@ public class ClientController extends Observable implements Observer  {
 	}
 	
 	private void startReceiving() {
-		t = new Thread(() -> {
+		new Thread(() -> {
 				msgReceived(network.receiveMessage());
-		});
-		t.start();
+		}).start();
 	}
 	
 	private void send(Object[] prop) {

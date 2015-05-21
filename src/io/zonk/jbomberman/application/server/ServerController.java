@@ -7,10 +7,9 @@ import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.server.ServerGame;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.server.ServerNetwork;
-import io.zonk.jbomberman.time.TimeUtil;
-import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.Position;
+import io.zonk.jbomberman.utils.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +27,7 @@ public class ServerController implements Observer {
 	private ServerGame game;
 	private NetworkFacade network;
 	private Party party;
-	private Timer timer;
+	private Thread timer;
 	private int round = 1;
 	public static void main(String[] args) {
 		new ServerController();
@@ -51,8 +50,7 @@ public class ServerController implements Observer {
 		game = new ServerGame(network, party);
 		game.addObserver(this);
 
-		timer = new Timer(SERVER_LOOPTIMER, game);
-		timer.start();
+		timer = TimeUtil.startTimer(SERVER_LOOPTIMER, game);
 	}
 
 	/**
@@ -60,7 +58,7 @@ public class ServerController implements Observer {
 	 * die waitForPlayers Methode zurück.\\
 	 */
 	public void finishGame() {
-		timer.run = false;
+		timer.interrupt();
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);
 		party = new Party();
@@ -79,7 +77,7 @@ public class ServerController implements Observer {
 			Object[] finish = {"finishRound"};
 			sendLobbyUpdate(finish);
 			new TimeUtil().sleepFor(2000);
-			timer.run = false;
+			timer.interrupt();
 			++round;
 			startGame(party);
 		}
