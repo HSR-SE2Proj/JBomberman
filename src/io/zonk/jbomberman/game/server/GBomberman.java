@@ -21,7 +21,7 @@ public class GBomberman extends GameObject {
 	
 	private int bombPower = 0;
 	private int bombs = 1, maxBombs = 1;
-	private int bombCooldown = 30*2;
+	private int bombCooldown = 30*3;
 	private int speedCooldown = 0;
 	
 	private boolean canPlace = true;
@@ -93,7 +93,7 @@ public class GBomberman extends GameObject {
 			if(bombs < maxBombs) {
 				bombs++;
 			}
-			bombCooldown = 30*2;
+			bombCooldown = 30*3;
 		}
 		
 		/*
