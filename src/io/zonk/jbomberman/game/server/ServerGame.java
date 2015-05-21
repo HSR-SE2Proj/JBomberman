@@ -169,7 +169,6 @@ public class ServerGame extends Observable implements GameLoop {
 	}
 
 	private void initMap() {
-		Random rnd = new Random();
 		Map map = new StandardMap();
 		for (int y = 0; y < 13; ++y)
 			for (int x = 0; x < 13; ++x) {

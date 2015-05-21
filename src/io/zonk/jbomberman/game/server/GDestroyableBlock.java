@@ -29,7 +29,7 @@ public class GDestroyableBlock extends GameObject {
 					
 					PowerUpType type;
 					
-					if(RandomUtil.probability(30))
+					if(RandomUtil.probability(33))
 						type = PowerUpType.BOMB;
 					else if(RandomUtil.probability(50))
 						type = PowerUpType.POWER;
