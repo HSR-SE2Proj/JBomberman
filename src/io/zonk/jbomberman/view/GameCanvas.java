@@ -14,6 +14,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 
@@ -44,13 +45,22 @@ public class GameCanvas extends Canvas implements Observer {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.getContentPane().add(this, BorderLayout.CENTER);
 		frame.getContentPane().add(sp, BorderLayout.NORTH);
-		frame.setVisible(true);
-		frame.pack();
+		
 		
 		image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
 		this.addKeyListener(keyboard);
+		
+		setPreferredSize(new Dimension(600, 600));
+	
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				frame.setVisible(true);
+				frame.pack();
+			}
+		});
 	}
 	
 	/**
