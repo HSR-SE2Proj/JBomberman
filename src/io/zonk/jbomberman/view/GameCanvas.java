@@ -10,10 +10,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 
@@ -42,13 +44,28 @@ public class GameCanvas extends Canvas implements Observer {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.getContentPane().add(this, BorderLayout.CENTER);
 		frame.getContentPane().add(sp, BorderLayout.NORTH);
-		frame.setVisible(true);
-		frame.pack();
+		
 		
 		image = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_ARGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
 		this.addKeyListener(keyboard);
+		
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				@Override
+				public void run() {
+					frame.setVisible(true);
+					frame.pack();
+				}
+			});
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -59,7 +76,11 @@ public class GameCanvas extends Canvas implements Observer {
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if(bs == null) {
+			try {
 			createBufferStrategy(3);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return;
 		}
 		
