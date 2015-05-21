@@ -156,11 +156,12 @@ public class ScorePanel extends JPanel {
 	
 	public void updateTimer(int time) {
 		int min = time / 60;
-		String sec = Integer.toString(time - (min * 60));
-		if(sec.equals("0")){
-			sec = "00";
+		int sec = time - (min * 60);
+		String sSec = Integer.toString(sec);
+		if(sec < 10){
+			sSec = "0" + sSec;
 		}
-		lblTime.setText(min + ":" + sec);
+		lblTime.setText(min + ":" + sSec);
 		repaint();
 	}
 }
