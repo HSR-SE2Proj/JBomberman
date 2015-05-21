@@ -81,8 +81,6 @@ public class ServerController implements Observer {
 			new TimeUtil().sleepFor(2000);
 			timer.run = false;
 			++round;
-			Object[] start = {};
-			sendLobbyUpdate(start);
 			startGame(party);
 		}
 	}

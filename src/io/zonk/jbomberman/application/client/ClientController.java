@@ -10,6 +10,7 @@ import io.zonk.jbomberman.network.client.ClientNetwork;
 import io.zonk.jbomberman.time.TimeUtil;
 import io.zonk.jbomberman.time.Timer;
 import io.zonk.jbomberman.utils.ActionSerializer;
+import io.zonk.jbomberman.utils.RandomUtil;
 import io.zonk.jbomberman.view.GameCanvas;
 
 import java.util.HashMap;
@@ -85,14 +86,18 @@ public class ClientController extends Observable implements Observer  {
 		}
 	}
 	
+	/**
+	 * Versucht bis zu 5 mal sich mit dem Server zu verbinden
+	 * @param rand ConnectId
+	 * @return
+	 */
 	private Action receiveLobby(int rand) {
 		byte[] recMsg = network.receiveMessage(CONNECT_TIMEOUT);
 		Action returnAction = ActionSerializer.deserialize(recMsg);
 		int i = 0;
 		while(returnAction == null || (((String)returnAction.getProperty(0)).equals("lobbyList") && 
 				((Integer)returnAction.getProperty(3)) != rand && i < 5)) {
-			Random randomGenerator = new Random();
-	        rand = randomGenerator.nextInt(1000);
+	        rand = RandomUtil.getRandomInt(1000);
 			Object[] prop = {"connect", rand};
 			send(prop);
 			recMsg = network.receiveMessage(CONNECT_TIMEOUT);
@@ -111,8 +116,7 @@ public class ClientController extends Observable implements Observer  {
 		this.server = hostname;
 		network.connect(hostname);
 		if(network.isOpen()) {
-			Random randomGenerator = new Random();
-	        int randomInt = randomGenerator.nextInt(1000);
+	        int randomInt = RandomUtil.getRandomInt(1000);
 			Object[] prop = {"connect", randomInt};
 			send(prop);
 
