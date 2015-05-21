@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -54,13 +55,22 @@ public class GameCanvas extends Canvas implements Observer {
 		
 		setPreferredSize(new Dimension(600, 600));
 	
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				frame.setVisible(true);
-				frame.pack();
-			}
-		});
+		
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				@Override
+				public void run() {
+					frame.setVisible(true);
+					frame.pack();
+				}
+			});
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
