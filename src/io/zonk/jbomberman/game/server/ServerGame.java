@@ -28,6 +28,9 @@ public class ServerGame extends Observable implements GameLoop {
 	private boolean initmap;
 	private ActionDispatcher dispatcher;
 	private long initTime = 0;
+	
+	public int timer = 0;
+	
 	public ServerGame(NetworkFacade network, Party party) {
 		this.network = network;
 		this.party = party;
@@ -39,6 +42,23 @@ public class ServerGame extends Observable implements GameLoop {
 		startDispatcher();
 		
 		initTime = System.currentTimeMillis();
+
+		new Thread(() -> {
+			Object monitoredObject = new Object();
+			synchronized (monitoredObject) {
+				try {
+					while(timer < 180) {
+						monitoredObject.notifyAll();
+						monitoredObject.wait(1000);
+						timer++;
+						Object[] prop = {TIMER_START - timer};
+						Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
+						network.sendMessage(ActionSerializer.serialize(timerAction));
+					}
+				} catch (InterruptedException e) {
+				}
+			}
+		}).start();
 	}
 
 	public void startDispatcher() {
@@ -47,13 +67,6 @@ public class ServerGame extends Observable implements GameLoop {
 
 	@Override
 	public void loop() {
-		int timer = (int) ((System.currentTimeMillis() - initTime) / 1000);
-		Object[] prop = {TIMER_START - timer};
-		if (timer <= 180) {
-		Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
-		network.sendMessage(ActionSerializer.serialize(timerAction));
-		}
-		
 		if (!initmap) {
 			initMap();
 		}
