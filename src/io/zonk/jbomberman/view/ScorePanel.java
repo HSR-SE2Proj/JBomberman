@@ -136,22 +136,43 @@ public class ScorePanel extends JPanel {
 		JLabel[] lblPlImg = {lblPl1Img, lblPl2Img, lblPl3Img, lblPl4Img};
 		JLabel[] lblPlScr = {lblPl1Scr, lblPl2Scr, lblPl3Scr, lblPl4Scr};
 		
-		int strutX = 1;
 		for(Player p : party.getPlayers().values()){
 			int id = p.getId() - 1;
 			lblPlImg[id].setIcon(bmanProfile[id]);
 			lblPlScr[id].setText(Integer.toString(p.getScore()));
 
+			setStrut(pPlayers, p.getId());
+		}
+
+	}
+
+	private void setStrut(JPanel pPlayers, int pid) {
+		int strutX = 0;
+		switch(pid) {
+			case 1: 
+				strutX = 1;
+				break;
+			case 2: 
+				strutX = 3;
+				break;
+			case 3:
+				strutX = 5;
+				break;
+			case 4:
+				strutX = 7;
+				break;
+			default:
+				break;
+		}
+		
+		if(strutX != 0) {
 			Component horizontalStrut = Box.createHorizontalStrut(20);
 			GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
 			gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
 			gbc_horizontalStrut.gridx = strutX;
 			gbc_horizontalStrut.gridy = 0;
 			pPlayers.add(horizontalStrut, gbc_horizontalStrut);
-			
-			strutX += 2;
 		}
-
 	}
 	
 	public void updateTimer(int time) {
