@@ -6,13 +6,13 @@ import org.junit.*;
 import io.zonk.jbomberman.utils.Position;
 public class PlayerTest {
 	private Player player;
-	private GBomberman gb;
+	//private GBomberman gb;
 	private Position pos;
 	@Before
 	public void init() {
 		player = new Player("Test",0);
 		pos = new Position(1,2);
-		gb = new GBomberman(pos, 1);
+		//gb = new GBomberman(pos, 1);
 	}
 	
 	@Test
