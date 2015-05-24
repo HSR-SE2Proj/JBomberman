@@ -51,7 +51,7 @@ public class ClientController extends Observable implements Observer  {
  		
  		Keyboard keyboard = new Keyboard(playerId, network);
  		gCanvas = new GameCanvas(game, keyboard, party, round);
- 		
+ 		gCanvas.requestFocus();
  		controllerState = ClientControllerState.GAME_STARTED;
 		setChanged();
 		notifyObservers("connChanged");
