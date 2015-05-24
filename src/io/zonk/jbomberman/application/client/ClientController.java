@@ -25,10 +25,10 @@ public class ClientController extends Observable implements Observer  {
 	private static final int CONNECT_TIMEOUT = 5000;
 	private int countdown = 0;
 	private int round = 1;
-	HashMap<Integer, Boolean> states;
+	private HashMap<Integer, Boolean> states;
 	
 	// Player this instance is associated  with
-	int playerId = 0;
+	private int playerId = 0;
 	
 	private NetworkFacade network;
 	private Timer timer;

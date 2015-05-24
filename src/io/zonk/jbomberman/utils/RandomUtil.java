@@ -3,7 +3,7 @@ package io.zonk.jbomberman.utils;
 import java.util.Random;
 
 public class RandomUtil {
-	static Random randomGenerator = new Random();
+	private static Random randomGenerator = new Random();
 
 	public static int getRandomInt(int maxValue) {
         return randomGenerator.nextInt(maxValue);
