@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
 public class ScorePanel extends JPanel {
 	private static final long serialVersionUID = 8982380817405788101L;
 	
-	JLabel lblTime;
+	private JLabel lblTime;
 	
 	private ImageIcon[] bmanProfile = {
 			new ImageIcon(ImageManager.getInstance().get("IMG_BMAN_PROFBLACK")),
