@@ -61,6 +61,7 @@ public class ServerController implements Observer {
 	 */
 	public void finishGame() {
 		timer.run = false;
+		this.round = 1;
 		Object[] finish = {"finishGame"};
 		sendLobbyUpdate(finish);
 		party = new Party();
@@ -90,6 +91,7 @@ public class ServerController implements Observer {
 				new Object[] {new Position(256,320),id});
 		network.sendMessage(ActionSerializer.serialize(action));
 	}
+	
 	/**
 	 * Der Server befindet sich nach dem Starten in 
 	 * dieser Methode und wartet bis mehr als ein Spieler 

@@ -46,12 +46,13 @@ public class ClientController extends Observable implements Observer  {
  		ClientGame game = new ClientGame(network, party);
  		game.addObserver(this);
  		
- 		timer = new Timer(CLIENT_LOOPTIMER, game);
- 		timer.start();
+ 		
  		
  		Keyboard keyboard = new Keyboard(playerId, network);
  		gCanvas = new GameCanvas(game, keyboard, party, round);
  		gCanvas.requestFocus();
+ 		timer = new Timer(CLIENT_LOOPTIMER, game);
+ 		timer.start();
  		controllerState = ClientControllerState.GAME_STARTED;
 		setChanged();
 		notifyObservers("connChanged");
@@ -62,6 +63,7 @@ public class ClientController extends Observable implements Observer  {
 	 */
 	public void finishGame() {
 		timer.run = false;
+		this.round = 1;
 		gCanvas.dispose();
  		controllerState = ClientControllerState.GAME_FINISHED;
 		setChanged();
