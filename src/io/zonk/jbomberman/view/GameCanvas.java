@@ -51,7 +51,7 @@ public class GameCanvas extends Canvas implements Observer {
 		
 		this.addKeyListener(keyboard);
 		
-		setPreferredSize(new Dimension(600, 600));
+		setPreferredSize(new Dimension(640, 640));
 	
 		
 		try {

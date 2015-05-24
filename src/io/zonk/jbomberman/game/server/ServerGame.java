@@ -79,7 +79,9 @@ public class ServerGame extends Observable implements GameLoop {
 				int id = (int) action.getProperty(0);
 				if(party.get(id) != null ) {
 					//party.get(id).getBomberman().update(action);
+				  if(manager.getById(id) != null) {
 					((GBomberman)manager.getById(id)).update(action);
+				  }
 				}
 				break;
 
