@@ -18,17 +18,7 @@ public class Party implements Serializable{
 	public Player get(int id) {
 		return playerList.get(id);
 	}
-	
-//	public Player getWinner() {
-//		Player winner = new Player("Player0", 0);
-//		for (Player player : getPlayers().values()){
-//			if(player.getBomberman().getState() != BombermanState.DEAD) {
-//				winner = player;
-//			}
-//		}
-//		return winner;
-//	}
-	
+		
 	public Player getOverallWinner() {
 		int tempscore = 0;
 		Player temp = new Player("Temp",5);
