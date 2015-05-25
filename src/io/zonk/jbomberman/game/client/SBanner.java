@@ -35,7 +35,6 @@ public class SBanner extends Sprite {
 			default:
 				imgName = "IMG_BANNER_NO_WINNER";
 				break;
-			
 		}	
 	}
 	
