@@ -63,7 +63,7 @@
      <jar destfile="${dist}/JBombermanClient.jar" filesetmanifest="mergewithoutmain">
 
     <fileset dir="${build}"
-             excludes="**/network/server/*,**/application/server/*,**/*Test*.class,**/*.exec"
+             excludes="**/server/*,**/*Test*.class,**/*.exec"
     />
     <manifest>
      	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
