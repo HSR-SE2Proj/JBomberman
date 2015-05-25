@@ -3,6 +3,7 @@ package io.zonk.jbomberman.game.server;
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
+import io.zonk.jbomberman.game.DirectionType;
 import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
@@ -10,11 +11,11 @@ import io.zonk.jbomberman.utils.Position;
 public class GExplosion extends GameObject {
 	
 	private int power;
-	public enum Direction {LEFT, RIGHT, UP, DOWN, NO_DIRECTION};
-	private Direction direction;
+	//public enum Direction {LEFT, RIGHT, UP, DOWN, NO_DIRECTION};
+	private DirectionType direction;
 	private int timeToDie = 30 * 1;
 
-	public GExplosion(Position position, int id, int power, Direction direction) {
+	public GExplosion(Position position, int id, int power, DirectionType direction) {
 		super(position, id, GameObjectType.EXPLOSION);
 		this.power = power;
 		this.direction = direction;
@@ -23,7 +24,7 @@ public class GExplosion extends GameObject {
 	@Override
 	public void tick(ActionQueue queue, GameObjectManager manager) {
 		
-		if(power > 0 && direction != Direction.NO_DIRECTION) {
+		if(power > 0 && direction != DirectionType.NO_DIRECTION) {
 			Position pos = position.clonePos();
 			switch(direction) {
 			case DOWN:
@@ -63,5 +64,9 @@ public class GExplosion extends GameObject {
 	
 	public int getPower() {
 		return power;
+	}
+	
+	public DirectionType getDirectionType() {
+		return direction;
 	}
 }

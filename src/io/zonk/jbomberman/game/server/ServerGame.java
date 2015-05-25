@@ -5,6 +5,7 @@ import io.zonk.jbomberman.game.ActionDispatcher;
 import io.zonk.jbomberman.game.ActionQueue;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.BombermanState;
+import io.zonk.jbomberman.game.DirectionType;
 import io.zonk.jbomberman.game.GameLoop;
 import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.game.Party;
@@ -104,7 +105,7 @@ public class ServerGame extends Observable implements GameLoop {
 						(Position) action.getProperty(0),
 						(int) action.getProperty(1),
 						(int) action.getProperty(2),
-						(GExplosion.Direction) action.getProperty(3));
+						(DirectionType)action.getProperty(3));
 				boolean collision = false;
 				for (GameObject object : manager.getByType(
 						GameObjectType.SOLID_BLOCK,
