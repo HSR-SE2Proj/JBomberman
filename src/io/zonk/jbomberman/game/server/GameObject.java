@@ -23,7 +23,8 @@ public abstract class GameObject {
 	 */
 	public abstract void tick(ActionQueue queue, GameObjectManager manager);
 	/**
-	 * Überprüft, ob das Object mit einem anderen kollidiert und führt dann die jeweiligen
+	 * Überprüft, ob das Object mit einem anderen kollidiert und führt dann 
+	 * die jeweiligen
 	 * Korrekturen (z.B. beim Movement) oder Aktionen durch. 
 	 * @param object GameObject
 	 * @return gibt Boolean zurück ob Collision True/False

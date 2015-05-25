@@ -59,7 +59,6 @@ public abstract class Sprite {
 			if(y < 0 || y >= 832) continue;
 			for(int x = position.getX(); x < position.getX()+size.width; x++) {
 				if(x < 0 || x >= 832) continue;
-				//if(pixels[(x-position.getX()) + (y - position.getY()) * size.width])
 					screen[x + y * 832] = pixels[(x-position.getX()) + (y - position.getY()) * size.width];
 			}
 		}

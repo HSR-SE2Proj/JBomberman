@@ -1,7 +1,5 @@
 package io.zonk.jbomberman.game.server;
 
-import io.zonk.jbomberman.game.GameObjectType;
-
 import org.junit.*;
 
 public class GameObjectManagerTest {

@@ -40,7 +40,6 @@ public abstract class Map {
 					break;
 				case '1':
 					if (party.get(1) != null) {
-						//party.get(1).setBomberman(new GBomberman(position, 1));
 						manager.add(new GBomberman(position, 1));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 1 });
@@ -49,7 +48,6 @@ public abstract class Map {
 					break;
 				case '2':
 					if (party.get(2) != null) {
-						//party.get(2).setBomberman(new GBomberman(position, 2));
 						manager.add(new GBomberman(position, 2));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 2 });
@@ -58,7 +56,6 @@ public abstract class Map {
 					break;
 				case '3':
 					if (party.get(3) != null) {
-						//party.get(3).setBomberman(new GBomberman(position, 3));
 						manager.add(new GBomberman(position, 3));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 3 });
@@ -67,7 +64,6 @@ public abstract class Map {
 					break;
 				case '4':
 					if (party.get(4) != null) {
-						//party.get(4).setBomberman(new GBomberman(position, 4));
 						manager.add(new GBomberman(position, 4));
 						action = new Action(ActionType.CREATE_BOMBERMAN,
 								new Object[] { position, 4 });

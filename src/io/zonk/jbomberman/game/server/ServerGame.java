@@ -13,9 +13,7 @@ import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.utils.ActionSerializer;
-import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
-import io.zonk.jbomberman.utils.RandomUtil;
 
 import java.util.Observable;
 
@@ -69,7 +67,6 @@ public class ServerGame extends Observable implements GameLoop {
 				}
 			}).start();
 		}
-		
 
 		// handle all available Actions
 		while (!queue.isEmpty()) {
@@ -79,7 +76,6 @@ public class ServerGame extends Observable implements GameLoop {
 			case PLAYER_INPUT:
 				int id = (int) action.getProperty(0);
 				if(party.get(id) != null ) {
-					//party.get(id).getBomberman().update(action);
 				  if(manager.getById(id) != null) {
 					((GBomberman)manager.getById(id)).update(action);
 				  }
@@ -139,26 +135,7 @@ public class ServerGame extends Observable implements GameLoop {
 		// Tick all Objects
 		for (GameObject object : manager.getAll()) {
 			object.tick(queue, manager);
-		}
-
-//		int aliveCount = 0;
-//		for (Player player : party.getPlayers().values()) {
-//			if (player == null)
-//				continue;
-//			GBomberman b = player.getBomberman();
-//			
-//			if(b.getState() != BombermanState.DEAD) {
-//				b.tick(manager, queue);
-//
-//				b.sendUpdates(network);
-//				aliveCount++;
-//				if(timer == 180) {
-//					player.getBomberman().setFullPowerups();
-//				}
-//			}
-//			
-//		}
-		
+		}		
 		
 		int aliveCount = 0;
 		for(GameObject object : manager.getByType(GameObjectType.BOMBERMAN)) {
@@ -175,7 +152,6 @@ public class ServerGame extends Observable implements GameLoop {
 		}
 		
 		if(aliveCount < 2) {
-			//Player winner = party.getWinner();
 			Player winner = getWinner();
 			if(winner.getId() != 0) {
 				winner.addScore();
@@ -193,11 +169,11 @@ public class ServerGame extends Observable implements GameLoop {
 		map.init(manager, network, party);
 		initmap = true;
 	}
-	
 
 	public boolean getInitMap() {
 		return initmap;
 	}
+	
 	public Player getWinner() {
 		Player winner = new Player("Player0", 0);
 		for(GameObject object : manager.getByType(GameObjectType.BOMBERMAN)) {

@@ -18,8 +18,5 @@ public class GPowerUp extends GameObject {
 	}
 
 	@Override
-	public void tick(ActionQueue queue, GameObjectManager manager) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void tick(ActionQueue queue, GameObjectManager manager) {}
 }

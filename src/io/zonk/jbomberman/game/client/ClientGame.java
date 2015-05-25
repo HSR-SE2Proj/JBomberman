@@ -33,9 +33,6 @@ public class ClientGame extends Observable
 		dispatcher = new ActionDispatcher(network, queue);
 		startDispatcher();
 		
-		//Timer timer = new Timer(1000/30, this);
-		//timer.start();
-		
 		for(int x = 0; x < 13; ++x)
 			for(int y = 0; y < 13; ++y) {
 				background.add(new SFloor(new Position(x*64, y*64), 0));
@@ -48,9 +45,6 @@ public class ClientGame extends Observable
 
 	@Override
 	public void loop() {
-		
-		//while(true) { //game running?
-			//System.out.println("loop");
 
 			String notifyMsg = "";
 			//Handle all available Actions
@@ -113,8 +107,7 @@ public class ClientGame extends Observable
 			
 			setChanged();
 			notifyObservers(notifyMsg);
-			
-		//}
+
 	}
 	
 	public void drawAll(int[] pixels) {

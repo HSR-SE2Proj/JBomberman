@@ -11,7 +11,6 @@ import io.zonk.jbomberman.utils.Position;
 public class GExplosion extends GameObject {
 	
 	private int power;
-	//public enum Direction {LEFT, RIGHT, UP, DOWN, NO_DIRECTION};
 	private DirectionType direction;
 	private int timeToDie = 30 * 1;
 
