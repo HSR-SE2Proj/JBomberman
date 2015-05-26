@@ -54,13 +54,21 @@ public class ServerGame extends Observable implements GameLoop {
 				Object monitoredObject = new Object();
 				synchronized (monitoredObject) {
 					try {
-						while(getInitMap() && timer < TIMER_START) {
-							monitoredObject.notifyAll();
-							monitoredObject.wait(1000);
-							timer++;
-							Object[] prop = {TIMER_START - timer};
-							Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
-							network.sendMessage(ActionSerializer.serialize(timerAction));
+						while(getInitMap()) {
+							if(timer < TIMER_START) {
+								monitoredObject.notifyAll();
+								monitoredObject.wait(1000);
+								timer++;
+								Object[] prop = {TIMER_START - timer};
+								Action timerAction = new Action(ActionType.UPDATE_TIMER, prop);
+								network.sendMessage(ActionSerializer.serialize(timerAction));
+							} else {
+								monitoredObject.notifyAll();
+								monitoredObject.wait(1000);
+								Action timerAction = new Action(ActionType.UPDATE_TIMER, new Object[]{0});
+								network.sendMessage(ActionSerializer.serialize(timerAction));
+							}
+							
 						}
 					} catch (InterruptedException e) {
 					}
@@ -172,6 +180,10 @@ public class ServerGame extends Observable implements GameLoop {
 
 	public boolean getInitMap() {
 		return initmap;
+	}
+	
+	public void setInitMap(boolean b) {
+		initmap = b;
 	}
 	
 	public Player getWinner() {
