@@ -1,9 +1,10 @@
 package io.zonk.jbomberman.game.client;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionSerializer;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.network.NetworkFacade;
-import io.zonk.jbomberman.utils.ActionSerializer;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 

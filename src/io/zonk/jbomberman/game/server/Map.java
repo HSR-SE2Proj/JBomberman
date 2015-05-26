@@ -1,9 +1,9 @@
 package io.zonk.jbomberman.game.server;
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionSerializer;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.network.NetworkFacade;
-import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
 import io.zonk.jbomberman.utils.RandomUtil;

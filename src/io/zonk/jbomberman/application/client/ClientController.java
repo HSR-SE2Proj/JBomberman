@@ -1,16 +1,16 @@
 package io.zonk.jbomberman.application.client;
 
 import io.zonk.jbomberman.game.Action;
+import io.zonk.jbomberman.game.ActionSerializer;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.Party;
+import io.zonk.jbomberman.game.Timer;
 import io.zonk.jbomberman.game.client.ClientGame;
 import io.zonk.jbomberman.game.client.Keyboard;
 import io.zonk.jbomberman.network.NetworkFacade;
 import io.zonk.jbomberman.network.client.ClientNetwork;
-import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.RandomUtil;
 import io.zonk.jbomberman.utils.TimeUtil;
-import io.zonk.jbomberman.utils.Timer;
 import io.zonk.jbomberman.view.GameCanvas;
 
 import java.util.HashMap;

@@ -1,6 +1,5 @@
-package io.zonk.jbomberman.utils;
+package io.zonk.jbomberman.game;
 
-import io.zonk.jbomberman.game.GameLoop;
 
 public class Timer extends Thread {
 

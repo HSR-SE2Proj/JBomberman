@@ -1,7 +1,6 @@
 package io.zonk.jbomberman.game;
 
 import io.zonk.jbomberman.network.NetworkFacade;
-import io.zonk.jbomberman.utils.ActionSerializer;
 
 public class ActionDispatcher extends Thread {
 	

@@ -3,6 +3,7 @@ package io.zonk.jbomberman.game.server;
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionDispatcher;
 import io.zonk.jbomberman.game.ActionQueue;
+import io.zonk.jbomberman.game.ActionSerializer;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.BombermanState;
 import io.zonk.jbomberman.game.DirectionType;
@@ -12,7 +13,6 @@ import io.zonk.jbomberman.game.Party;
 import io.zonk.jbomberman.game.Player;
 import io.zonk.jbomberman.game.PowerUpType;
 import io.zonk.jbomberman.network.NetworkFacade;
-import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.Position;
 
 import java.util.Observable;

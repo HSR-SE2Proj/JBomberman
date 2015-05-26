@@ -4,11 +4,11 @@ import java.awt.event.KeyEvent;
 
 import io.zonk.jbomberman.game.Action;
 import io.zonk.jbomberman.game.ActionQueue;
+import io.zonk.jbomberman.game.ActionSerializer;
 import io.zonk.jbomberman.game.ActionType;
 import io.zonk.jbomberman.game.BombermanState;
 import io.zonk.jbomberman.game.GameObjectType;
 import io.zonk.jbomberman.network.NetworkFacade;
-import io.zonk.jbomberman.utils.ActionSerializer;
 import io.zonk.jbomberman.utils.IDGenerator;
 import io.zonk.jbomberman.utils.Position;
 
