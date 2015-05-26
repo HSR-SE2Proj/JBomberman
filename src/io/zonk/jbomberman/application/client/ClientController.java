@@ -114,6 +114,7 @@ public class ClientController extends Observable implements Observer  {
 	 * @param hostname FQDN des Servers
 	 */
 	
+	@SuppressWarnings("unchecked")
 	public void connectToServer(String hostname) {
 		this.server = hostname;
 		network.connect(hostname);
@@ -147,6 +148,7 @@ public class ClientController extends Observable implements Observer  {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void msgReceived(byte[] recMsg) {
 		Action returnAction = ActionSerializer.deserialize(recMsg);
 		String s = ((String)returnAction.getProperty(0));
