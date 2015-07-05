@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JBomberman" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
+<project name="JBomberman" basedir=".">
    <description>
         Build File for JBomberman
     </description>
@@ -9,9 +9,8 @@
   <property name="bin" location="bin"/>
   <property name="build.test.dir" location="build/test" />
   <property name="build.jbomberman" location="build/io/zonk/jbomberman" />
-  <property name="dist"  location="dist"/>
   <property name="test.dir" location="test" />
- <property name="report.dir" location="reports" />
+
 
 	<path id="jbomberman.classpath">
         <pathelement location="${build}"/>
@@ -22,17 +21,10 @@
         <pathelement location="lib/hamcrest-core-1.3.jar"/>
         <pathelement location="lib/rabbitmq-client.jar"/>
     </path>
-	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-			<classpath path="lib/jacocoant.jar"/>
-		</taskdef>
 	
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
-    <mkdir dir="${report.dir}" />
-  	<mkdir dir="${dist}"/>
-  	<mkdir dir="${report.dir}/junit/" />
-  	<mkdir dir="${report.dir}/jacoco/" />
   </target>
   <target name="compile" depends="init" description="compile the source " >
     <!-- Compile the java code from ${src} into ${build} -->
@@ -51,7 +43,7 @@
   	<delete file="${dist}/JBombermanClient.jar"/>
   	<delete file="${dist}/JBombermanServer.jar"/>
 
-      <jar jarfile="${dist}/JBomberman.jar" basedir="${build}" excludes = "**/*Test*.class,**/*.exec">
+      <jar jarfile="JBomberman.jar" basedir="${build}" excludes = "**/*Test*.class,**/*.exec">
       	 <manifest>
       	     	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
       	    </manifest>
@@ -75,7 +67,7 @@
   
   <target name="distServer" depends="compile" description="Distribution for Server">
     <!-- Put everything in JBombermanServer.jar from Server Packages (Exclude Testfiles) -->
-    <jar destfile="${dist}/JBombermanServer.jar">
+    <jar destfile="JBombermanServer.jar">
     <fileset dir="${build}"
              excludes="**/client/*,**/view/*,**/resources/,**/*Test*.class,**/*.exec"
     />
@@ -90,55 +82,25 @@
   <target name="clean" description="clean up" >
     <!-- Delete the ${build} + ${dist} + ${report.dir} directory trees -->
     <delete dir="${build}"/>
-    <delete dir="${dist}"/>
-    <delete dir="${report.dir}"/>
   </target>
   
 	<target name="test" depends="compile">
-	<jacoco:coverage destfile="${build}/jacoco.exec">
 		<junit printsummary="on" fork="yes" haltonfailure="no" 
 		    errorproperty="junit.failure" failureproperty="junit.failure">
 			<classpath refid="jbomberman.classpath"/>
 			<formatter type="xml" />
-			<batchtest todir="${report.dir}/junit">
+			<batchtest todir="junit">
 				<fileset dir="${test.dir}">
 					<include name="**/*Test*.java" />
 				</fileset>
 			</batchtest>
 		</junit>
-		</jacoco:coverage>
 	</target>
 	 
-	 <target name="findbugs" depends="dist">
-	    <mkdir dir="${report.dir}/findbugs/" />
-	    <taskdef name="findbugs" classpath="findbugs/lib/findbugs-ant.jar" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>    
-    <findbugs home="findbugs/"
-              output="xml"
-              outputFile="${report.dir}/findbugs/findbugs.xml" >
-      <auxClasspath refid="jbomberman.classpath"/>
-      <sourcePath path="${src}" />
-      <class location="dist/JBomberman.jar" />
-    </findbugs>
-  </target>
 	
-	<target name="jacoco">
-			<jacoco:report>
-				<executiondata>
-					<file file="${build}/jacoco.exec"/>
-				</executiondata>
-				<structure name="JBomberman">
-					<classfiles>
-						<fileset dir="${build}"/>
-					</classfiles>
-					<sourcefiles encoding="UTF-8">
-						<fileset dir="${src}"/>
-					</sourcefiles>
-				</structure>
-				<xml destfile="${report.dir}/jacoco/coverage.xml"/>
-			</jacoco:report>
-		</target>
+
   
-	<target name="all" depends="clean,init,compile,dist,distClient,distServer,test,jacoco,findbugs">
+	<target name="all" depends="clean,init,compile,dist,distClient,distServer,test">
 	    <!-- All Targtes in one -->
 	</target>
   
