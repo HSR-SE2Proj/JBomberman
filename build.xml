@@ -84,21 +84,18 @@
     <delete dir="${build}"/>
   </target>
   
-	<target name="test" depends="compile">
-		<junit printsummary="on" fork="yes" haltonfailure="no" 
-		    errorproperty="junit.failure" failureproperty="junit.failure">
-			<classpath refid="jbomberman.classpath"/>
-			<formatter type="xml" />
-			<batchtest todir="junit">
-				<fileset dir="${test.dir}">
-					<include name="**/*Test*.java" />
-				</fileset>
-			</batchtest>
-		</junit>
-	</target>
-	 
-	
-
+  <target name="test" depends="compile">
+    <junit printsummary="on" haltonfailure="yes">
+        <classpath>
+          <path refid="jbomberman.classpath" />
+          <pathelement location="${build.test.dir}"/>
+        </classpath>
+        <formatter type="brief" usefile="false" />
+        <batchtest>
+            <fileset dir="${test.dir}" includes="**/*Test*.java" />
+        </batchtest>
+    </junit>
+  </target>
   
 	<target name="all" depends="clean,init,compile,dist,distClient,distServer,test">
 	    <!-- All Targtes in one -->
