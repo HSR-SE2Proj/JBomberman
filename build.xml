@@ -138,7 +138,7 @@
 			</jacoco:report>
 		</target>
   
-	<target name="all" depends="clean,init,compile,dist,distClient,distServer,junit,jacoco,findbugs">
+	<target name="all" depends="clean,init,compile,dist,distClient,distServer,test,jacoco,findbugs">
 	    <!-- All Targtes in one -->
 	</target>
   
