@@ -3,4 +3,4 @@
 
 ##Latest Release
 
-<a href="https://github.com/silvanadrian/jbomberman/releases">JBomberman Client and Server</a>
+<a href="https://github.com/silvanadrian/jbomberman/releases/latest">JBomberman Client and Server</a>
