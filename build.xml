@@ -94,7 +94,7 @@
     <delete dir="${report.dir}"/>
   </target>
   
-	<target name="junit" depends="compile">
+	<target name="test" depends="compile">
 	<jacoco:coverage destfile="${build}/jacoco.exec">
 		<junit printsummary="on" fork="yes" haltonfailure="no" 
 		    errorproperty="junit.failure" failureproperty="junit.failure">
