@@ -1,3 +1,11 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
+deploy:
+  provider: releases
+  api_key:
+    secure: DyQvfQ7jaBvnaNann+yLvllOCUFSVf9YmDM52oFlwWrn1ADVZ5jOu4+fcPMFYY2PqUY4X5p4gLy+1RlAUxD7fTlwkeVG4S+XSIS5nBDcDxArGRN5BbF9XHAwEW/HbxIoFw2emAG3ufcU6oDP6Z5ehDVu68lXNX0NFT50lRWf2f6jlH6iZFpcunUBdP5wJdHD3DvRK/iJwbeMwygJElM/15rmrcxRrX+h+x1nucNvfGCZ5kNQCj6IkQq8qY8X86Tg4fCy7bLRpMbErETcpK62DWJ1oQTxvkYz6KYm3MZQN6DHrnwArzl2PV6cr6LE3pjvseu5QRHbDZomvXj84eMvTIGewnZxGgja66ChiSAXVQJldGITNxziSSfASq5v0Aks+sJlIRdwQTmFS/hRpUZYyLBrj8tENUzm3rbc5Xvd1Y1AbqDq2QLOojalP7YT6kaIlmYxxXs5N6Ex1lpPj1pFHkLj8Fxucz+kJSUPDrMtCHZXGsu1yQxFuSSGMo1LdTFU57rKSP8qiMH9cAmUFQTeo/r9P5GSNF7xTURIYnmuB5EZcflaLNsb4aqxbBW1s0OO1bvrzI0W28mKH9OL2OQ8qbar5NGenV3faddG1uhZhQsQRohO7WcOH/63t3pTud1i7BYC+eqYbk32yYbdMW7jDBe8YWsx+dPZA/z3Gu1omEo=
+  file: JBombermanClient.jar
+  skip_cleanup: true
+  on:
+    tags: true
