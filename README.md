@@ -3,7 +3,11 @@
 
 It's a Bomberman Clone, which can be played by up to 4 Players.
 
+![Field](http://img.silvn.com/field.png)
 
+##Rules
+
+A Game goes over 3 Rounds and the Bomberman, who got the highest score wins.
 
 ##Latest Release
 
