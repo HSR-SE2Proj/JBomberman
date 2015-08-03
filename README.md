@@ -3,7 +3,7 @@
 
 It's a Bomberman Clone, which can be played by up to 4 Players.
 
-![Field](http://img.silvn.com/field.png)
+![Playground](https://cloud.githubusercontent.com/assets/1950155/9037647/ae9253c6-39ed-11e5-85fe-2f7eba8ec1d1.png)
 
 ##Rules
 
