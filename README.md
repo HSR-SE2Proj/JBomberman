@@ -20,3 +20,7 @@ You will find the Dockerfile here:
 or on Docker Hub:
 
     docker pull silvanadrian/jbomberman-docker
+
+And start the container:
+
+    docker run -d -p 5672:5672 -p 15672:15672 silvanadrian/jbomberman-docker
