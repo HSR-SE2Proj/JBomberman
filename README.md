@@ -15,7 +15,7 @@ A Game goes over 3 Rounds and the Bomberman, who got the highest score wins.
 
 ##Server as Docker Container
 You will find the Dockerfile here:
-<a href="https://github.com/silvanadrian/jbomberman-docker">jbomberman-docker</a>
+<a href="https://github.com/silvanadrian/jbomb-docker">jbomb-docker</a>
 
 or from Docker Hub (or directly run it):
 
