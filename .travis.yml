@@ -11,5 +11,5 @@ deploy:
   - JBombermanServer.jar
   skip_cleanup: true
   on:
-    repo: silvanadrian/JBomberman
+    repo: HSR-SE2Proj/JBomberman
     tags: true
