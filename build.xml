@@ -8,7 +8,7 @@
   <property name="build" location="build"/>
   <property name="bin" location="bin"/>
   <property name="build.test.dir" location="build/test" />
-  <property name="build.jbomberman" location="build/io/zonk/jbomberman" />
+  <property name="build.jbomberman" location="build/jbomberman" />
   <property name="test.dir" location="test" />
 
 
@@ -45,7 +45,7 @@
 
       <jar jarfile="JBomberman.jar" basedir="${build}" excludes = "**/*Test*.class,**/*.exec">
       	 <manifest>
-      	     	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
+      	     	<attribute name="Main-Class" value="jbomberman.view.StartFrame"/>
       	    </manifest>
       </jar>
   </target>
@@ -58,7 +58,7 @@
              excludes="**/server/*,**/*Test*.class,**/*.exec"
     />
     <manifest>
-     	<attribute name="Main-Class" value="io.zonk.jbomberman.view.StartFrame"/>
+     	<attribute name="Main-Class" value="jbomberman.view.StartFrame"/>
     	<attribute name="Class-Path" value="."/>
     </manifest>
      	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
@@ -72,7 +72,7 @@
              excludes="**/client/*,**/view/*,**/resources/,**/*Test*.class,**/*.exec"
     />
     <manifest>
-    	<attribute name="Main-Class" value="io.zonk.jbomberman.application.server.ServerController"/>
+    	<attribute name="Main-Class" value="jbomberman.application.server.ServerController"/>
 		<attribute name="Class-Path" value="."/>
     </manifest>
     	<zipfileset excludes="META-INF/*.SF" src="lib/rabbitmq-client.jar"/>
