@@ -19,8 +19,8 @@ You will find the Dockerfile here:
 
 or from Docker Hub (or directly run it):
 
-    docker pull silvanadrian/jbomberman-docker
+    docker pull silvanadrian/jbomb-docker
 
 And start the container:
 
-    docker run -d -p 5672:5672 -p 15672:15672 silvanadrian/jbomberman-docker
+    docker run -d -p 5672:5672 -p 15672:15672 silvanadrian/jbomb-docker
