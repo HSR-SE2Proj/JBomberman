@@ -1,5 +1,5 @@
 # JBomberman
-[![Build Status](https://travis-ci.org/silvanadrian/JBomberman.svg?branch=master)](https://travis-ci.org/silvanadrian/JBomberman)
+[![Build Status](https://travis-ci.org/HSR-SE2Proj/JBomberman.svg?branch=master)](https://travis-ci.org/HSR-SE2Proj/JBomberman)
 
 It's a Bomberman Clone, which can be played by up to 4 Players.
 
