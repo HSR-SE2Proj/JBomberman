@@ -11,13 +11,25 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void testID() {
+	public void testGetID() {
 		assertEquals(0,player.getId());
 	}
 	
 	@Test
-	public void testName() {
+	public void testGetName() {
 		assertEquals("Test",player.getName());
+	}
+	
+	@Test
+	public void testSetID() {
+		player.setId(2);
+		assertEquals(2,player.getId());
+	}
+	
+	@Test
+	public void testSetName() {
+		player.setName("Hello");
+		assertEquals("Hello",player.getName());
 	}
 	
 }

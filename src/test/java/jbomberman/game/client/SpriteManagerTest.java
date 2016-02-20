@@ -55,6 +55,11 @@ public class SpriteManagerTest {
 	}
 	
 	@Test
+	public void getAll() {
+		Assert.assertEquals(6,sm.getAll().size());
+	}
+	
+	@Test
 	public void removeTest() {
 		SBomb bomb = (SBomb) sm.remove(bomb1.getId());
 		Assert.assertTrue(bomb.equals(bomb1));
