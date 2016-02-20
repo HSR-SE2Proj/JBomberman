@@ -13,4 +13,5 @@ deploy:
     repo: HSR-SE2Proj/JBomberman
     tags: true
 after_success:
+  - mvn package
   - mvn clean cobertura:cobertura coveralls:report
