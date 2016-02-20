@@ -1,17 +1,5 @@
 language: java
 jdk:
 - oraclejdk8
-deploy:
-  provider: releases
-  api_key:
-    secure: obDf4PuCRU8+++uXi3akkpr20DVqAYcMNviDWvS9pzwLmkCRKsm9LNNyksy4ifUfuX616ooPH3wRIVaU6JSMqHDkEGYaut6uSJWg0G3+/hoNj8kN5QESbv2hClIRFKhvkvGfAjY+aNeGJ5oUiGarnwEcH0F+i4PRHmVoByaSGfRE42NCxjltP5nrQwpd0F9camNBRUhejufY95wJTwp+xq7KjVUgR5F681KtxCxzMXUwHv+4gt2N7rKfUxyvzw+2d7QFX4ZGZHJSJtjaDCuwau1P5uD63XyzONp6AtDQMQBqn7rQcxkwPYtdvo+btLCp9AKY2+LB+hciI+Q335sRnpOmCpZ1SzBw+2fRKtD4HvFfiCRy4uYnAyAnfRcZWDG5FBv4IqX/8gLnPKGxSFMQy08mzMTKMwdfY50Piu1v6w9ER5mgjLHhNVqRv66BxR1qbCj0Vzg+HSUGYUMV7N5glpkC26WpI73y7oQarkZzCrRhj3PtLd/SeFey+ZsKsbXmLAYajRBQoyi4YAnYbch/BI53NMFAYqc4/VvWRsqX6sVYnEI1Q8F9GYcRYNzBC+mnr2DSB7CHt/XEp8IkMDm0B+cAx30Z+RtDR8ofRbSnlWbVapAojWJHKGnLtJEOxkFtdRovmwJwm6yqo7ys9EUsC48w4pZMMpM1PGuFWY6qN90=
-  file: 
-  - /home/travis/build/HSR-SE2Proj/JBomberman/target/JBomberman-*-Server.jar
-  - /home/travis/build/HSR-SE2Proj/JBomberman/target/JBomberman-*-Client.jar
-  skip_cleanup: true
-  on:
-    repo: HSR-SE2Proj/JBomberman
-    tags: true
 after_success:
-  - mvn package
   - mvn clean cobertura:cobertura coveralls:report
