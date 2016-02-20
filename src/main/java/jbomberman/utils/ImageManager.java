@@ -11,7 +11,7 @@ public class ImageManager {
 	
 	private static ImageManager im = null;
 	private Map<String, BufferedImage> imageMap = new HashMap<>();
-	private String link = "/jbomberman/resources/";
+	private String link = "/images/";
 	public static ImageManager getInstance() {
 		if(im == null)
 			im = new ImageManager();

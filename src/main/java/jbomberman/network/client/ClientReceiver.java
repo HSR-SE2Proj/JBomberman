@@ -1,9 +1,7 @@
 package jbomberman.network.client;
 
 import java.io.IOException;
-
-
-
+import java.util.concurrent.TimeoutException;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -34,7 +32,7 @@ public class ClientReceiver {
 		return delivery.getBody();
 	}
 	
-	public void close() throws IOException {
+	public void close() throws IOException, TimeoutException {
 		channel.basicCancel(consumer.getConsumerTag());
 		channel.close();
 	}

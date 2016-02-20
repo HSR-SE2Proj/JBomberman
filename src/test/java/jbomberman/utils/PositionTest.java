@@ -1,6 +1,6 @@
 package jbomberman.utils;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -69,6 +69,8 @@ public class PositionTest {
 	
 	@Test
 	public void testClone() {
-		assert(pos.equals(pos.clonePos()));
+		Position cloned = pos.clonePos();
+		assertEquals(pos.getX(),cloned.getX());
+		assertEquals(pos.getY(),cloned.getY());
 	}
 }

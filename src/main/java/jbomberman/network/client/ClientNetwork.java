@@ -3,6 +3,7 @@ package jbomberman.network.client;
 import jbomberman.network.NetworkFacade;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -32,6 +33,9 @@ public class ClientNetwork implements NetworkFacade {
 			System.err.println("Error: Could not connect");
 			e.printStackTrace();
 			assert false;
+		} catch (TimeoutException e) {
+			System.err.println("Error: Connection Timeout");
+			e.printStackTrace();
 		}
 	}
 	
@@ -45,6 +49,9 @@ public class ClientNetwork implements NetworkFacade {
 			System.err.println("Error: Could not close down connection");
 			e.printStackTrace();
 			assert false;
+		} catch (TimeoutException e) {
+			System.err.println("Error: Connection Timeout");
+			e.printStackTrace();
 		}
 	}
 
