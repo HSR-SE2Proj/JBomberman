@@ -2,14 +2,10 @@ package jbomberman.network;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-
 import org.junit.*;
 
 import jbomberman.network.client.ClientNetwork;
 import jbomberman.network.server.ServerNetwork;
-import junit.framework.AssertionFailedError;
 
 
 public class NetworkTest {
