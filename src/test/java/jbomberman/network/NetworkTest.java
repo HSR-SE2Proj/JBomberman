@@ -39,4 +39,24 @@ public class NetworkTest {
 		serverNetwork.sendMessage(message);
 		assertArrayEquals(message,clientNetwork.receiveMessage());
 	}
+	
+	@Test
+	public void testRecieveMessageTimeoutClient() {
+		byte[] message = {2,3,4};
+		serverNetwork.sendMessage(message);
+		assertArrayEquals(message,clientNetwork.receiveMessage(10));
+	}
+	
+	@Test
+	public void testRecieveMessageTimeoutServer() {
+		byte[] message = {2,3,4};
+		clientNetwork.sendMessage(message);
+		assertArrayEquals(message,serverNetwork.receiveMessage(10));
+	}
+	
+	@After
+	public void tearDown() {
+		clientNetwork.close();
+		serverNetwork.close();
+	}
 }
