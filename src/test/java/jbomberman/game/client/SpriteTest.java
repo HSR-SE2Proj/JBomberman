@@ -37,6 +37,14 @@ public class SpriteTest {
 		assertEquals(new Dimension(64,64),bomb.size);
 		bomb.tick();
 		assertEquals(0,bomb.frameNr);
+		bomb.setId(2);
+		assertEquals(2,bomb.getId());
+		bomb.setPosition(new Position(10,10));
+		assertEquals(10,bomb.getPosition().getX());
+		assertEquals(10,bomb.getPosition().getY());
+		BufferedImage image = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics2D = image.createGraphics();
+		bomb.draw(graphics2D);
 	}
 
 	@Test
@@ -136,6 +144,7 @@ public class SpriteTest {
 	public void testSFloor() {
 		floor = new SFloor(pos,0);
 		assertEquals("IMG_FLOOR",floor.imgName);
+		floor.tick();
 	}
 	
 	@Test
@@ -154,5 +163,6 @@ public class SpriteTest {
 	public void testSSolidBlock() {
 		solidblock = new SSolidBlock(pos, 0);
 		assertEquals("IMG_SOLIDBLOCK",solidblock.imgName);
+		solidblock.tick();
 	}
 }
