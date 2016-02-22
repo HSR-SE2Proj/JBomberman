@@ -110,16 +110,6 @@ public class ClientGame extends Observable
 
 	}
 	
-	public void drawAll(int[] pixels) {
-		
-		for(Sprite sprite : background)
-			sprite.draw(pixels);
-		
-		for(Sprite sprite : manager.getAll()) {
-			sprite.draw(pixels);
-		}
-	}
-	
 	public void drawAll(Graphics g) {
 		
 		for(Sprite sprite : background)

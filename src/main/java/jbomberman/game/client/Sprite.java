@@ -49,20 +49,6 @@ public abstract class Sprite {
 		g.drawImage(ImageManager.getInstance().get(imgName).getSubimage(frameNr*size.width, animState*size.height, size.width, size.height), position.getX(), position.getY(), null);
 	}
 	
-	public void draw(int[] screen) {
-		
-		
-		
-		int[] pixels = new int[size.width*size.height];
-		ImageManager.getInstance().get(imgName).getRGB(0, 0, size.width, size.height, pixels, 0, size.width);
-		for(int y = position.getY(); y < position.getY()+size.height; y++) {
-			if(y < 0 || y >= 832) continue;
-			for(int x = position.getX(); x < position.getX()+size.width; x++) {
-				if(x < 0 || x >= 832) continue;
-					screen[x + y * 832] = pixels[(x-position.getX()) + (y - position.getY()) * size.width];
-			}
-		}
-	}
 
 	public Position getPosition() {
 		return position;
