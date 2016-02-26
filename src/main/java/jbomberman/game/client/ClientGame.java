@@ -45,7 +45,6 @@ public class ClientGame extends Observable
 
 	@Override
 	public void loop() {
-
 			String notifyMsg = "";
 			//Handle all available Actions
 			while(!queue.isEmpty()) {

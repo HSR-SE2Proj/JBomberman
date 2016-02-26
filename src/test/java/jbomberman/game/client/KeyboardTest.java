@@ -18,17 +18,14 @@ import jbomberman.network.server.ServerNetwork;
 public class KeyboardTest {
 
 	private Keyboard keyboard;
-	private static ClientNetwork clientNetwork;
-	private static ServerNetwork serverNetwork;
-	@BeforeClass
-	public static void setUp() {
-		clientNetwork = new ClientNetwork();
-		serverNetwork = new ServerNetwork();
-	}
+	private ClientNetwork clientNetwork;
+	private ServerNetwork serverNetwork;
 	
 	@Before
 	public void Connect() {
+		clientNetwork = new ClientNetwork();
 		clientNetwork.connect("localhost");
+		serverNetwork = new ServerNetwork();
 		serverNetwork.connect("localhost");
 	}
 	
