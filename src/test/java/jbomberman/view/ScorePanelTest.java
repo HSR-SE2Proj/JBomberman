@@ -20,7 +20,6 @@ public class ScorePanelTest {
 	@Before
 	public void setUp() {
 		party = new Party();
-		panel = new ScorePanel(party,1);
 		player1 = new Player("Player1",1);
 		player2 = new Player("Player2",2);
 		player3 = new Player("Player3",3);
@@ -29,6 +28,7 @@ public class ScorePanelTest {
 		party.add(player2);
 		party.add(player3);
 		party.add(player4);
+		panel = new ScorePanel(party,1);
 	}
 	
 	@Test
