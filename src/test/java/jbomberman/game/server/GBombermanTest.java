@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.awt.event.KeyEvent;
 
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -162,6 +161,7 @@ public class GBombermanTest {
 		gbomberman.sendUpdates(serverNetwork);
 		gbomberman.tick(om, queue);
 		assertEquals(BombermanState.IDLE_LEFT,gbomberman.getState());
+		serverNetwork.close();
 	}
 	
 	@Test
