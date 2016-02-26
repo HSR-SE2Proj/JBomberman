@@ -42,6 +42,7 @@ public class ClientGameTest {
 		Object[] properties = {"finishGame"};
 		Action action = new Action(ActionType.LOBBY_COMMUNICATION, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -50,6 +51,7 @@ public class ClientGameTest {
 		Object[] properties = {"finishRound"};
 		Action action = new Action(ActionType.LOBBY_COMMUNICATION, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -58,10 +60,12 @@ public class ClientGameTest {
 		Object[] properties = {new Position(0,0),1};
 		Action action = new Action(ActionType.CREATE_BOMBERMAN, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 		Object[] properties2 = {1,new Position(64,64),BombermanState.DOWN};
 		Action action2 = new Action(ActionType.MOVEMENT, properties2);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action2));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -70,6 +74,7 @@ public class ClientGameTest {
 		Object[] properties = {new Position(0,0),1};
 		Action action = new Action(ActionType.CREATE_SOLIDBLOCK, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -78,6 +83,7 @@ public class ClientGameTest {
 		Object[] properties = {new Position(0,0),1};
 		Action action = new Action(ActionType.CREATE_DESTROYABLEBLOCK, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -86,6 +92,7 @@ public class ClientGameTest {
 		Object[] properties = {new Position(0,0),1};
 		Action action = new Action(ActionType.CREATE_BOMB, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -94,6 +101,7 @@ public class ClientGameTest {
 		Object[] properties = {new Position(0,0),1};
 		Action action = new Action(ActionType.CREATE_EXPLOSION, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -102,7 +110,7 @@ public class ClientGameTest {
 		Object[] properties = {new Position(0,0),1, PowerUpType.BOMB};
 		Action action = new Action(ActionType.CREATE_POWERUP, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -111,7 +119,7 @@ public class ClientGameTest {
 		Object[] properties = {new Position(0,0),1};
 		Action action = new Action(ActionType.CREATE_BANNER, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
@@ -120,6 +128,7 @@ public class ClientGameTest {
 		Object[] properties = {1};
 		Action action = new Action(ActionType.DESTROY, properties);
 		serverNetwork.sendMessage(ActionSerializer.serialize(action));
+		Thread.sleep(500);
 		clientGame.loop();
 	}
 	
