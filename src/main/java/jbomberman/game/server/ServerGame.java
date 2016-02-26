@@ -82,6 +82,7 @@ public class ServerGame extends Observable implements GameLoop {
 			switch (action.getActionType()) {
 
 			case PLAYER_INPUT:
+				System.out.println("Player input");
 				int id = (int) action.getProperty(0);
 				if(party.get(id) != null ) {
 				  if(manager.getById(id) != null) {
@@ -91,6 +92,7 @@ public class ServerGame extends Observable implements GameLoop {
 				break;
 
 			case CREATE_BOMB:
+				System.out.println("Create Bomb");
 				manager.add(new GBomb((Position) action.getProperty(0),
 						(int) action.getProperty(1), (int) action
 								.getProperty(2), (int) action.getProperty(3)));
@@ -98,6 +100,7 @@ public class ServerGame extends Observable implements GameLoop {
 				break;
 
 			case CREATE_POWERUP:
+				System.out.println("Create PowerUp");
 				manager.add(new GPowerUp((Position) action.getProperty(0),
 						(int) action.getProperty(1), (PowerUpType) action
 								.getProperty(2)));
@@ -105,6 +108,7 @@ public class ServerGame extends Observable implements GameLoop {
 				break;
 
 			case CREATE_EXPLOSION:
+				System.out.println("Create Explosion");
 				GExplosion explosion = new GExplosion(
 						(Position) action.getProperty(0),
 						(int) action.getProperty(1),
@@ -131,6 +135,7 @@ public class ServerGame extends Observable implements GameLoop {
 				break;
 
 			case DESTROY:
+				System.out.println("Destroy");
 				manager.remove((int) action.getProperty(0));
 				network.sendMessage(ActionSerializer.serialize(action));
 				break;
