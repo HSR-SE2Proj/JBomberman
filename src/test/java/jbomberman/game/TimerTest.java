@@ -28,4 +28,10 @@ public class TimerTest {
 	public void testTimer() {
 		timer.start();
 	}
+	
+	@Test
+	public void testInteruptTimer() {
+		timer.start();
+		timer.interrupt();
+	}
 }

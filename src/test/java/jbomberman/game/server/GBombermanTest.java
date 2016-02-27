@@ -12,6 +12,7 @@ import jbomberman.game.ActionQueue;
 import jbomberman.game.ActionType;
 import jbomberman.game.BombermanState;
 import jbomberman.game.DirectionType;
+import jbomberman.game.GameObjectType;
 import jbomberman.game.PowerUpType;
 import jbomberman.network.server.ServerNetwork;
 import jbomberman.utils.Position;
@@ -193,6 +194,23 @@ public class GBombermanTest {
 		gbomberman.tick(om, queue);
 		assertEquals(BombermanState.RIGHT,gbomberman.getState());
 		assertEquals(72,gbomberman.getPosition().getX());
+	}
+	
+	@Test
+	public void testSetType() {
+		gbomberman.setType(GameObjectType.BOMB);
+		assertEquals(GameObjectType.BOMB,gbomberman.getType());
+	}
+	
+	@Test
+	public void testSetId() {
+		gbomberman.setId(1);
+		assertEquals(1,gbomberman.getId());
+	}
+	
+	@Test
+	public void testAddBomb() {
+		gbomberman.addBomb();
 	}
 	
 }

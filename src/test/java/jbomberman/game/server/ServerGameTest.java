@@ -86,8 +86,13 @@ public class ServerGameTest {
 	}
 	
 	@Test
-	public void getWinner() {
+	public void testGetWinner() {
 		assertEquals(0,serverGame.getWinner().getId());
+	}
+	
+	@Test
+	public void testSetInitMap() {
+		serverGame.setInitMap(true);
 	}
 	
 	@After
